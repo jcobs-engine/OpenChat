@@ -57,7 +57,7 @@ function dekrypti($string, $key)
 }
 
 $passwd =
-    shell_exec('cat ../passwords/passwd.txt');
+    shell_exec('cat /passwords/passwd.txt');
 
 $sd = time();
 
@@ -74,7 +74,7 @@ $join = 0;
 
 $host = "localhost";
 $benutzer = "levi";
-$passwort = substr( shell_exec('cat ../passwords/sql.txt'), 0, 13);
+$passwort = substr( shell_exec('cat /passwords/sql.txt'), 0, 13);
 $bindung = mysqli_connect($host, $benutzer, $passwort) or die("Verbindungsaufbau zur Daten-Zentrale nicht m&ouml;glich!");
 $db = "openchat";
 

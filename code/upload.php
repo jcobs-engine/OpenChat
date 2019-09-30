@@ -22,7 +22,7 @@ $content=str_replace("'", '#00100111#', $content);
 $_GET["$get_table"]=$content;
 }
 
-$passwd=shell_exec('cat ../passwords/passwd.txt');
+$passwd=shell_exec('cat /passwords/passwd.txt');
 
 $return.="
 <html>
@@ -49,7 +49,7 @@ $return.="
 
 $host = "localhost";
 $benutzer =  "levi";
-$passwort = substr( shell_exec('cat ../passwords/sql.txt'), 0, 13);
+$passwort = substr( shell_exec('cat /passwords/sql.txt'), 0, 13);
 $bindung=mysqli_connect($host, $benutzer, $passwort ) or die ("Verbindungsaufbau zur Daten-Zentrale nicht m&ouml;glich!");
 $db="openchat";
 
