@@ -22,7 +22,7 @@ $content=str_replace("'", '#00100111#', $content);
 $_GET["$get_table"]=$content;
 }
 
-$passwd=shell_exec('cat /usr/share/openchat-project/encryption_passwd.txt');
+$passwd=shell_exec('cat /usr/share/openchat-project/encryption_passwd.txt | tr -d " \t\n\r" ');
 
 echo "
 <html>
@@ -122,14 +122,14 @@ width:calc( 100% + 10px );
 <body style='font-size:25px; background-color:black' onload=\"setTimeout( function(){ window.close(); }, 60000); setTimeout(function(){ dbutton.style.zIndex='1'; }, 2100);\">";
 
 $host = "localhost";
-$benutzer =  shell_exec('cat  /usr/share/openchat-project/mysql_username.txt');
-$passwort = substr( shell_exec('cat /usr/share/openchat-project/mysql_password.txt'), 0, 13);
+$benutzer =  shell_exec('cat /usr/share/openchat-project/mysql_username.txt | tr -d " \t\n\r" ');
+$passwort = substr( shell_exec('cat /usr/share/openchat-project/mysql_password.txt | tr -d " \t\n\r" '), 0, 13);
 $bindung=mysqli_connect($host, $benutzer, $passwort ) or die ("Verbindungsaufbau zur Daten-Zentrale nicht m&ouml;glich!");
-$db="openchat";
+$db=shell_exec('cat /usr/share/openchat-project/mysql_database.txt | tr -d " \t\n\r" ');
 
 function mdq( $bindung, $query )
 {
-  mysqli_select_db( $bindung, shell_exec('cat  /usr/share/openchat-project/mysql_database.txt') );
+  mysqli_select_db( $bindung, shell_exec('cat /usr/share/openchat-project/mysql_database.txt | tr -d " \t\n\r" ') );
   return( mysqli_query( $bindung, $query ) );
 }
 
@@ -191,7 +191,7 @@ $pass=$filevonid;
 }
 
 if($verify == 1){
-$fileid=shell_exec("ls files/$fileid.*.gpg");
+$fileid=shell_exec("ls ../user_files/$fileid.*.gpg");
 $filewith=$fileid;
 
 $fileid=substr($fileid, 0, -5);
@@ -199,8 +199,8 @@ $fileid=substr($fileid, 0, -5);
 $os=time();
 
 
-$fileid_c=str_replace("files/", $os.'_', $fileid);
-$fileid_c="files/".$fileid_c;
+$fileid_c=str_replace("../user_files/", $os.'_', $fileid);
+$fileid_c="../user_files/".$fileid_c;
 
 shell_exec("gpg --batch --passphrase $pass$personal_key --decrypt --output $fileid_c $fileid.gpg &");
 shell_exec('( sleep 60 && rm -f '.$fileid_c.' ) > /dev/null 2> /dev/null &');

@@ -22,7 +22,7 @@ $content=str_replace("'", '#00100111#', $content);
 $_GET["$get_table"]=$content;
 }
 
-$passwd=shell_exec('cat /usr/share/openchat-project/encryption_passwd.txt');
+$passwd=shell_exec('cat /usr/share/openchat-project/encryption_passwd.txt | tr -d " \t\n\r" ');
 
 $return.="
 <html>
@@ -48,14 +48,14 @@ $return.="
 <form method='POST' name='save' enctype='multipart/form-data'>";
 
 $host = "localhost";
-$benutzer =  shell_exec('cat  /usr/share/openchat-project/mysql_username.txt');
-$passwort = substr( shell_exec('cat /usr/share/openchat-project/mysql_password.txt'), 0, 13);
+$benutzer =  shell_exec('cat /usr/share/openchat-project/mysql_username.txt | tr -d " \t\n\r" ');
+$passwort = substr( shell_exec('cat /usr/share/openchat-project/mysql_password.txt | tr -d " \t\n\r" '), 0, 13);
 $bindung=mysqli_connect($host, $benutzer, $passwort ) or die ("Verbindungsaufbau zur Daten-Zentrale nicht m&ouml;glich!");
-$db="openchat";
+$db=shell_exec('cat /usr/share/openchat-project/mysql_database.txt | tr -d " \t\n\r" ');
 
 function mdq( $bindung, $query )
 {
-  mysqli_select_db( $bindung, shell_exec('cat  /usr/share/openchat-project/mysql_database.txt') );
+  mysqli_select_db( $bindung, shell_exec('cat /usr/share/openchat-project/mysql_database.txt | tr -d " \t\n\r" ') );
   return( mysqli_query( $bindung, $query ) );
 }
 
@@ -70,7 +70,7 @@ $online=0;
 if($online == 1)
 $pfad='www.openchat.xyz/';
 else
-$pfad=shell_exec('cat  /usr/share/openchat-project/mysql_username.txt').'/';
+$pfad=shell_exec('cat /usr/share/openchat-project/path.txt | tr -d " \t\n\r" ').'/code/';
 
 
 $accid=$_POST['accid'];
@@ -177,11 +177,11 @@ opacity:1;
 <img src='../programm_files/send.png' style='animation:anf 1s;animation-fill-mode:forwards; opacity:1;width:100px;position:fixed;top:calc(50% - 50px); left:calc(50% - 50px)' id='send' onclick=\"anum.style.display='none'; bysend.style.display='none'; group.style.display='none';send.style.animation='end 1s'; send.style.animationFillMode='forwards'; setTimeout(function(){  loadscreen.style.display='block'; ende.value='1';  }, 1000 ); setTimeout(function(){ document.save.submit(); }, 3000);\">
 <label for='filus' style='cursor:pointer;'><img src='../programm_files/send.png' style='animation:anf 1s;animation-fill-mode:forwards; opacity:1;width:100px;position:fixed;top:calc(50% - 50px); left:calc(50% - 50px)' id='sendus' ></label>
 <input type='file' name='senda'
-onchange=\"sendus.style.display='none';anum.style.display='none';bysend.style.display='block';group.style.display='block';send.style.animation='c 1s'; setTimeout(function(){ send.src='send_green.png'; }, 500); gibihm(); return true;\" style='display:none;' id='filus'>
+onchange=\"sendus.style.display='none';anum.style.display='none';bysend.style.display='block';group.style.display='block';send.style.animation='c 1s'; setTimeout(function(){ send.src='../programm_files/send_green.png'; }, 500); gibihm(); return true;\" style='display:none;' id='filus'>
 
-<input onkeyup=\"sendus.style.display='none';bysend.style.display='block';group.style.display='block';send.style.animation='c 1s'; setTimeout(function(){ send.src='send_green.png'; }, 500); gibihm(); return true;\" type='text' autocomplete='off' id='anum' name='anum' value='' placeholder='SHARE-iD' style='animation:inp 1.5s; animation-delay:0.3s;animation-fill-mode:forwards;opacity:0;display:block;position:fixed; box-shadow:0px 0px 2px green;width:100%; text-align:center;right:0px; top:calc(50% + 100px);font-size:16px;color:black; background-color:white; padding:10px; border:0px;'>
+<input onkeyup=\"sendus.style.display='none';bysend.style.display='block';group.style.display='block';send.style.animation='c 1s'; setTimeout(function(){ send.src='../programm_files/send_green.png'; }, 500); gibihm(); return true;\" type='text' autocomplete='off' id='anum' name='anum' value='' placeholder='SHARE-iD' style='animation:inp 1.5s; animation-delay:0.3s;animation-fill-mode:forwards;opacity:0;display:block;position:fixed; box-shadow:0px 0px 2px green;width:100%; text-align:center;right:0px; top:calc(50% + 100px);font-size:16px;color:black; background-color:white; padding:10px; border:0px;'>
 <div style='display:none;position:absolute; width:100%; height:100%; left:0px; right:0px;cursor:wait;' id='loadscreen'>
-<img src='load.gif' style='cursor:wait;width:200px; position:fixed; top:calc(50% - 100px); left:calc(50% - 100px);'>
+<img src='../programm_files/load.gif' style='cursor:wait;width:200px; position:fixed; top:calc(50% - 100px); left:calc(50% - 100px);'>
 </div>
 ";
 
@@ -196,7 +196,7 @@ $i=$rowa[0];
 
 $fileid=md5($passwd.$rowa[0]);
 
-$fileid=shell_exec("ls files/$fileid".'.*');
+$fileid=shell_exec("ls ../user_files/$fileid".'.*');
 $fileowner=$rowa[1];
 $fileidus=explode('.', $fileid);
 $filetitle=$rowa[2];
@@ -241,7 +241,7 @@ $return.="</datalist>";
 
 }
 
-//[END]LIST//
+///[END]LIST//
 
 
 
@@ -281,7 +281,7 @@ while( $row=mysqli_fetch_row( $ask ) ){
 $ownname=$row[0];
 $rmid=$row[1];
 $chat=$row[2];
-$filexis=shell_exec("ls files/".md5($passwd.$anum).".* 2>&1");
+$filexis=shell_exec("ls ../user_files/".md5($passwd.$anum).".* 2>&1");
 if(strpos($filexis,"No such")===false){
 $weiter=1;
 }
@@ -349,7 +349,7 @@ $dname=explode('.', $_FILES['senda']['name']);
 }
 else
 {
-$dname=shell_exec( "ls files/$anum_id.*" );
+$dname=shell_exec( "ls ../user_files/$anum_id.*" );
 $dname=substr($dname, 0, -1);
 $dname=str_replace('.gpg', '', $dname);
 $dname=explode('.', $dname);
@@ -363,16 +363,16 @@ $filetype=$dnama;
 
 if($verifyb == 1){
     
-shell_exec( "cp files/".$anum_id.".* files/".$id.".".$filetype.".gpg");
-shell_exec("gpg --batch --passphrase $pass$personal_key_capture --decrypt --output files/".$id.".".$filetype." files/".$anum_id.".".$filetype.".gpg");
-shell_exec("rm -f files/$id.$filetype.gpg");
+shell_exec( "cp ../user_files/".$anum_id.".* ../user_files/".$id.".".$filetype.".gpg");
+shell_exec("gpg --batch --passphrase $pass$personal_key_capture --decrypt --output ../user_files/".$id.".".$filetype." ../user_files/".$anum_id.".".$filetype.".gpg");
+shell_exec("rm -f ../user_files/$id.$filetype.gpg");
 }
 else{
-move_uploaded_file($_FILES['senda']['tmp_name'], 'files/'.$id.'.'.$filetype );
+move_uploaded_file($_FILES['senda']['tmp_name'], '../user_files/'.$id.'.'.$filetype );
 }
 
-shell_exec("gpg --batch --passphrase $accid$personal_key_captureb --symmetric files/$id.$filetype;");
-shell_exec("rm files/$id.$filetype;");
+shell_exec("gpg --batch --passphrase $accid$personal_key_captureb --symmetric ../user_files/$id.$filetype;");
+shell_exec("rm ../user_files/$id.$filetype;");
 
 
 if($_FILES['senda']['error'] == 0 or $verifyb == 1){
@@ -381,7 +381,6 @@ if($filetype != 1){
 $text=urlencode($bysend).'%23456%3Ca%20href%3D%22getfile.php%3Faccid%3D'.$accid.'%26fileid%3D'.$id.'%26chatid%3D'.$chatid.'%22%20target%3D%22_blank%22%20style%3D%22text-decoration%3Anone%3B%20font-weight%3Abold%3B%20background-color%3A%23ab6c15%3B%20color%3Awhite%3B%20border-radius%3A3px%3Bpadding%3A3px%3Bpadding-left%3A8px%3B%20padding-right%3A8px%3B%22%3EI%20have%20a%20present%20for%20you!%3C%2Fa%3E';
 
 $_buffer = implode('', file('http://'."$pfad".'insert.php?accid='.$accid.'&chatid='.$chatid.'&text='."$text" ));
-
 }
 
 }

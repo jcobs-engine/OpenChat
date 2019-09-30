@@ -1,3 +1,2 @@
 #!/bin/bash
-cd files
-while [ 0 ]; do clear; ls; sleep 1; done
+while [ 0 ]; do clear; ls ../user_files/; sleep 1; done

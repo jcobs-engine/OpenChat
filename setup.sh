@@ -33,7 +33,7 @@ read password
  echo $password > /usr/share/openchat-project/mysql_password.txt
 echo ""
 echo -e "\033[1;34m4.\033[0m How did you called YourDatabaseName?"
-read databse
+read database
  echo $database > /usr/share/openchat-project/mysql_database.txt
 echo ""
 echo -e "\033[1;34m4.\033[0m Please enter any Developer-Passphrase (It is only used for coding the OpenChat-Project on this Device): "

@@ -33,7 +33,7 @@ function krypti( $str, $key )
 }
 
 $passwd =
-    shell_exec('cat /usr/share/openchat-project/encryption_passwd.txt');
+    shell_exec('cat /usr/share/openchat-project/encryption_passwd.txt | tr -d " \t\n\r" ');
 
 
 echo "
@@ -44,14 +44,14 @@ echo "
 <form method='GET' action=''>";
 
 $host = "localhost";
-$benutzer =  shell_exec('cat  /usr/share/openchat-project/mysql_username.txt');
-$passwort = substr( shell_exec('cat /usr/share/openchat-project/mysql_password.txt'), 0, 13);
+$benutzer =  shell_exec('cat /usr/share/openchat-project/mysql_username.txt | tr -d " \t\n\r" ');
+$passwort = substr( shell_exec('cat /usr/share/openchat-project/mysql_password.txt | tr -d " \t\n\r" '), 0, 13);
 $bindung=mysqli_connect($host, $benutzer, $passwort ) or die ("Verbindungsaufbau zur Daten-Zentrale nicht m&ouml;glich!");
-$db="openchat";
+$db=shell_exec('cat /usr/share/openchat-project/mysql_database.txt | tr -d " \t\n\r" ');
 
 function mdq( $bindung, $query )
 {
-  mysqli_select_db( $bindung, shell_exec('cat  /usr/share/openchat-project/mysql_database.txt') );
+  mysqli_select_db( $bindung, shell_exec('cat /usr/share/openchat-project/mysql_database.txt | tr -d " \t\n\r" ') );
   return( mysqli_query( $bindung, $query ) );
 }
 

@@ -57,7 +57,7 @@ function dekrypti($string, $key)
 }
 
 $passwd =
-    shell_exec('cat /usr/share/openchat-project/encryption_passwd.txt');
+    shell_exec('cat /usr/share/openchat-project/encryption_passwd.txt | tr -d " \t\n\r" ');
 
 $sd = time();
 
@@ -73,14 +73,14 @@ if ($site == "") {
 $join = 0;
 
 $host = "localhost";
-$benutzer = shell_exec('cat  /usr/share/openchat-project/mysql_username.txt');
-$passwort = substr( shell_exec('cat /usr/share/openchat-project/mysql_password.txt'), 0, 13);
+$benutzer = shell_exec('cat /usr/share/openchat-project/mysql_username.txt | tr -d " \t\n\r" ');
+$passwort = shell_exec('cat /usr/share/openchat-project/mysql_password.txt | tr -d " \t\n\r" ');
 $bindung = mysqli_connect($host, $benutzer, $passwort) or die("Verbindungsaufbau zur Daten-Zentrale nicht m&ouml;glich!");
-$db = "openchat";
+$db = shell_exec('cat /usr/share/openchat-project/mysql_database.txt | tr -d " \t\n\r" ');
 
 function mdq($bindung, $query)
 {
-    mysqli_select_db($bindung, shell_exec('cat  /usr/share/openchat-project/mysql_database.txt'));
+    mysqli_select_db($bindung, shell_exec('cat /usr/share/openchat-project/mysql_database.txt | tr -d " \t\n\r" '));
     return mysqli_query($bindung, $query);
 }
 
@@ -94,7 +94,7 @@ while ($row = mysqli_fetch_row($ask)) {
 if ($online == 1) {
     $pfad = 'www.openchat.xyz/';
 } else {
-    $pfad = shell_exec('cat  /usr/share/openchat-project/mysql_username.txt').'/';
+    $pfad = shell_exec('cat /usr/share/openchat-project/path.txt | tr -d " \t\n\r" ').'/code/';
 }
 
 $type = 'password';
@@ -319,7 +319,7 @@ if ($accid != md5('')) {
     $sdstop = 0;
     
     
-    // ete setcookie
+  // ete setcookie
     
     $sql = "select id, enc, rights from chat where rights LIKE '%|$fname|%' and enc!='NONE' ORDER by id desc;";
     $ask = mdq($bindung, $sql);
@@ -335,8 +335,8 @@ if ($accid != md5('')) {
         }
         
         if(isset($_POST["cn".$dcid]) or $_POST["czn".$dcid] == 1 ){
-            // automaticly sendup
-            // if(n === 8){ fokus.focus();  setTimeout(function(){ document.save.submit(); },100); }
+          // automaticly sendup
+          // if(n === 8){ fokus.focus();  setTimeout(function(){ document.save.submit(); },100); }
             
             $locki="
             <div style='position:fixed; text-shadow:0px 0px 3px white;font-weight:bold; font-size:35px;top:0px; left:0px; width:100%; height:100%; background-color:rgba(0%, 0%, 0%, 0.9);z-index:100; text-align:center;color:#d1d1d1'>
@@ -347,12 +347,12 @@ if ($accid != md5('')) {
         }
     }
     
-    //[END]ete setcookie
+  //[END]ete setcookie
     
 
-    //       DOTS  //
+  //       DOTS/
 
-    // MESSAGES
+  // MESSAGES
 
     $messagedot = 'none';
     $sql = "select sd from seen where user=$sel and type=0;";
@@ -367,7 +367,7 @@ if ($accid != md5('')) {
         $messagedot = 'block';
     }
 
-    // CHATROOMS
+  // CHATROOMS
     $rd = 0;
     $rid = 0;
     $chatdot = 'none';
@@ -403,7 +403,7 @@ if ($accid != md5('')) {
         }
     }
 
-    // CDOTS
+  // CDOTS
 
     $cdot = array();
 
@@ -439,7 +439,7 @@ if ($accid != md5('')) {
         }
     }
 
-    //[END]  DOTS  //
+  //[END]  DOTS/
 
     $sql = "select id, title, rights from chat where rights LIKE '%|$fname|%' ORDER by id desc;";
     $ask = mdq($bindung, $sql);
@@ -926,7 +926,7 @@ font-weight:bold; text-align:center; background-color:$white;color:$black; font-
 
             $fileid = md5($passwd . $rowa[0]);
 
-            $fileid = shell_exec("ls files/$fileid" . '.*.gpg');
+            $fileid = shell_exec("ls ../user_files/$fileid" . '.*.gpg');
             $fileowner = $rowa[1];
             $fileidus = explode('.', $fileid);
             $filetitle = $rowa[2];
@@ -958,11 +958,11 @@ font-weight:bold; text-align:center; background-color:$white;color:$black; font-
                     $ookay = 1;
 
                     $echo .= "
-<div class='$jetztpre all' onmouseover=\"a$i.style.animation='inp 0.5s'; a$i.style.animationFillMode='forwards';\"  onmouseout=\"a$i.style.animation='pni 0.5s'; a$i.style.animationFillMode='forwards';\" onclick=\"window.open( 'getfile.php?accid=$id&fileid=$openid&chatid=0&personal_key=$personal_key' );\" style=\"display:block;background-image:url( datei.png );background-size:cover;background-repeat:no-repeat;background-position:center;word-wrap:break-word;box-shadow: 0px 0px 1px 2px #d1d1d1;float:left;margin:20px; width:160px; height:160px;padding:10px;border-radius:10px;background-color:#d1d1d1;cursor:pointer\">
+<div class='$jetztpre all' onmouseover=\"a$i.style.animation='inp 0.5s'; a$i.style.animationFillMode='forwards';\"  onmouseout=\"a$i.style.animation='pni 0.5s'; a$i.style.animationFillMode='forwards';\" onclick=\"window.open( 'getfile.php?accid=$id&fileid=$openid&chatid=0&personal_key=$personal_key' );\" style=\"display:block;background-image:url( ../programm_files/datei.png );background-size:cover;background-repeat:no-repeat;background-position:center;word-wrap:break-word;box-shadow: 0px 0px 1px 2px #d1d1d1;float:left;margin:20px; width:160px; height:160px;padding:10px;border-radius:10px;background-color:#d1d1d1;cursor:pointer\">
 <div style='width:160px; height:160px;position:absolute; '>
 
 <div
-onclick=\"rmfile.value='$ic';document.save.submit();event.cancelBubble=true;\" style='cursor:pointer;font-size:22px;color:white; border:2px solid black; border-radius:10px 10px 10px 10px;padding:5px;position:absolute; top:-05px; right:-05px;box-shadow:0px 0px 2px black;height:24px;width:24px;background-color:red;background-image:url( delete.svg );background-size:70%;background-position:center;background-repeat:no-repeat;'></div>
+onclick=\"rmfile.value='$ic';document.save.submit();event.cancelBubble=true;\" style='cursor:pointer;font-size:22px;color:white; border:2px solid black; border-radius:10px 10px 10px 10px;padding:5px;position:absolute; top:-05px; right:-05px;box-shadow:0px 0px 2px black;height:24px;width:24px;background-color:red;background-image:url( ../programm_files/delete.svg );background-size:70%;background-position:center;background-repeat:no-repeat;'></div>
 
 <div style='cursor:pointer;font-size:18px;color:white;padding:2px;padding-left:5px; padding-right:6px;position:absolute; top:-05px; left:-5px;box-shadow:0px 0px 2px black;height:23px;background-color:#d1d1d1;border-radius:6px;color:black;'>$ic</div>
 
@@ -1014,7 +1014,7 @@ onclick=\"rmfile.value='$ic';document.save.submit();event.cancelBubble=true;\" s
 
                 $fileid = md5($passwd . $rowa[0]);
 
-                $fileid = shell_exec("ls files/$fileid" . '.*');
+                $fileid = shell_exec("ls ../user_files/$fileid" . '.*');
                 $fileowner = $rowa[1];
                 $fileidus = explode('.', $fileid);
                 $filetitle = $rowa[2];
@@ -1029,7 +1029,7 @@ onclick=\"rmfile.value='$ic';document.save.submit();event.cancelBubble=true;\" s
                         "
 <div onmouseover=\"i$i.style.animation='inp 0.5s'; i$i.style.animationFillMode='forwards';\"  onmouseout=\"i$i.style.animation='pni 0.5s'; i$i.style.animationFillMode='forwards';\"  onclick=\"window.open( 'getfile.php?accid=$id&fileid=" .
                         md5($i) .
-                        "&chatid=$cada' );\"  style=\"background-image:url( datei.png );background-size:cover;cursor:pointer;background-repeat:no-repeat;background-position:center;word-wrap:break-word;box-shadow: 0px 0px 1px 2px #d1d1d1;float:left;margin:20px; width:160px; height:160px;padding:10px;border-radius:10px;background-color:#d1d1d1\">
+                        "&chatid=$cada' );\"  style=\"background-image:url( ../programm_files/datei.png );background-size:cover;cursor:pointer;background-repeat:no-repeat;background-position:center;word-wrap:break-word;box-shadow: 0px 0px 1px 2px #d1d1d1;float:left;margin:20px; width:160px; height:160px;padding:10px;border-radius:10px;background-color:#d1d1d1\">
 <div style='width:160px; height:160px;position:absolute; '>
 
 <span style='font-size:22px;color:white; border:2px solid black; border-radius:10px 10px 0px 10px;padding:4px;padding-top:4px;padding-right:10px; padding-left:10px;position:absolute; top:-05px; right:-05px;box-shadow:0px 0px 2px 0black;background-color:#0b2900;'><b>$fileowner</b></span>
@@ -1360,8 +1360,8 @@ $echo
 }
 
 if ($accid == md5("") or $break == 1) {
-    //  <li><b style='color:#d42626'>TITLE</b><br>DESCRIPTION</li><p>
-    //  <li><b>TITLE</b><br>DESCRIPTION</li><p>
+  //  <li><b style='color:#d42626'>TITLE</b><br>DESCRIPTION</li><p>
+  //  <li><b>TITLE</b><br>DESCRIPTION</li><p>
 
     $release_list = "
 <li><b style='color:#d42626;'>SECURYTY BREACH FIX:</b><br>Further information will not be released for security reasons.</li><p>
@@ -1860,8 +1860,8 @@ if ($title != "anonymous") {
     echo "<input type='hidden' name='site' id='site' value='$site'>";
 }
 
-// !SYSMESSAGES!
-// If Re-Release this part, update it, for End-to-End Encryption!
+/// !SYSMESSAGES!
+/// If Re-Release this part, update it, for End-to-End Encryption!
 //if($join != $_POST['join'])
 //{
 //$lastjoin=$_POST['join'];
@@ -1884,7 +1884,7 @@ if ($access != "") {
 </div>";
 }
 
-//[END]ACCESS MESSAGES//
+///[END]ACCESS MESSAGES//
 
 echo "
 <input type='hidden' value='1' id='scrolli' name='scroll'>
