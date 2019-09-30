@@ -22,7 +22,7 @@ $content=str_replace("'", '#00100111#', $content);
 $_GET["$get_table"]=$content;
 }
 
-$passwd=shell_exec('cat /passwords/passwd.txt');
+$passwd=shell_exec('cat /usr/share/openchat-project/encryption_passwd.txt');
 
 $return.="
 <html>
@@ -48,14 +48,14 @@ $return.="
 <form method='POST' name='save' enctype='multipart/form-data'>";
 
 $host = "localhost";
-$benutzer =  "levi";
-$passwort = substr( shell_exec('cat /passwords/sql.txt'), 0, 13);
+$benutzer =  shell_exec('cat  /usr/share/openchat-project/mysql_username.txt');
+$passwort = substr( shell_exec('cat /usr/share/openchat-project/mysql_password.txt'), 0, 13);
 $bindung=mysqli_connect($host, $benutzer, $passwort ) or die ("Verbindungsaufbau zur Daten-Zentrale nicht m&ouml;glich!");
 $db="openchat";
 
 function mdq( $bindung, $query )
 {
-  mysqli_select_db( $bindung, 'openchat' );
+  mysqli_select_db( $bindung, shell_exec('cat  /usr/share/openchat-project/mysql_database.txt') );
   return( mysqli_query( $bindung, $query ) );
 }
 
@@ -70,7 +70,7 @@ $online=0;
 if($online == 1)
 $pfad='www.openchat.xyz/';
 else
-$pfad='www.openchat.off/';
+$pfad=shell_exec('cat  /usr/share/openchat-project/mysql_username.txt').'/';
 
 
 $accid=$_POST['accid'];

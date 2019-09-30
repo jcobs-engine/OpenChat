@@ -22,7 +22,7 @@ $content=str_replace("'", '#00100111#', $content);
 $_GET["$get_table"]=$content;
 }
 
-$passwd=shell_exec('cat /passwords/passwd.txt');
+$passwd=shell_exec('cat /usr/share/openchat-project/encryption_passwd.txt');
 
 echo "
 <html>
@@ -122,14 +122,14 @@ width:calc( 100% + 10px );
 <body style='font-size:25px; background-color:black' onload=\"setTimeout( function(){ window.close(); }, 60000); setTimeout(function(){ dbutton.style.zIndex='1'; }, 2100);\">";
 
 $host = "localhost";
-$benutzer =  "levi";
-$passwort = substr( shell_exec('cat /passwords/sql.txt'), 0, 13);
+$benutzer =  shell_exec('cat  /usr/share/openchat-project/mysql_username.txt');
+$passwort = substr( shell_exec('cat /usr/share/openchat-project/mysql_password.txt'), 0, 13);
 $bindung=mysqli_connect($host, $benutzer, $passwort ) or die ("Verbindungsaufbau zur Daten-Zentrale nicht m&ouml;glich!");
 $db="openchat";
 
 function mdq( $bindung, $query )
 {
-  mysqli_select_db( $bindung, 'openchat' );
+  mysqli_select_db( $bindung, shell_exec('cat  /usr/share/openchat-project/mysql_database.txt') );
   return( mysqli_query( $bindung, $query ) );
 }
 
