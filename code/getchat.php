@@ -67,7 +67,7 @@ opacity:1;
 
 $host = "localhost";
 $benutzer =  "levi";
-$passwort = shell_exec('cat /passwords/passwd.txt');
+$passwort = substr( shell_exec('cat /passwords/sql.txt'), 0, 13);
 $bindung=mysqli_connect($host, $benutzer, $passwort ) or die ("Verbindungsaufbau zur Daten-Zentrale nicht m&ouml;glich!");
 $db="openchat";
 

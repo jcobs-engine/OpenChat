@@ -341,7 +341,7 @@ if ($accid != md5('')) {
             $locki="
             <div style='position:fixed; text-shadow:0px 0px 3px white;font-weight:bold; font-size:35px;top:0px; left:0px; width:100%; height:100%; background-color:rgba(0%, 0%, 0%, 0.9);z-index:100; text-align:center;color:#d1d1d1'>
             </div>
-            <img src='lock.png' id='lockpng' style='z-index:100;height:200px;position:fixed; left:calc(50% - 100px);top:calc(50% - 100px)'>
+            <img src='../programm_files/lock.png' id='lockpng' style='z-index:100;height:200px;position:fixed; left:calc(50% - 100px);top:calc(50% - 100px)'>
             <input type='text' id='gibkey' maxlength='7' onkeypress=\"let n=this.value.length + 1; if(n === 4){ this.value=this.value+' '; } if(n === 8){ fokus.focus();  setTimeout(function(){ document.save.submit(); },100); } \" style='border:0px; border-bottom:2px solid black;position:fixed;z-index:100;font-size:32px; width:120px; background-color:transparent;text-align:left;font-weight:bold;left:calc(50% - 61px); top:calc(50% + 15px);' name='newcookie$dcid' autofocus autocomplete='off'>
             ";
         }
@@ -571,18 +571,18 @@ if ($accid != md5('')) {
 
         $sasa = "asisu";
         if ($site == 0) {
-            $echo = "<img src='grey.png' style='position:fixed; width:40%; left:40%; top:100px; opacity:0;animation:grey 1s; animation-fill-mode:forwards; animation-delay:1.5s'>
-<img src='color.png' style='position:fixed; width:40%; left:40%; top:100px;opacity:0; animation:color 1s; animation-fill-mode:forwards; animation-delay:2.5s;'>
-<img src='serv.png' style='position:fixed; width:calc(40% + 70px); left:100%; top:100px;animation:serv 1s; animation-fill-mode:forwards; animation-delay:3s;'>
+            $echo = "<img src='../programm_files/grey.png' style='position:fixed; width:40%; left:40%; top:100px; opacity:0;animation:grey 1s; animation-fill-mode:forwards; animation-delay:1.5s'>
+<img src='../programm_files/color.png' style='position:fixed; width:40%; left:40%; top:100px;opacity:0; animation:color 1s; animation-fill-mode:forwards; animation-delay:2.5s;'>
+<img src='../programm_files/serv.png' style='position:fixed; width:calc(40% + 70px); left:100%; top:100px;animation:serv 1s; animation-fill-mode:forwards; animation-delay:3s;'>
 
-<img src='openchat_text.png' style='position:fixed; width:calc(40% + 70px); left:40%; top:100px; opacity:0; animation:inp 1s steps(1); animation-fill-mode:forwards;animation-delay:3s'>
+<img src='../programm_files/openchat_text.png' style='position:fixed; width:calc(40% + 70px); left:40%; top:100px; opacity:0; animation:inp 1s steps(1); animation-fill-mode:forwards;animation-delay:3s'>
 
-<img src='openchat_overdrive.png' style='position:fixed; width:calc(40% +
+<img src='../programm_files/openchat_overdrive.png' style='position:fixed; width:calc(40% +
 70px); left:40%; top:100px; opacity:0; animation:inp 1s steps(1), sm 1s
 steps(60), pni 1s steps(1);animation-fill-mode:forwards;animation-delay:2.5s,
 4s, 5.05s;border:0px;'></div>
-<img src='openchat_overdrive_2.png' style='position:fixed; width:calc(40% + 70px); left:40%; top:100px; opacity:0; animation:inp 1s steps(1), sm 1s steps(60), pni 1s steps(1);animation-fill-mode:forwards;animation-delay:2.5s, 4s, 3.68s;border:0px;'></div>
-<img src='openchat_overdrive_3.png' style='position:fixed; width:calc(40% + 70px); left:40%; top:100px; opacity:0; animation:inp 1s steps(1), sm 1s steps(60), pni 1s steps(1);animation-fill-mode:forwards;animation-delay:2.5s, 4s, 3.3s;border:0px;'></div>
+<img src='../programm_files/openchat_overdrive_2.png' style='position:fixed; width:calc(40% + 70px); left:40%; top:100px; opacity:0; animation:inp 1s steps(1), sm 1s steps(60), pni 1s steps(1);animation-fill-mode:forwards;animation-delay:2.5s, 4s, 3.68s;border:0px;'></div>
+<img src='../programm_files/openchat_overdrive_3.png' style='position:fixed; width:calc(40% + 70px); left:40%; top:100px; opacity:0; animation:inp 1s steps(1), sm 1s steps(60), pni 1s steps(1);animation-fill-mode:forwards;animation-delay:2.5s, 4s, 3.3s;border:0px;'></div>
 
 <div style='right:0px; height:100%; top:0px; position:fixed;background-color:black; box-shadow:0px 0px 4px 3px black;width:10px'></div>
 ";
@@ -626,7 +626,7 @@ steps(60), pni 1s steps(1);animation-fill-mode:forwards;animation-delay:2.5s,
                 $row[0] = str_replace('#00100111#', "'", $row[0]);
                 $row[0] = str_replace('#00100010#', '"', $row[0]);
 
-                $echo .= "<div class='messages' style='font-size:18px;background-color:$black;box-shadow:0px 0px 1px 3px $white; cursor:pointer;border-radius:5px;width:calc(100% - 25px); padding:10px;margin-bottom:20px;text-align:center;' onclick=\"sethide();setback();conti$row[3].style.display='block'; this.style.backgroundColor='$white'; this.style.color='$black'; conti$row[3].style.backgroundColor='$white'; conti$row[3].style.color='$black';\" ><img src='delete.svg' style='float:left;height:24px;box-shadow:0px 0px 1px 5px red;background-color:red;border-radius:25%;cursor:pointer;' onclick=\"deleta.value='$row[3]'; document.save.submit(); event.cancelBubble=true;\"><span style='opacity:0;'>|</span><span style='float:left;'> &nbsp; &nbsp; $row[1]</span><b>$row[2]</b><span style='opacity:0;'>|</span><img src='delete.svg' style='float:right;opacity:0;height:24px;box-shadow:0px 0px 1px 5px red;background-color:red;border-radius:25%;cursor:pointer;'><span style='float:right; opacity:0;'> &nbsp; &nbsp; $row[1]</span></div>";
+                $echo .= "<div class='messages' style='font-size:18px;background-color:$black;box-shadow:0px 0px 1px 3px $white; cursor:pointer;border-radius:5px;width:calc(100% - 25px); padding:10px;margin-bottom:20px;text-align:center;' onclick=\"sethide();setback();conti$row[3].style.display='block'; this.style.backgroundColor='$white'; this.style.color='$black'; conti$row[3].style.backgroundColor='$white'; conti$row[3].style.color='$black';\" ><img src='../programm_files/delete.svg' style='float:left;height:24px;box-shadow:0px 0px 1px 5px red;background-color:red;border-radius:25%;cursor:pointer;' onclick=\"deleta.value='$row[3]'; document.save.submit(); event.cancelBubble=true;\"><span style='opacity:0;'>|</span><span style='float:left;'> &nbsp; &nbsp; $row[1]</span><b>$row[2]</b><span style='opacity:0;'>|</span><img src='../programm_files/delete.svg' style='float:right;opacity:0;height:24px;box-shadow:0px 0px 1px 5px red;background-color:red;border-radius:25%;cursor:pointer;'><span style='float:right; opacity:0;'> &nbsp; &nbsp; $row[1]</span></div>";
 
                 $echo .= "<div class='messages contentis' style='font-size:18px;background-color:$black;box-shadow:0px 0px 1px 3px $white; border-radius:5px;width:calc(100% - 45px); padding:10px;padding-left:30px;margin-bottom:20px;text-align:left;display:none;' id='conti$row[3]'>$row[0]</div>";
 
@@ -809,7 +809,7 @@ steps(60), pni 1s steps(1);animation-fill-mode:forwards;animation-delay:2.5s,
                             $cidcapture=$cid;
                         
                     $echo .= "<button style='position:relative; width:calc(100% - 8px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:$black;color:$white; font-size:25px;box-shadow:0px 0px 5px 2px $white; border-radius:3px;top:20px;margin-bottom:30px' name='c$cidcapture' >
-<img src='lock.png' style='display:$lock;width:30px;float:left;'>
+<img src='../programm_files/lock.png' style='display:$lock;width:30px;float:left;'>
 
 <div style='display:$cdot[$cid];opacity:0;background-color:red;box-shadow:0px 0px 3px red;float:left;font-size:20px; width:15px; margin-left:5px;margin-top:10px;height:15px;border-radius:50%;'></div>
 
@@ -822,7 +822,7 @@ $ctitle
 
 
 <div style='display:$cdot[$cid];background-color:red;box-shadow:0px 0px 3px red;float:right;font-size:20px; width:15px;margin-right:5px; margin-top:9px;height:15px;border-radius:50%;'></div>
-<img src='lock.png' style='display:$lock;width:30px;float:right;opacity:0;'>
+<img src='../programm_files/lock.png' style='display:$lock;width:30px;float:right;opacity:0;'>
 
 </button>
 
@@ -844,7 +844,7 @@ $ctitle
                     $rightsformated = str_replace("||", "</b>, <b>", $rights);
                     $rightsformated = str_replace("|", "", $rightsformated);
 
-                    $echo = "<input type='text' style='font-family:sans-serif;position:absolute; bottom:50px; width:calc(100% - 420px);border:0px; padding:05px;  text-align:left; background-color:$white;color:$black; font-size:25px;' placeholder='Message...' autocomplete='off' maxlength='500' id='inputmes' name='center$cid' autofocus='autofocus'><img src='present.png' onclick=\"document.upload.submit();\" style='position:absolute; bottom:50px;width:45px;right:65px; cursor:pointer;' id='inputmesa' autofocus>
+                    $echo = "<input type='text' style='font-family:sans-serif;position:absolute; bottom:50px; width:calc(100% - 420px);border:0px; padding:05px;  text-align:left; background-color:$white;color:$black; font-size:25px;' placeholder='Message...' autocomplete='off' maxlength='500' id='inputmes' name='center$cid' autofocus='autofocus'><img src='../programm_files/present.png' onclick=\"document.upload.submit();\" style='position:absolute; bottom:50px;width:45px;right:65px; cursor:pointer;' id='inputmesa' autofocus>
 <div style='display:none;' id='nothing'></div>
 <div onclick='autoscrolll();' id='autoscrol' style='position:absolute; top:125px; font-size:20px;right:100px; z-index:100;cursor:pointer; padding:5px; border:3px solid #238c0e; border-radius:5px;background-color:black; box-shadow:0px 0px 3px 7px #070707;' >live mode</div>
 
@@ -880,7 +880,7 @@ $ctitle
 
                         $echo .= "<input type='button' onclick=\"deleteamember.value='$fname';setupsend.click();\" style='position:absolute; top:320px;width:calc(100% - 360px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:#eb2121;color:$black; font-size:25px;' value='Leave Chat' name='leave$cid'><p>";
                         if($cenc == 'NONE'){
-                        $echo.="<img id='lock' src='lock.png' style='height:50px; top:245px; position:absolute; filter:grayscale(1); opacity:1'><div 
+                        $echo.="<img id='lock' src='../programm_files/lock.png' style='height:50px; top:245px; position:absolute; filter:grayscale(1); opacity:1'><div 
                         onmouseover=\"this.style.animation='hops 0.3s'; this.style.animationFillMode='forwards'\"
                         onmouseout=\"this.style.animation='hopsz 0.3s'; this.style.animationFillMode='forwards'\"
                         onclick=\"this.style.animation='anable 1s'; this.style.animationFillMode='forwards';lock.style.animation='enable 0.8s'; lock.style.animationFillMode='forwards';setTimeout(function(){ enc.value='$cid'; site.value=7; document.save.submit(); },1000)\"
@@ -888,7 +888,7 @@ $ctitle
                         }
                         else
                         {
-                        $echo.="<img id='lock' src='lock.png' style='height:50px; top:245px; position:absolute; filter:grayscale(0); opacity:1'><div 
+                        $echo.="<img id='lock' src='../programm_files/lock.png' style='height:50px; top:245px; position:absolute; filter:grayscale(0); opacity:1'><div 
                         onclick=\"site.value=7; document.save.submit();\"
                         style='height:35px;cursor:pointer; padding-left:50px;top:250px; padding-top:15px;position:absolute; opacity:1; filter:grayscale(0); font-size:22px; color:#d99b39'><b>End-to-End Encrypted</b></div>";
                         }
@@ -1092,9 +1092,9 @@ onclick=\"rmfile.value='$ic';document.save.submit();event.cancelBubble=true;\" s
             
                 
                 $echo="<h1>Personal-Key (Account-ID):</h1>";
-                $echo.="<table style='border-spacing:0;margin-bottom:100px;cursor:default;width:100%; font-size:20px;'><tr><td style='padding:6px;padding-bottom:8px;border-top:2px solid white;border-bottom:2px solid white;font-weight:bold;text-shadow:0px 0px 3px #eb2121;'>$personal_key</td><td style='width:25px;text-align:right;padding:6px;padding-bottom:8px;border-top:2px solid white;border-bottom:2px solid white;'><img src='reload.png' style='height:20px;cursor:pointer;' onclick=\"newidb.value=1;document.save.submit();\"></td></tr></table>";
+                $echo.="<table style='border-spacing:0;margin-bottom:100px;cursor:default;width:100%; font-size:20px;'><tr><td style='padding:6px;padding-bottom:8px;border-top:2px solid white;border-bottom:2px solid white;font-weight:bold;text-shadow:0px 0px 3px #eb2121;'>$personal_key</td><td style='width:25px;text-align:right;padding:6px;padding-bottom:8px;border-top:2px solid white;border-bottom:2px solid white;'><img src='../programm_files/reload.png' style='height:20px;cursor:pointer;' onclick=\"newidb.value=1;document.save.submit();\"></td></tr></table>";
 
-                $echo.="<h1>Room-Keys (End-to-End):<img src='disable_ete.png' style='display:blocki;height:22px; float:right;padding-top:30px;'></h1>";
+                $echo.="<h1>Room-Keys (End-to-End):<img src='../programm_files/disable_ete.png' style='display:blocki;height:22px; float:right;padding-top:30px;'></h1>";
                 $echo.="<table style='border-spacing:0;cursor:default;width:100%; font-size:20px;'>";
             
                 $sql = "select id from chat where rights LIKE '%|$fname|%' and enc!='NONE' ORDER by id desc;";
@@ -1130,7 +1130,7 @@ onclick=\"rmfile.value='$ic';document.save.submit();event.cancelBubble=true;\" s
                     $echo.="<tr>
                     <td style='width:4em;padding:6px;padding-bottom:5px;border-top:2px solid white;font-weight:bold;text-shadow:0px 0px 3px green;'>$dcen</td>
                     <td style='text-align:center;padding:6px;padding-right:calc(4em - 25px);padding-top:0px;padding-bottom:0px;border-top:2px solid white;'>$dcti</td>
-                    <td style='width:25px;text-align:right;padding:6px;padding-bottom:5px;border-top:2px solid white;border-bottom:0px solid white;'><img src='delete_white.png' style='height:20px;cursor:pointer;' onclick=\"disete.value=$dcid;document.save.submit();\"></td></tr>";
+                    <td style='width:25px;text-align:right;padding:6px;padding-bottom:5px;border-top:2px solid white;border-bottom:0px solid white;'><img src='../programm_files/delete_white.png' style='height:20px;cursor:pointer;' onclick=\"disete.value=$dcid;document.save.submit();\"></td></tr>";
                     $in=1;
                 }
             
@@ -1144,7 +1144,7 @@ onclick=\"rmfile.value='$ic';document.save.submit();event.cancelBubble=true;\" s
                     $echo.="<tr>
                 <td style='width:4em;padding:6px;padding-bottom:8px;border-top:2px solid white;'></td>
                 <td style='text-align:center;padding:6px;padding-right:calc(4em - 25px);padding-bottom:8px;border-top:2px solid white;'></td>
-                <td style='width:25px;text-align:right;padding:6px;padding-bottom:8px;border-top:2px solid white;border-bottom:0px solid white;'><img src='delete_white.png' style='height:20px;cursor:pointer;opacity:0' onclick=\"newidb.value=1;document.save.submit();\"></td></tr>";
+                <td style='width:25px;text-align:right;padding:6px;padding-bottom:8px;border-top:2px solid white;border-bottom:0px solid white;'><img src='../programm_files/delete_white.png' style='height:20px;cursor:pointer;opacity:0' onclick=\"newidb.value=1;document.save.submit();\"></td></tr>";
                 }
             
             $echo.="</table>";
@@ -1386,7 +1386,7 @@ $release_list
 
 </ul>
 
-<img src='jcobs-engine_white.png' style='position:relative; margin-bottom:50px;width:200px; left:50px'>
+<img src='../programm_files/jcobs-engine_white.png' style='position:relative; margin-bottom:50px;width:200px; left:50px'>
 
 
 </div>
@@ -1404,7 +1404,7 @@ this.style.animation='startm 0.7s'; this.style.animationFillMode='forwards'; rel
 style='background-color:#070707;position:fixed; cursor:help;font-size:22px; top:10px; left:15px;'>Version:
 <b>b<span style='color:white'>1.0.0</span></b></div>
 
-<img src='openserv.png' style='height:80px;background-color:$white; padding:30px; border-radius:10px'>
+<img src='../programm_files/openserv.png' style='height:80px;background-color:$white; padding:30px; border-radius:10px'>
 
 <input type='submit' name='newid' value='New Account' onclick=\"accid.value='';\" style='position:fixed; bottom:0px; right:0px; font-size:25px; border:0px;font-weight:bold; border-radius:10px 0px 0px 0px;cursor:pointer; background-color:$white; color:$black; padding:5px;padding-left:20px;padding-top:10px;padding-right:10px'>
 

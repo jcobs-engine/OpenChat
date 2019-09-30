@@ -174,8 +174,8 @@ opacity:1;
 <input type='text' autocomplete='off' placeholder='Name' maxlength='20' id='bysend' name='bysend' value='' style='display:none;position:fixed; box-shadow:0px 0px
 5px black;width:calc(100% - 200px); right:0px; top:0px;font-size:25px;color:black; background-color:white; padding:10px; border:0px;'>
 
-<img src='send.png' style='animation:anf 1s;animation-fill-mode:forwards; opacity:1;width:100px;position:fixed;top:calc(50% - 50px); left:calc(50% - 50px)' id='send' onclick=\"anum.style.display='none'; bysend.style.display='none'; group.style.display='none';send.style.animation='end 1s'; send.style.animationFillMode='forwards'; setTimeout(function(){  loadscreen.style.display='block'; ende.value='1';  }, 1000 ); setTimeout(function(){ document.save.submit(); }, 3000);\">
-<label for='filus' style='cursor:pointer;'><img src='send.png' style='animation:anf 1s;animation-fill-mode:forwards; opacity:1;width:100px;position:fixed;top:calc(50% - 50px); left:calc(50% - 50px)' id='sendus' ></label>
+<img src='../programm_files/send.png' style='animation:anf 1s;animation-fill-mode:forwards; opacity:1;width:100px;position:fixed;top:calc(50% - 50px); left:calc(50% - 50px)' id='send' onclick=\"anum.style.display='none'; bysend.style.display='none'; group.style.display='none';send.style.animation='end 1s'; send.style.animationFillMode='forwards'; setTimeout(function(){  loadscreen.style.display='block'; ende.value='1';  }, 1000 ); setTimeout(function(){ document.save.submit(); }, 3000);\">
+<label for='filus' style='cursor:pointer;'><img src='../programm_files/send.png' style='animation:anf 1s;animation-fill-mode:forwards; opacity:1;width:100px;position:fixed;top:calc(50% - 50px); left:calc(50% - 50px)' id='sendus' ></label>
 <input type='file' name='senda'
 onchange=\"sendus.style.display='none';anum.style.display='none';bysend.style.display='block';group.style.display='block';send.style.animation='c 1s'; setTimeout(function(){ send.src='send_green.png'; }, 500); gibihm(); return true;\" style='display:none;' id='filus'>
 
