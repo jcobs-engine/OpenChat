@@ -1363,18 +1363,7 @@ if ($accid == md5("") or $break == 1) {
   //  <li><b style='color:#d42626'>TITLE</b><br>DESCRIPTION</li><p>
   //  <li><b>TITLE</b><br>DESCRIPTION</li><p>
 
-    $release_list = "
-<li><b style='color:#d42626;'>SECURYTY BREACH FIX:</b><br>Further information will not be released for security reasons.</li><p>
-<li><b style='color:#d42626;'>SECURITY UPDATE:</b><br>You can send Download-Links now via Mail, Whatsapp, etc.</li><p>
-<li><b>New Messages:</b><br>Red dots in the sidebar and next to chatroooms indicate where unread messages are. Unread messages in \"Everybody\" chat are not marked in the sidebar.</li><p>
-<li><b>Chatroom:</b><br>A Design-Update.</li><p>
-<li><b>Preferences:</b><br>The 'Delete Account'-Button is now red.</li><p>
-<li><b>Chatrooms:</b><br>You can now kick yourself</li><p>
-<li><b>User-Name</b><br>You can not call yourself 'SYSTEM' anymore.</li><p>
-<li><b>Delete Account:</b><br>If you delete your account, you will be kicked straight out of all the chats.</li><p>
-<li><b>File-Upload:</b><br>The design has been updated</li><p>
-<li><b>Log-In:</b><br>After entering the Account-iD, you can now press [ENTER] to log in</li><p>
-";
+    $release_list = "<b style='color:#d42626;'>THIS IS A 2-WEEK TRIAL PERIOD WITH MANY RE-UPDATES! THERE MAY BE BUGS!</b>";
 
     $content = "<div style='position:relative; margin-left:auto; margin-right:auto; margin-top:100px; width:500px; font-size:50px;text-align:center;text-shadow: 0px 0px 10px black;cursor:default'>
 
