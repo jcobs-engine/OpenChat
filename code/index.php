@@ -1402,7 +1402,7 @@ this.style.animation='startm 0.7s'; this.style.animationFillMode='forwards'; rel
 \"
 
 style='background-color:#070707;position:fixed; cursor:help;font-size:22px; top:10px; left:15px;'>Version:
-<b>b<span style='color:white'>1.0.0</span></b></div>
+<b>v<span style='color:white'>0.0.0</span></b></div>
 
 <img src='../programm_files/openserv.png' style='height:80px;background-color:$white; padding:30px; border-radius:10px'>
 
