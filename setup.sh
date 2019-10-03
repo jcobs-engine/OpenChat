@@ -36,7 +36,7 @@ read adress
 echo $adress > /usr/share/openchat-project/path.txt
 echo -e "\033[1;34m6.\033[0m Please enter the username of the service Apache [wwwrun]"
 read apachestring
-if test "$apachestring" == ""; then apache="wwwrun"; else apache=$apachestring
+if test "$apachestring" == ""; then apache="wwwrun"; else apache=$apachestring; fi
 chmod 700 /usr/share/openchat-project
 chmod 600 /usr/share/openchat-project/*
 chown $apache.root /usr/share/openchat-project
