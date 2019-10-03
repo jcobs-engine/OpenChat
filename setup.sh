@@ -9,30 +9,18 @@ echo -e "\033[1;34m1.\033[0m Please install a \033[1;37mWebserver\033[0m (eg. Ap
 wait
 echo -e "\033[1;34m2.\033[0m Please install \033[1;37mMySQL\033[0m (MariaDB)"
 wait
-echo -e "\033[1;34m3.\033[0m Please setup your OpenChat-MySQL (Further information on the table structure can be found in README.md):"
+echo -e "\033[1;34m3.\033[0m Please setup your OpenChat-MySQL (You Database-DUMP can find the Database-Dump in the GitHub-Repository!)."
 echo ""
-echo -e "   Enter in a terminal:\n\n\033[1;41;37mmysql -u root\033[0m";
-wait
-echo ""
-echo -e "\033[1;41;37mCREATE USER 'YourUsername'@'localhost' IDENTIFIED BY 'YourPassword';\033[0m";
-wait
-echo ""
-echo -e "\033[1;41;37mCREATE DATABASE YourDatabaseName;\033[0m"
-wait
-echo ""
-echo -e "\033[1;41;37mGRANT ALL PRIVILEGES ON YourDatabaseName . * TO 'MyUsername'@'localhost';\033[0m"
-wait
-echo ""
-echo -e "\033[1;34m4.\033[0m How did you called YourUsername?"
+echo -e "\033[1;34m4.\033[0m How did you called Your Username?"
 read username
 mkdir /usr/share/openchat-project/
  echo $username > /usr/share/openchat-project/mysql_username.txt
 echo ""
-echo -e "\033[1;34m4.\033[0m How did you called YourPassword?"
+echo -e "\033[1;34m4.\033[0m How did you called Your Password?"
 read password
  echo $password > /usr/share/openchat-project/mysql_password.txt
 echo ""
-echo -e "\033[1;34m4.\033[0m How did you called YourDatabaseName?"
+echo -e "\033[1;34m4.\033[0m How did you called Your Database?"
 read database
  echo $database > /usr/share/openchat-project/mysql_database.txt
 echo ""

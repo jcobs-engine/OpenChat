@@ -137,8 +137,8 @@ $accid=$_GET['accid'];
 $chatid=$_GET['chatid'];
 $fileid=$_GET['fileid'];
 $personal_key=$_GET['personal_key'];
-
-
+$etepass='';
+$chatenc=md5($passwd.$_COOKIE[$chatid]);
 
 if($chatid == 0){
 
@@ -152,20 +152,19 @@ $sql="select id from user where id='$accid' and fname='$filevon';";
 $ask=mdq($bindung, $sql);
 while( $row=mysqli_fetch_row( $ask ) ){
 $verify=1;
-
+$personal_key_capture=$personal_key;
 $pass=$row[0];
 }
 
 }
 else
 {
-$sql="select fname from user where id='$accid';";
-$ask=mdq($bindung, $sql);
-while( $row=mysqli_fetch_row( $ask ) ){
-$name=$row[0];
-}
 
-
+  $sql="select fname from user where id='$accid';";
+  $ask=mdq($bindung, $sql);
+  while( $row=mysqli_fetch_row( $ask ) ){
+    $name=$row[0];
+  }
 
 $sql="select ownname from file where md5( concat( '$passwd', id ) )='$fileid';";
 $ask=mdq($bindung, $sql);
@@ -181,11 +180,14 @@ $filevonid=$row[0];
 }
 
 if( $name != "" ){
-$sql="select id, rights from chat where id=$chatid and rights LIKE '%|$name|%';";
+$sql="select enc from chat where id=$chatid and rights LIKE '%|$name|%' and (enc='NONE' or enc='$chatenc');";
 $ask=mdq($bindung, $sql);
 while( $row=mysqli_fetch_row( $ask ) ){
 $verify=1;
 $pass=$filevonid;
+if($row[0] == $chatenc){
+  $etepass=$_COOKIE[$chatid];
+}
 }
 }
 }
@@ -202,7 +204,7 @@ $os=time();
 $fileid_c=str_replace("../user_files/", $os.'_', $fileid);
 $fileid_c="../user_files/".$fileid_c;
 
-shell_exec("gpg --batch --passphrase $pass$personal_key --decrypt --output $fileid_c $fileid.gpg &");
+shell_exec("gpg --batch --passphrase $pass$personal_key_capture$etepass --decrypt --output $fileid_c $fileid.gpg &");
 shell_exec('( sleep 60 && rm -f '.$fileid_c.' ) > /dev/null 2> /dev/null &');
 
 

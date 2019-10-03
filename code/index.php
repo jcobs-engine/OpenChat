@@ -999,12 +999,15 @@ onclick=\"rmfile.value='$ic';document.save.submit();event.cancelBubble=true;\" s
 
         $echo .= "<h1>Shared with you:</h1>";
 
-        $sql = "select id, title, rights from chat where rights LIKE '%|$fname|%' ORDER by id desc;";
+        $sql = "select id, title, rights, enc from chat where rights LIKE '%|$fname|%' ORDER by id desc;";
         $ask = mdq($bindung, $sql);
         while ($row = mysqli_fetch_row($ask)) {
             $cada = $row[0];
             $cadname = $row[1];
             $schongezeigt = 0;
+
+            if($row[3] == 'NONE' or $row[3] == md5($passwd.$_COOKIE[$cada]))
+            {
 
             $sqla = "select id, ownname, title from file where rmid=$cada ORDER by id desc;";
             $aska = mdq($bindung, $sqla);
@@ -1028,7 +1031,7 @@ onclick=\"rmfile.value='$ic';document.save.submit();event.cancelBubble=true;\" s
                     $echo .=
                         "
 <div onmouseover=\"i$i.style.animation='inp 0.5s'; i$i.style.animationFillMode='forwards';\"  onmouseout=\"i$i.style.animation='pni 0.5s'; i$i.style.animationFillMode='forwards';\"  onclick=\"window.open( 'getfile.php?accid=$id&fileid=" .
-                        md5($i) .
+                        md5($passwd.$i) .
                         "&chatid=$cada' );\"  style=\"background-image:url( ../programm_files/datei.png );background-size:cover;cursor:pointer;background-repeat:no-repeat;background-position:center;word-wrap:break-word;box-shadow: 0px 0px 1px 2px #d1d1d1;float:left;margin:20px; width:160px; height:160px;padding:10px;border-radius:10px;background-color:#d1d1d1\">
 <div style='width:160px; height:160px;position:absolute; '>
 
@@ -1043,6 +1046,7 @@ onclick=\"rmfile.value='$ic';document.save.submit();event.cancelBubble=true;\" s
 
 </div></div>";
                 }
+            }
             }
         }
 

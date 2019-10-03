@@ -2,24 +2,24 @@
 
 foreach($_POST AS $post_table => $content)
 {
-$post_table=str_replace('"', '#00100010#', $post_table);
-$post_table=str_replace("'", '#00100111#', $post_table);
+    $post_table=str_replace('"', '#00100010#', $post_table);
+    $post_table=str_replace("'", '#00100111#', $post_table);
 
-$content=str_replace('"', '#00100010#', $content);
-$content=str_replace("'", '#00100111#', $content);
+    $content=str_replace('"', '#00100010#', $content);
+    $content=str_replace("'", '#00100111#', $content);
 
-$_POST["$post_table"]=$content;
+    $_POST["$post_table"]=$content;
 }
 
 foreach($_GET AS $get_table => $content)
 {
-$get_table=str_replace('"', '#00100010#', $get_table);
-$get_table=str_replace("'", '#00100111#', $get_table);
+    $get_table=str_replace('"', '#00100010#', $get_table);
+    $get_table=str_replace("'", '#00100111#', $get_table);
 
-$content=str_replace('"', '#00100010#', $content);
-$content=str_replace("'", '#00100111#', $content);
+    $content=str_replace('"', '#00100010#', $content);
+    $content=str_replace("'", '#00100111#', $content);
 
-$_GET["$get_table"]=$content;
+    $_GET["$get_table"]=$content;
 }
 
 $passwd=shell_exec('cat /usr/share/openchat-project/encryption_passwd.txt | tr -d " \t\n\r" ');
@@ -63,13 +63,10 @@ $online=1;
 $sql="select id from user where id='0';";
 $ask=mdq($bindung, $sql);
 while( $row=mysqli_fetch_row( $ask ) ){
-$online=0;
+    $online=0;
 }
 
 
-if($online == 1)
-$pfad='www.openchat.xyz/';
-else
 $pfad=shell_exec('cat /usr/share/openchat-project/path.txt | tr -d " \t\n\r" ').'/code/';
 
 
@@ -78,10 +75,12 @@ $chatid=$_POST['chatid'];
 $filetype=$_POST['tipe'];
 $personal_key=$_POST['personal_key'];
 
+$chatenc=md5($passwd.$_COOKIE[$chatid]);
 
 
-if($filetype != 1)
+if($filetype != 1){
     $dis="disabled='disabled'";
+}
 else
 {
     $personal_key_captureb=$personal_key;   
@@ -89,22 +88,25 @@ else
 $sql="select fname from user where id='$accid';";
 $ask=mdq($bindung, $sql);
 while( $row=mysqli_fetch_row( $ask ) ){
-$name=$row[0];
+    $name=$row[0];
 }
 
 
 
 if($filetype == 1){
-$verify=1;
+    $verify=1;
 }
 else{
-$sql="select id from chat where rights LIKE '%|$name|%';";
-$ask=mdq($bindung, $sql);
-while( $row=mysqli_fetch_row( $ask ) ){
-if($row[0] == $chatid){
-$verify=1;
-}
-}
+    $sql="select id, enc from chat where rights LIKE '%|$name|%' and (enc='NONE' or enc='$chatenc');";
+    $ask=mdq($bindung, $sql);
+    while( $row=mysqli_fetch_row( $ask ) ){
+        if($row[0] == $chatid){
+            if($row[1] == $chatenc){
+                $etepass=$_COOKIE[$chatid];
+            }
+            $verify=1;
+        }
+    }
 }
 
 
@@ -305,16 +307,22 @@ while( $row=mysqli_fetch_row( $ask ) ){
     }
 }
 else{
-$sql="select id from chat where rights LIKE '%|$ownname|%' and rights LIKE '%|$name|%' and id='$chat';";
-$ask=mdq($bindung, $sql);
-while( $row=mysqli_fetch_row( $ask ) ){
-$verifyb=1;
+    $rmenc=md5($passwd.$_COOKIE[$chat]);
+    $sql="select id, enc from chat where rights LIKE '%|$ownname|%' and rights LIKE '%|$name|%' and id='$chat' and (enc='NONE' or enc='$rmenc');";
+
+    $ask=mdq($bindung, $sql);
+    while( $row=mysqli_fetch_row( $ask ) ){
+    if($row[1] == $rmenc){        
+        $etepassb=$_COOKIE[$chat];    
+    }
+    $verifyb=1;
 }
 }
 }
 
-if($verifyb == 1)
+if($verifyb == 1){
 $anum_id=md5($passwd.$anum);
+}
 else{
 $pass="";
 
@@ -364,14 +372,14 @@ $filetype=$dnama;
 if($verifyb == 1){
     
 shell_exec( "cp ../user_files/".$anum_id.".* ../user_files/".$id.".".$filetype.".gpg");
-shell_exec("gpg --batch --passphrase $pass$personal_key_capture --decrypt --output ../user_files/".$id.".".$filetype." ../user_files/".$anum_id.".".$filetype.".gpg");
+shell_exec("gpg --batch --passphrase $pass$personal_key_capture$etepassb --decrypt --output ../user_files/".$id.".".$filetype." ../user_files/".$anum_id.".".$filetype.".gpg");
 shell_exec("rm -f ../user_files/$id.$filetype.gpg");
 }
 else{
 move_uploaded_file($_FILES['senda']['tmp_name'], '../user_files/'.$id.'.'.$filetype );
 }
 
-shell_exec("gpg --batch --passphrase $accid$personal_key_captureb --symmetric ../user_files/$id.$filetype;");
+shell_exec("gpg --batch --passphrase $accid$personal_key_captureb$etepass --symmetric ../user_files/$id.$filetype;");
 shell_exec("rm ../user_files/$id.$filetype;");
 
 
@@ -379,8 +387,7 @@ if($_FILES['senda']['error'] == 0 or $verifyb == 1){
 
 if($filetype != 1){
 $text=urlencode($bysend).'%23456%3Ca%20href%3D%22getfile.php%3Faccid%3D'.$accid.'%26fileid%3D'.$id.'%26chatid%3D'.$chatid.'%22%20target%3D%22_blank%22%20style%3D%22text-decoration%3Anone%3B%20font-weight%3Abold%3B%20background-color%3A%23ab6c15%3B%20color%3Awhite%3B%20border-radius%3A3px%3Bpadding%3A3px%3Bpadding-left%3A8px%3B%20padding-right%3A8px%3B%22%3EI%20have%20a%20present%20for%20you!%3C%2Fa%3E';
-
-$_buffer = implode('', file('http://'."$pfad".'insert.php?accid='.$accid.'&chatid='.$chatid.'&text='."$text" ));
+$_buffer = implode('', file('http://'."$pfad".'insert.php?accid='.$accid.'&chatid='.$chatid.'&text='."$text".'&roomkey='.$etepass ));
 }
 
 }
@@ -404,7 +411,6 @@ $_FILES['senda']['error']="Invalid character: > : <";
 }
 
 }
-
 
 
 if($_POST['ende'] != "" and ( $errorsay != 1 ))
