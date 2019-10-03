@@ -5,7 +5,7 @@
 ### Updates:
 ##### NO DATABASE-UPDATES
 
-### The Database-Dump is correct
+##### The Database-Dump is correct
 
 ## INTRODUCTION
 1. Run setup.sh to setup your database, and web-server data!
