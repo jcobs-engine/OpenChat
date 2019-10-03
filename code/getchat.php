@@ -238,7 +238,6 @@ $color="#7d85e0";
 $textcolor="#8794ff; font-weight:bold";
 }
 
-if($von != "SYSTEM" or $showsys == 1){
 
 
 if($hour != $vh){	
@@ -279,7 +278,7 @@ echo "<tr class='lines' style='display:block; opacity:0;padding-bottom:5px;paddi
 
 
 $vh=$hour;
-}
+
 }
 
 echo "</table></div>";
@@ -293,6 +292,8 @@ $sql="update user set setoff='$setoff', room='$chatid' where id='$accid';";
 $ask=mdq($bindung, $sql);
 
 }
+else
+echo "<img src='../programm_files/lock.png' style='position:relative; width:100px; left:calc(50% - 50px );padding-top:calc(11%)'>";
 
 echo "</div></form>
 </body>

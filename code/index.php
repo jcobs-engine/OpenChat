@@ -339,10 +339,14 @@ if ($accid != md5('')) {
           // if(n === 8){ fokus.focus();  setTimeout(function(){ document.save.submit(); },100); }
             
             $locki="
-            <div style='position:fixed; text-shadow:0px 0px 3px white;font-weight:bold; font-size:35px;top:0px; left:0px; width:100%; height:100%; background-color:rgba(0%, 0%, 0%, 0.9);z-index:100; text-align:center;color:#d1d1d1'>
+            <div id='weg1' style='position:fixed; text-shadow:0px 0px 3px white;font-weight:bold; font-size:35px;top:0px; left:0px; width:100%; height:100%; background-color:rgba(0%, 0%, 0%, 0.9);z-index:100; text-align:center;color:#d1d1d1'>
             </div>
-            <img src='../programm_files/lock.png' id='lockpng' style='z-index:100;height:200px;position:fixed; left:calc(50% - 100px);top:calc(50% - 100px)'>
-            <input type='text' id='gibkey' maxlength='7' onkeypress=\"let n=this.value.length + 1; if(n === 4){ this.value=this.value+' '; } if(n === 8){ fokus.focus();  setTimeout(function(){ document.save.submit(); },100); } \" style='border:0px; border-bottom:2px solid black;position:fixed;z-index:100;font-size:32px; width:120px; background-color:transparent;text-align:left;font-weight:bold;left:calc(50% - 61px); top:calc(50% + 15px);' name='newcookie$dcid' autofocus autocomplete='off'>
+            <img id='weg2' src='../programm_files/lock.png' id='lockpng' style='z-index:100;height:200px;position:fixed; left:calc(50% - 100px);top:calc(50% - 100px)'>
+            <input type='submit' id='weg5' style='left:calc(50% - ((100% - 700px) / 2 ));z-index:100;position:absolute; bottom:50px;width:calc(100% - 700px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:#eb2121;color:$black; font-size:25px;' value='Leave Chat' name='setupsend$dcid'>
+            <img id='weg3' src='../programm_files/delete_white.png' style='z-index:100;width:30px; position:fixed; top:20px; right:20px;cursor:pointer;' onclick=\"weg1.style.display='none';weg2.style.display='none';weg3.style.display='none';weg4.style.display='none';weg5.style.display='none';\">
+            <input type='hidden' name='deleteamember' id='deleteamember' value='$fname'>
+
+            <input id='weg4' type='text' maxlength='7' onkeypress=\"let n=this.value.length + 1; if(n === 4){ this.value=this.value+' '; } if(n === 8){ fokus.focus();  setTimeout(function(){ document.save.submit(); },100); } \" style='border:0px; border-bottom:2px solid black;position:fixed;z-index:100;font-size:32px; width:120px; background-color:transparent;text-align:left;font-weight:bold;left:calc(50% - 61px); top:calc(50% + 15px);color:black;' name='newcookie$dcid' autofocus autocomplete='off'>
             ";
         }
     }
@@ -1345,7 +1349,7 @@ $echo
 <div style='display:$messagedot;background-color:red;box-shadow:0px 0px 3px red;float:right;font-size:20px; width:15px; margin-top:9px;height:15px;border-radius:50%;'></div>
 
 </td></tr>
-<tr><td onclick=\"site.value='2'; document.save.submit();\" style='cursor:pointer;width: 200px; height:30px;box-shadow:0px 0px 2px 2px $white, inset 0px 0px 2px 2px $white;padding:15px;padding-left:30px;font-size:25px; font-weight:bold;color:$files'>Chatrooms
+<tr><td onclick=\"site.value='2'; document.save.submit();\" id='chatrooms' style='cursor:pointer;width: 200px; height:30px;box-shadow:0px 0px 2px 2px $white, inset 0px 0px 2px 2px $white;padding:15px;padding-left:30px;font-size:25px; font-weight:bold;color:$files'>Chatrooms
 
 <div style='display:$chatdot;background-color:red;box-shadow:0px 0px 3px red;float:right;font-size:20px; width:15px; margin-top:9px;height:15px;border-radius:50%;'></div>
 
@@ -1356,9 +1360,9 @@ $echo
 <div id='onlana'></div>
 </td></tr>
 
-<tr><td onclick=\"site.value='7'; document.save.submit();\" style='cursor:pointer;width: 200px; height:30px;box-shadow:0px 0px 2px 2px $white, inset 0px 0px 2px 2px $white;padding:15px;padding-left:30px;font-size:25px; background-color:#500006;font-weight:bold;color:$keys'>Keys</td></tr>
+<tr><td onclick=\"site.value='7'; document.save.submit();\" style='cursor:pointer;width: 200px; height:30px;box-shadow:0px 0px 2px 2px $white, inset 0px 0px 2px 2px $white;padding:15px;padding-left:30px;font-size:25px; background-color:#93000b;font-weight:bold;color:$keys'>Keys</td></tr>
 
-<tr><td onclick=\"site.value='3'; document.save.submit();\" style='cursor:pointer;background-color:#93000b;width: 200px; height:30px;box-shadow:0px 0px 2px 2px $white, inset 0px 0px 2px 2px $white;padding:15px;padding-left:30px;font-size:25px; font-weight:bold;color:$preference'>Preferences</td></tr>
+<tr><td onclick=\"site.value='3'; document.save.submit();\" style='cursor:pointer;background-color:#bb000e;width: 200px; height:30px;box-shadow:0px 0px 2px 2px $white, inset 0px 0px 2px 2px $white;padding:15px;padding-left:30px;font-size:25px; font-weight:bold;color:$preference'>Preferences</td></tr>
 </table>
 ";
 }
@@ -1613,14 +1617,7 @@ inputmesa.style.animationFillMode='forwards';
 </script>
 
 <style type='text/css'>
-#gibkey {
-    color: transparent;
-    text-shadow: 0 0 0 black;
 
-    &:focus {
-        outline:none;
-    }
-}
 
 @keyframes enable{
 0%{
