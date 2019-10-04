@@ -1371,9 +1371,9 @@ if ($accid == md5("") or $break == 1) {
   //  <li><b style='color:#d42626'>TITLE</b><br>DESCRIPTION</li><p>
   //  <li><b>TITLE</b><br>DESCRIPTION</li><p>
 
-    $release_list = "<b style='color:#d42626;'>THIS IS A 2-WEEK TRIAL PERIOD WITH MANY RE-UPDATES! THERE MAY BE BUGS!</b>";
+    $release_list = "<b style='color:#d42626;'>THIS IS A 2-WEEK TRIAL PERIOD<br>WITH MANY RE-UPDATES!<p>THERE MAY BE BUGS!</b>";
 
-    $content = "<div style='position:relative; margin-left:auto; margin-right:auto; margin-top:100px; width:500px; font-size:50px;text-align:center;text-shadow: 0px 0px 10px black;cursor:default'>
+    $content = "<div style='position:relative; margin-left:auto; margin-right:auto; margin-top:50px; width:500px; font-size:50px;text-align:center;text-shadow: 0px 0px 10px black;cursor:default'>
 
 <div id='release' style='text-align:left;background-color:#070707;overflow-y:scroll;padding:5px;padding-left:0px;padding-top:100px;width:330px; height:80%; top:3px; left:3px; position:fixed;font-size:15px;border:2px solid white; border-radius:8px;opacity:0;'>
 
@@ -1406,14 +1406,13 @@ style='background-color:#070707;position:fixed; cursor:help;font-size:22px; top:
 <input type='submit' name='newid' value='New Account' onclick=\"accid.value='';\" style='position:fixed; bottom:0px; right:0px; font-size:25px; border:0px;font-weight:bold; border-radius:10px 0px 0px 0px;cursor:pointer; background-color:$white; color:$black; padding:5px;padding-left:20px;padding-top:10px;padding-right:10px'>
 
 <p>
-<input type='$type' onkeypress=\"let n=this.value.length + 1; if(n === 9){ this.style.backgroundColor='#57ff5f';sendid.focus(); }\" maxlength='9' name='accid' id='accid' placeholder='Account-iD' style='width:400px; border:0px; font-size:25px; padding:10px;padding-left:30px; border-radius:5px;font-weight:bold;box-shadow:0px 0px 3px 3px #1d1d1d, 0px 0px 10px 4px black;' value='$newids' autocomplete='off'><input type='button' id='sendid' autofocus style='color:$black;width:100px; text-align:center; border:0px; background-color:$white; font-size:25px;padding:5px;border-radius:5px;cursor:pointer;box-shadow:0px 0px 0px 5px $white, 0px 0px 3px 8px #1d1d1d, 0px 0px 10px 9px black' value='send' onclick=\"accid.type='password'; setTimeout(function(){ document.save.submit(); }, 500);\" ><div style='position:relative; height:0px'></div>
+<input type='$type' onkeypress=\"let n=this.value.length + 1; if(n === 9){ this.style.backgroundColor='#57ff5f';sendid.focus(); }\" maxlength='9' name='accid' id='accid' placeholder='Account-iD' style='margin-top:50px;width:400px; border:0px; font-size:25px; padding:10px;padding-left:30px; border-radius:5px;font-weight:bold;box-shadow:0px 0px 3px 3px #1d1d1d, 0px 0px 10px 4px black;' value='$newids' autocomplete='off'><input type='button' id='sendid' autofocus style='color:$black;width:100px; text-align:center; border:0px; background-color:$white; font-size:25px;padding:5px;border-radius:5px;cursor:pointer;box-shadow:0px 0px 0px 5px $white, 0px 0px 3px 8px #1d1d1d, 0px 0px 10px 9px black' value='send' onclick=\"accid.type='password'; setTimeout(function(){ document.save.submit(); }, 500);\" ><div style='position:relative; height:0px'></div>
 
 
-<iframe width='560' height='315' style='position:relative;left:calc(50% - 280px); border-radius:5px;box-shadow:0px 0px 2px 3px white;' src='https://www.youtube-nocookie.com/embed/vIrZb3VA7Qg?controls=0' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>
 <a style='background-color:#070707;position:fixed; bottom:3px; left:3px;font-size:18px;padding:5px; border:2px solid white;border-radius:10px; text-decoration:none;color:white;cursor:pointer;' onclick=\"kontakt.style.display='block';\">Contact</a>
 <a style='background-color:#070707;position:fixed; bottom:3px; left:100px;font-size:18px;padding:5px; border:2px solid white;border-radius:10px; text-decoration:none;color:white;cursor:pointer' href='impressum.pdf' download>Impressum</a>
 
-<div style='color:black;background-color:rgba(100%, 100%, 100%, 0.8);padding:20px; position:fixed; bottom:50px; left:3px; font-size:20px;text-align:left;text-shadow:0px 0px 0px black;border-radius:10px;display:none;' id='kontakt' onmouseout=\"this.style.display='none'\"><b>Contact</b><hr>Jcobs Engine AG<br>Zempiner Weg 2<br>25336 Klein Nordende</div>
+<div style='color:black;background-color:rgba(100%, 100%, 100%, 0.8);padding:20px; position:fixed; bottom:50px; left:3px; font-size:20px;text-align:left;text-shadow:0px 0px 0px black;border-radius:10px;display:none;' id='kontakt' onmouseout=\"this.style.display='none'\"><b>Contact</b><hr>J'cobs Engine & Community<br>Zempiner Weg 2<br>25336 Klein Nordende</div>
 ";
 }
 
