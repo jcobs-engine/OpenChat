@@ -1899,7 +1899,7 @@ $locki
 <input type='hidden' name='personal_key' value='$personal_key'>
 </form>
 
-<form name='infos' action='infos.html' method='POST' >
+<form name='infos' action='infos.php' method='POST' >
 </form>
 
 
