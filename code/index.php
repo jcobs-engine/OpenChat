@@ -1373,46 +1373,33 @@ if ($accid == md5("") or $break == 1) {
 
     $release_list = "<b style='color:#d42626;'>THIS IS A 2-WEEK TRIAL PERIOD<br>WITH MANY RE-UPDATES!<p>THERE MAY BE BUGS!</b>";
 
-    $content = "<div style='position:relative; margin-left:auto; margin-right:auto; margin-top:50px; width:500px; font-size:50px;text-align:center;text-shadow: 0px 0px 10px black;cursor:default'>
+    $content = "
+    
+    <img src='../programm_files/arrow.svg' style='width:35px; position:absolute; top:calc(100% - 65px); padding:10px; background-color:rgba(100%, 100%, 100%, 0.1);border-radius:40px;left:calc(50% - 32px); z-index:1000;cursor:pointer;' onclick=\"this.style.animation='down 2s'; this.style.animationFillMode='forwards'; setTimeout(function(){ document.infos.submit(); }, 2000)\">
+    
+    <div style='position:relative; margin-left:auto; margin-right:auto; margin-top:50px; width:500px; font-size:50px;text-align:center;text-shadow: 0px 0px 10px black;cursor:default'>
 
-<div id='release' style='text-align:left;background-color:#070707;overflow-y:scroll;padding:5px;padding-left:0px;padding-top:100px;width:330px; height:80%; top:3px; left:3px; position:fixed;font-size:15px;border:2px solid white; border-radius:8px;opacity:0;'>
-
-<ul style='margin-bottom:50px;'>
-
-$release_list
-
-</ul>
-
-<img src='../programm_files/jcobs-engine_white.png' style='position:relative; margin-bottom:50px;width:200px; left:50px'>
+    <img src='../programm_files/openserv.png' style='height:70px;background-color:$white; padding:30px; border-radius:10px'>
 
 
-</div>
-
-
-
-<div style='background-color:#070707;width:300px;position:fixed; font-size:22px; top:5px; left:15px; height:80px;box-shadow:0px 10px 10px 05px #070707;'></div>
 
 <div id='v'
-
-onclick=\"
-this.style.animation='startm 0.7s'; this.style.animationFillMode='forwards'; release.style.animation='getin 1.5s';  release.style.animationFillMode='forwards'
-\"
-
-style='background-color:#070707;position:fixed; cursor:help;font-size:22px; top:10px; left:15px;'>Version:
+style='position:fixed; cursor:default;font-size:22px; top:10px; left:15px;'>Version:
 <b>v<span style='color:white'>0.0.0</span></b></div>
 
-<img src='../programm_files/openserv.png' style='height:80px;background-color:$white; padding:30px; border-radius:10px'>
 
-<input type='submit' name='newid' value='New Account' onclick=\"accid.value='';\" style='position:fixed; bottom:0px; right:0px; font-size:25px; border:0px;font-weight:bold; border-radius:10px 0px 0px 0px;cursor:pointer; background-color:$white; color:$black; padding:5px;padding-left:20px;padding-top:10px;padding-right:10px'>
+<input type='submit' style='position:absolute;opacity:0;'>
 
-<p>
-<input type='$type' onkeypress=\"let n=this.value.length + 1; if(n === 9){ this.style.backgroundColor='#57ff5f';sendid.focus(); }\" maxlength='9' name='accid' id='accid' placeholder='Account-iD' style='margin-top:50px;width:400px; border:0px; font-size:25px; padding:10px;padding-left:30px; border-radius:5px;font-weight:bold;box-shadow:0px 0px 3px 3px #1d1d1d, 0px 0px 10px 4px black;' value='$newids' autocomplete='off'><input type='button' id='sendid' autofocus style='color:$black;width:100px; text-align:center; border:0px; background-color:$white; font-size:25px;padding:5px;border-radius:5px;cursor:pointer;box-shadow:0px 0px 0px 5px $white, 0px 0px 3px 8px #1d1d1d, 0px 0px 10px 9px black' value='send' onclick=\"accid.type='password'; setTimeout(function(){ document.save.submit(); }, 500);\" ><div style='position:relative; height:0px'></div>
+<input type='$type' onkeypress=\"let n=this.value.length + 1; if(n === 9){ this.style.backgroundColor='#57ff5f';sendid.focus(); }\" maxlength='9' name='accid' id='accid' placeholder='Account-iD' style='margin-top:120px;width:400px; border:0px; font-size:25px; padding:10px;padding-left:30px; border-radius:5px;font-weight:bold;box-shadow:0px 0px 3px 3px #1d1d1d, 0px 0px 10px 4px black;' value='$newids' autocomplete='off'><input type='button' id='sendid' autofocus style='color:$black;width:100px; text-align:center; border:0px; background-color:$white; font-size:25px;padding:5px;border-radius:5px;cursor:pointer;box-shadow:0px 0px 0px 5px $white, 0px 0px 3px 8px #1d1d1d, 0px 0px 10px 9px black' value='send' onclick=\"accid.type='password'; setTimeout(function(){ document.save.submit(); }, 500);\" ><div style='position:relative; height:0px'></div>
 
 
 <a style='background-color:#070707;position:fixed; bottom:3px; left:3px;font-size:18px;padding:5px; border:2px solid white;border-radius:10px; text-decoration:none;color:white;cursor:pointer;' onclick=\"kontakt.style.display='block';\">Contact</a>
-<a style='background-color:#070707;position:fixed; bottom:3px; left:100px;font-size:18px;padding:5px; border:2px solid white;border-radius:10px; text-decoration:none;color:white;cursor:pointer' href='impressum.pdf' download>Impressum</a>
+<a style='background-color:#070707;position:fixed; bottom:3px; left:100px;font-size:18px;padding:5px; border:2px solid white;border-radius:10px; text-decoration:none;color:white;cursor:pointer' href='../programm_files/impressum.pdf' download>Impressum</a>
 
-<div style='color:black;background-color:rgba(100%, 100%, 100%, 0.8);padding:20px; position:fixed; bottom:50px; left:3px; font-size:20px;text-align:left;text-shadow:0px 0px 0px black;border-radius:10px;display:none;' id='kontakt' onmouseout=\"this.style.display='none'\"><b>Contact</b><hr>J'cobs Engine & Community<br>Zempiner Weg 2<br>25336 Klein Nordende</div>
+<div style='color:black;background-color:rgba(100%, 100%, 100%, 0.8);padding:20px; position:fixed; bottom:50px; left:3px; font-size:20px;text-align:left;text-shadow:0px 0px 0px black;border-radius:10px;display:none;' id='kontakt' onmouseout=\"this.style.display='none'\"><b>Contact</b><hr>J'cobs Engine<br>Zempiner Weg 2<br>25336 Klein Nordende</div>
+
+<input type='submit' name='newid' value='New Account' onclick=\"accid.value='';\" style='position:fixed; bottom:0px; right:0px; font-size:25px; border:0px;font-weight:bold; border-radius:10px 0px 0px 0px;cursor:pointer; background-color:$white; color:$black; padding:5px;padding-left:20px;padding-top:10px;padding-right:10px'>
+
 ";
 }
 
@@ -1616,6 +1603,21 @@ inputmesa.style.animationFillMode='forwards';
 </script>
 
 <style type='text/css'>
+@keyframes down{
+0%{
+    box-shadow:0px 0px 0px white, 0px 0px 0px black;
+    opacity:1;
+}
+50%{
+    box-shadow: 0px 0px 30px 20px white, 0px 0px 50px 1000px rgb(10%, 10%, 10%);
+    opacity:1;
+}
+100%{
+    box-shadow: 0px 0px 100px 1000px #070707, 0px 0px 50px 1000px rgb(10%, 10%, 10%);
+    
+    opacity:1;
+}
+}
 
 
 @keyframes enable{
@@ -1896,6 +1898,10 @@ $locki
 <input type='hidden' name='tipe' value='1'>
 <input type='hidden' name='personal_key' value='$personal_key'>
 </form>
+
+<form name='infos' action='infos.html' method='POST' >
+</form>
+
 
 </body>
 </html>
