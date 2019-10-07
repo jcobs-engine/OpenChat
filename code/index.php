@@ -951,7 +951,9 @@ font-weight:bold; text-align:center; background-color:$white;color:$black; font-
                     $ookay = 1;
 
                     $echo .= "
-<div class='$jetztpre all' onmouseover=\"a$i.style.animation='inp 0.5s'; a$i.style.animationFillMode='forwards';\"  onmouseout=\"a$i.style.animation='pni 0.5s'; a$i.style.animationFillMode='forwards';\" onclick=\"window.open( 'getfile.php?accid=$id&fileid=$openid&chatid=0&personal_key=$personal_key' );\" style=\"display:block;background-image:url( ../programm_files/datei.png );background-size:cover;background-repeat:no-repeat;background-position:center;word-wrap:break-word;box-shadow: 0px 0px 1px 2px #d1d1d1;float:left;margin:20px; width:160px; height:160px;padding:10px;border-radius:10px;background-color:#d1d1d1;cursor:pointer\">
+<div id='menu$i' style='display:none;position:absolute;z-index:10000000000000000000;top:100px;left:100px; width:500px; height:300px; background-color:green'></div>
+
+                    <div oncontextmenu=\"menu$i.style.display='block';\" class='$jetztpre all' onmouseover=\"a$i.style.animation='inp 0.5s'; a$i.style.animationFillMode='forwards';\"  onmouseout=\"a$i.style.animation='pni 0.5s'; a$i.style.animationFillMode='forwards';\" onclick=\"window.open( 'getfile.php?accid=$id&fileid=$openid&chatid=0&personal_key=$personal_key' );\" style=\"display:block;background-image:url( ../programm_files/datei.png );background-size:cover;background-repeat:no-repeat;background-position:center;word-wrap:break-word;box-shadow: 0px 0px 1px 2px #d1d1d1;float:left;margin:20px; width:160px; height:160px;padding:10px;border-radius:10px;background-color:#d1d1d1;cursor:pointer\">
 <div style='width:160px; height:160px;position:absolute; '>
 
 <div
