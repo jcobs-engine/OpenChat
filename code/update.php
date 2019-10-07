@@ -66,6 +66,10 @@ echo '# '.$id.'<br>';
 $sql="delete from file where aktu<'$time' and type=0;";
 $ask=mdq($bindung, $sql);
 
+$sql="delete from user where fname='anonymous';";
+$ask=mdq($bindung, $sql);
+
+
 echo '</fieldset>';
 
 }

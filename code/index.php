@@ -84,18 +84,7 @@ function mdq($bindung, $query)
     return mysqli_query($bindung, $query);
 }
 
-$online = 1;
-$sql = "select id from user where id='0';";
-$ask = mdq($bindung, $sql);
-while ($row = mysqli_fetch_row($ask)) {
-    $online = 0;
-}
-
-if ($online == 1) {
-    $pfad = 'www.openchat.xyz/';
-} else {
     $pfad = shell_exec('cat /usr/share/openchat-project/path.txt | tr -d " \t\n\r" ').'/code/';
-}
 
 $type = 'password';
 
