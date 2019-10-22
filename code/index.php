@@ -909,7 +909,28 @@ font-weight:bold; text-align:center; background-color:$white;color:$black; font-
 <div>
 <h1>Your files:</h1>";
 
-        $praefix = array();
+
+
+$sqla = "select id, ownname, title from file where rmid='$id' ORDER by title;";
+$aska = mdq($bindung, $sqla);
+while ($rowa = mysqli_fetch_row($aska)) {
+    $ic=$rowa[0];
+    if (isset($_POST['ch_send_'.$ic])){
+        $jetztpre=$_POST['ch_filedir_'.$ic];
+        $filetitle=$_POST['ch_filename_'.$ic];
+
+        if ($jetztpre == ''){
+            $jetztpre="ALL";
+        }
+
+        $sqlb = "update file set title='$jetztpre:$filetitle' where id='$ic';";
+        $askb = mdq($bindung, $sqlb);
+                    
+    }
+}
+
+
+$praefix = array();
 
         $sqla = "select id, ownname, title from file where rmid='$id' ORDER by title;";
         $aska = mdq($bindung, $sqla);
@@ -925,6 +946,8 @@ font-weight:bold; text-align:center; background-color:$white;color:$black; font-
             $filetitle = $rowa[2];
 
             $jetztpre = "";
+
+
 
             if ($fileid != "") {
                 if ($_POST['rmfile'] == $i) {
@@ -950,10 +973,20 @@ font-weight:bold; text-align:center; background-color:$white;color:$black; font-
 
                     $ookay = 1;
 
-                    $echo .= "
-<div id='menu$i' style='display:none;position:absolute;z-index:10000000000000000000;top:100px;left:100px; width:500px; height:300px; background-color:green'></div>
 
-                    <div oncontextmenu=\"menu$i.style.display='block';\" class='$jetztpre all' onmouseover=\"a$i.style.animation='inp 0.5s'; a$i.style.animationFillMode='forwards';\"  onmouseout=\"a$i.style.animation='pni 0.5s'; a$i.style.animationFillMode='forwards';\" onclick=\"window.open( 'getfile.php?accid=$id&fileid=$openid&chatid=0&personal_key=$personal_key' );\" style=\"display:block;background-image:url( ../programm_files/datei.png );background-size:cover;background-repeat:no-repeat;background-position:center;word-wrap:break-word;box-shadow: 0px 0px 1px 2px #d1d1d1;float:left;margin:20px; width:160px; height:160px;padding:10px;border-radius:10px;background-color:#d1d1d1;cursor:pointer\">
+                    $echo .= "
+
+<div id='menu$ic' style='display:none'>
+<div onclick=\"menu$ic.style.display='none';\" oncontextmenu=\"menu$ic.style.display='none';return false;\" style='position:fixed; top:0px; left:0px; width:100%; height:100%; background-color:rgba(0%, 0%, 0%, 0.8);z-index:10000000; text-align:center;color:white'>
+</div>
+<div style='box-shadow:0px 0px 10px black;border-radius:5px;position:fixed;z-index:10000000000000000000;top:calc(50% - 120px);left:calc(50% - 200px); width:500px; height:250px; background-color:rgba(100%, 100%, 100%, 0.7)'>
+<input type='text' style='border-radius:5px 5px 0px 0px;font-family:sans-serif;position:absolute; width:100%;border:0px; padding:05px;  text-align:center; background-color:$white;color:$black; font-size:25px;' placeholder='Title' pattern='[A-Za-z0-9\säÄöÖüÜ#]{1,20}' maxlength='20' name='ch_filename_$ic' autocomplete='off' required='required' value='$filetitle' >
+<input type='text' style='font-family:sans-serif;position:absolute; width:100%;border:0px; padding:05px;  padding-left:30px;text-align:left; background-color:$white;color:$black; font-size:25px;top:60px; font-style:italic;' placeholder='Directory' pattern='[A-Za-z0-9\säÄöÖüÜ#]{1,10}' maxlength='10' name='ch_filedir_$ic' autocomplete='off' value='$jetztpre'>
+<input type='submit' name='ch_send_$ic' style='position:absolute; border-radius:0px 0px 5px 5px;left:0px;bottom:0px;width:calc(100%);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:grey;color:$black; font-size:25px; font-weight:bold;' value='Send'>
+</div>
+</div>
+
+                    <div oncontextmenu=\" menu$ic.style.display='block';return false;\" class='$jetztpre all' onmouseover=\"a$i.style.animation='inp 0.5s'; a$i.style.animationFillMode='forwards';\"  onmouseout=\"a$i.style.animation='pni 0.5s'; a$i.style.animationFillMode='forwards';\" onclick=\"window.open( 'getfile.php?accid=$id&fileid=$openid&chatid=0&personal_key=$personal_key' );\" style=\"display:block;background-image:url( ../programm_files/datei.png );background-size:cover;background-repeat:no-repeat;background-position:center;word-wrap:break-word;box-shadow: 0px 0px 1px 2px #d1d1d1;float:left;margin:20px; width:160px; height:160px;padding:10px;border-radius:10px;background-color:#d1d1d1;cursor:pointer\">
 <div style='width:160px; height:160px;position:absolute; '>
 
 <div
@@ -1408,8 +1441,8 @@ echo "
 <head>
 <title>OpenChat | Messenger</title>
 <meta name='description' content='A free and secure instant messenger.'>
-<meta name='keywords' content='OpenChat, Chat, secure, free, messenger,
-sicher, Nachrichten, chatten, freunde'>
+<meta name='keywords' content='OpenChat, Chat, secure, free, messenger, sicher, Nachrichten, chatten, freunde'>
+<link href='../programm_files/oc_symbol.png' rel='shortcut icon'>
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
 
 

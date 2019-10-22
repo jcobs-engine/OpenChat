@@ -44,7 +44,7 @@ document.getElementById("dataname").value = cw;
 </script>';
 $return.="
 </head>
-<body style='font-size:25px; cursor:pointer;' onload='setTimeout(function(){ filus.click(); }, 1000 ); closa.click();'>
+<body style='font-size:25px; cursor:pointer;overflow-y:hidden' onload='setTimeout(function(){ filus.click(); }, 1000 ); closa.click();'>
 <form method='POST' name='save' enctype='multipart/form-data'>";
 
 $host = "localhost";
@@ -417,9 +417,9 @@ if($_POST['ende'] != "" and ( $errorsay != 1 ))
 {
 $return.="<a id='closa' href='javascript:window.close();'></a>";
 }
-else
+else{
 $return.="<input type='button' style='display:none' id='closa'>";
-
+}
 $return.="
 <input type='hidden' name='dataname' value='' id='dataname'>
 <input type='hidden' name='accid' value='$accid'>

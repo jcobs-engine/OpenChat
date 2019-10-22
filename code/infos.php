@@ -1,16 +1,20 @@
 <?php
 //CHANGELOG
 $changelog=array(
+    "1.0.0::OpenChat has now an icon.",
+    "1.0.0::Files can now be renamed and moved.",
     "1.0.0::There is now a button to leave the chatroom.",
     "1.0.0::System-Messages are now also displayed in live mode.",
     "1.0.0::You can now change your Account-iD.",
     "1.0.0::Now the end-to-end encryption can be activated.",
+    "1.0.0::<i>Many Security-Updates</i>",
 
 );
 
 $yt=array(
     "vIrZb3VA7Qg",
  );
+
 
 echo "
 <html>
@@ -42,7 +46,7 @@ background-color:rgb(10%, 10%, 10%);
 
 <body style='background-color:rgb(10%, 10%, 10%); animation:blendin 3s;'>
 
-<img src='../programm_files/arrow.svg' style='animation:goup 2s; animation-delay:1s;animation-fill-mode:forwards;opacity:0;top:calc(100% - 65px);background-color:rgba(100%, 100%, 100%, 0.1);transform:rotate(0deg);left:calc(50% - 32px); width:35px; position:absolute;  padding:10px; border-radius:40px;z-index:1000;cursor:pointer;' onclick=\"document.infos.submit();\">
+<img src='../programm_files/arrow.svg' style='animation:goup 2s; animation-delay:1s;animation-fill-mode:forwards;opacity:0;top:calc(100% - 65px);background-color:rgba(100%, 100%, 100%, 0.1);transform:rotate(0deg);left:calc(50% - 32px); width:35px; position:fixed;  padding:10px; border-radius:40px;z-index:1000;cursor:pointer;' onclick=\"document.infos.submit();\">
 
 
 
