@@ -923,6 +923,9 @@ while ($rowa = mysqli_fetch_row($aska)) {
             $jetztpre="ALL";
         }
 
+	$jetztpre=str_replace(':', '', $jetztpre);
+	$filetitle=str_replace(':', '', $filetitle);
+
         $sqlb = "update file set title='$jetztpre:$filetitle' where id='$ic';";
         $askb = mdq($bindung, $sqlb);
                     
@@ -980,8 +983,8 @@ $praefix = array();
 <div onclick=\"menu$ic.style.display='none';\" oncontextmenu=\"menu$ic.style.display='none';return false;\" style='position:fixed; top:0px; left:0px; width:100%; height:100%; background-color:rgba(0%, 0%, 0%, 0.8);z-index:10000000; text-align:center;color:white'>
 </div>
 <div style='box-shadow:0px 0px 10px black;border-radius:5px;position:fixed;z-index:10000000000000000000;top:calc(50% - 120px);left:calc(50% - 200px); width:500px; height:250px; background-color:rgba(100%, 100%, 100%, 0.7)'>
-<input type='text' style='border-radius:5px 5px 0px 0px;font-family:sans-serif;position:absolute; width:100%;border:0px; padding:05px;  text-align:center; background-color:$white;color:$black; font-size:25px;' placeholder='Title' pattern='[A-Za-z0-9\säÄöÖüÜ#]{1,20}' maxlength='20' name='ch_filename_$ic' autocomplete='off' required='required' value='$filetitle' >
-<input type='text' style='font-family:sans-serif;position:absolute; width:100%;border:0px; padding:05px;  padding-left:30px;text-align:left; background-color:$white;color:$black; font-size:25px;top:60px; font-style:italic;' placeholder='Directory' pattern='[A-Za-z0-9\säÄöÖüÜ#]{1,10}' maxlength='10' name='ch_filedir_$ic' autocomplete='off' value='$jetztpre'>
+<input type='text' style='border-radius:5px 5px 0px 0px;font-family:sans-serif;position:absolute; width:100%;border:0px; padding:05px;  text-align:center; background-color:$white;color:$black; font-size:25px;' placeholder='Title' maxlength='20' name='ch_filename_$ic' autocomplete='off' required='required' value='$filetitle' >
+<input type='text' style='font-family:sans-serif;position:absolute; width:100%;border:0px; padding:05px;  padding-left:30px;text-align:left; background-color:$white;color:$black; font-size:25px;top:60px; font-style:italic;' list='blabla' placeholder='Directory' maxlength='10' name='ch_filedir_$ic' autocomplete='off' value='$jetztpre'>
 <input type='submit' name='ch_send_$ic' style='position:absolute; border-radius:0px 0px 5px 5px;left:0px;bottom:0px;width:calc(100%);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:grey;color:$black; font-size:25px; font-weight:bold;' value='Send'>
 </div>
 </div>
@@ -1003,6 +1006,23 @@ onclick=\"rmfile.value='$ic';document.save.submit();event.cancelBubble=true;\" s
             }
         }
 
+	if($anypre == 1){
+
+	$echo.="<datalist id='blabla'>";
+
+	foreach($praefix AS $pr){
+
+	if($pr != $vorpr and $pr != 'ALL')
+	     $echo.="<option value='$pr'>";
+
+	$vorpr=$pr;
+	}
+
+    $echo.="</datalist>";
+    }
+
+	$vorpr="";
+
         if ($anypre == 1) {
             $echo .= "<select id='selectfeld' onchange=\"setnone( 'all' ); setblock( this.value );\" style='position:absolute; top:140px;right:60px;width:250px;cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:left; background-color:$white;color:$black; font-size:25px;'>";
             $echo .= "<option>ALL</option>";
@@ -1017,6 +1037,7 @@ onclick=\"rmfile.value='$ic';document.save.submit();event.cancelBubble=true;\" s
 
             $echo .= "</select>";
         }
+    
 
         if ($ookay == 1) {
             $echo .= "<div style='clear:left;'></div>";
