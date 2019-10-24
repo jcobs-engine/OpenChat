@@ -1430,7 +1430,7 @@ if ($accid == md5("") or $break == 1) {
 
 <div id='v'
 style='position:fixed; cursor:default;font-size:22px; top:10px; left:15px;'>Version:
-<b>v<span style='color:white'>0.0.0</span></b></div>
+<b>v<span style='color:white'>1.0.0</span></b></div>
 
 
 <input type='submit' style='position:absolute;opacity:0;'>
