@@ -34,6 +34,7 @@ echo ""
 echo -e "\033[1;34m6.\033[0m Please enter this (possibly ip) Adress:"
 read adress
 echo $adress > /usr/share/openchat-project/path.txt
+echo ""
 echo -e "\033[1;34m6.\033[0m Please enter the username of the service Apache [wwwrun]"
 read apachestring
 if test "$apachestring" == ""; then apache="wwwrun"; else apache=$apachestring; fi
