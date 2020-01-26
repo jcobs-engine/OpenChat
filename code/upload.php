@@ -24,12 +24,61 @@ foreach($_GET AS $get_table => $content)
 
 $passwd=shell_exec('cat /usr/share/openchat-project/encryption_passwd.txt | tr -d " \t\n\r" ');
 
+$host = "localhost";
+$benutzer = shell_exec('cat /usr/share/openchat-project/mysql_username.txt | tr -d " \t\n\r" ');
+$passwort = shell_exec('cat /usr/share/openchat-project/mysql_password.txt | tr -d " \t\n\r" ');
+$bindung=mysqli_connect($host, $benutzer, $passwort ) or die ("Verbindungsaufbau zur Daten-Zentrale nicht m&ouml;glich!");
+$db=shell_exec('cat /usr/share/openchat-project/mysql_database.txt | tr -d " \t\n\r" ');
+
+function mdq( $bindung, $query )
+{
+  mysqli_select_db( $bindung, shell_exec('cat /usr/share/openchat-project/mysql_database.txt | tr -d " \t\n\r" ') );
+  return( mysqli_query( $bindung, $query ) );
+}
+
+
+function dekrypti($string, $key)
+{
+    $cipher = 'AES-128-CBC';
+    $key = pack('H*', md5($key));
+    $iv_ascii = substr($string, 0, 24);
+    $iv = base64_decode($iv_ascii);
+    $string = substr($string, 24);
+    $dekrypt = openssl_decrypt(
+        base64_decode($string),
+        $cipher,
+        $key,
+        OPENSSL_RAW_DATA,
+        $iv
+    );
+    return $dekrypt;
+}
+
+
+$sql="select id from file ORDER by id desc limit 1;";
+$ask=mdq($bindung, $sql);
+while( $row=mysqli_fetch_row( $ask ) ){
+$nextid=$row[0]+1;
+}
+
+
 $return.="
 <html>
 <head>
 <title>OpenChat | Upload</title>";
 
-$return.='<script>
+$return.="
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
+<script>
+
+setInterval(function(){
+$('#progress').load('getprogress.php?id=".$nextid."');
+}, 1000);
+
+</script>";
+
+$return.='
+<script>
 function gibihm(){
 var text = document.getElementById("filus").value;
 var text = text.split( String.fromCharCode(92) );
@@ -47,18 +96,6 @@ $return.="
 <body style='font-size:25px; cursor:pointer;overflow-y:hidden' onload='setTimeout(function(){ filus.click(); }, 1000 ); closa.click();'>
 <form method='POST' name='save' enctype='multipart/form-data'>";
 
-$host = "localhost";
-$benutzer = shell_exec('cat /usr/share/openchat-project/mysql_username.txt | tr -d " \t\n\r" ');
-$passwort = shell_exec('cat /usr/share/openchat-project/mysql_password.txt | tr -d " \t\n\r" ');
-$bindung=mysqli_connect($host, $benutzer, $passwort ) or die ("Verbindungsaufbau zur Daten-Zentrale nicht m&ouml;glich!");
-$db=shell_exec('cat /usr/share/openchat-project/mysql_database.txt | tr -d " \t\n\r" ');
-
-function mdq( $bindung, $query )
-{
-  mysqli_select_db( $bindung, shell_exec('cat /usr/share/openchat-project/mysql_database.txt | tr -d " \t\n\r" ') );
-  return( mysqli_query( $bindung, $query ) );
-}
-
 $online=1;
 $sql="select id from user where id='0';";
 $ask=mdq($bindung, $sql);
@@ -75,7 +112,7 @@ $chatid=$_POST['chatid'];
 $filetype=$_POST['tipe'];
 $personal_key=$_POST['personal_key'];
 
-$chatenc=md5($passwd.$_COOKIE[$chatid]);
+$chatenc=md5($passwd.dekrypti($_COOKIE[$chatid], $passwd));
 
 
 if($filetype != 1){
@@ -102,7 +139,7 @@ else{
     while( $row=mysqli_fetch_row( $ask ) ){
         if($row[0] == $chatid){
             if($row[1] == $chatenc){
-                $etepass=$_COOKIE[$chatid];
+                $etepass=dekrypti($_COOKIE[$chatid], $passwd);
             }
             $verify=1;
         }
@@ -183,8 +220,10 @@ onchange=\"sendus.style.display='none';anum.style.display='none';bysend.style.di
 
 <input onkeyup=\"sendus.style.display='none';bysend.style.display='block';group.style.display='block';send.style.animation='c 1s'; setTimeout(function(){ send.src='../programm_files/send_green.png'; }, 500); gibihm(); return true;\" type='text' autocomplete='off' id='anum' name='anum' value='' placeholder='SHARE-iD' style='animation:inp 1.5s; animation-delay:0.3s;animation-fill-mode:forwards;opacity:0;display:block;position:fixed; box-shadow:0px 0px 2px green;width:100%; text-align:center;right:0px; top:calc(50% + 100px);font-size:16px;color:black; background-color:white; padding:10px; border:0px;'>
 <div style='display:none;position:absolute; width:100%; height:100%; left:0px; right:0px;cursor:wait;' id='loadscreen'>
+<div style='width:100%; position:absolute; top:0px; left:0px; height:43px;' id='progress'></div>
 <img src='../programm_files/load.gif' style='cursor:wait;width:200px; position:fixed; top:calc(50% - 100px); left:calc(50% - 100px);'>
 </div>
+
 ";
 
 //LIST      //
@@ -307,13 +346,13 @@ while( $row=mysqli_fetch_row( $ask ) ){
     }
 }
 else{
-    $rmenc=md5($passwd.$_COOKIE[$chat]);
+    $rmenc=md5($passwd.dekrypti($_COOKIE[$chat], $passwd));
     $sql="select id, enc from chat where rights LIKE '%|$ownname|%' and rights LIKE '%|$name|%' and id='$chat' and (enc='NONE' or enc='$rmenc');";
 
     $ask=mdq($bindung, $sql);
     while( $row=mysqli_fetch_row( $ask ) ){
     if($row[1] == $rmenc){        
-        $etepassb=$_COOKIE[$chat];    
+        $etepassb=dekrypti($_COOKIE[$chat], $passwd);    
     }
     $verifyb=1;
 }
@@ -338,15 +377,19 @@ if($filetype == 1)
 $chatid=$accid;
 
 
-
-$sql="insert into file set aktu='$time', rmid='$chatid', type='$filetype', ownname='$name', title='$bysend';";
-$ask=mdq($bindung, $sql);
-
-$sql="select id from file where aktu='$time' and ownname='$name' and title='$bysend' and rmid='$chatid' and type='$filetype';";
+$sql="select id from file ORDER by id desc limit 1;";
 $ask=mdq($bindung, $sql);
 while( $row=mysqli_fetch_row( $ask ) ){
-$id=$row[0];
+$id=$row[0]+1;
 }
+
+$ending=explode('.', $_FILES['senda']['name'] );
+$ending=$ending[1];
+
+$sql="insert into file set aktu='$time', rmid='$chatid', type='$filetype', ownname='$name', title='$bysend', size='".$_FILES['senda']['size'].",".$ending."';";
+$ask=mdq($bindung, $sql);
+
+
 
 
 $id=md5($passwd.$id);
