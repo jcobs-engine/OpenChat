@@ -133,12 +133,30 @@ function mdq( $bindung, $query )
   return( mysqli_query( $bindung, $query ) );
 }
 
+function dekrypti($string, $key)
+{
+    $cipher = 'AES-128-CBC';
+    $key = pack('H*', md5($key));
+    $iv_ascii = substr($string, 0, 24);
+    $iv = base64_decode($iv_ascii);
+    $string = substr($string, 24);
+    $dekrypt = openssl_decrypt(
+        base64_decode($string),
+        $cipher,
+        $key,
+        OPENSSL_RAW_DATA,
+        $iv
+    );
+    return $dekrypt;
+}
+
+
 $accid=$_GET['accid'];
 $chatid=$_GET['chatid'];
 $fileid=$_GET['fileid'];
 $personal_key=$_GET['personal_key'];
 $etepass='';
-$chatenc=md5($passwd.$_COOKIE[$chatid]);
+$chatenc=md5($passwd.dekrypti($_COOKIE[$chatid], $passwd));
 
 if($chatid == 0){
 
@@ -186,7 +204,7 @@ while( $row=mysqli_fetch_row( $ask ) ){
 $verify=1;
 $pass=$filevonid;
 if($row[0] == $chatenc){
-  $etepass=$_COOKIE[$chatid];
+  $etepass=dekrypti($_COOKIE[$chatid], $passwd);
 }
 }
 }

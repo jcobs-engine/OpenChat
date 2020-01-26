@@ -82,7 +82,6 @@ $chatid=$_GET['chatid'];
 $roomkey=$_GET['roomkey'];
 
 
-
 $sql="select fname, timezone, sel from user where id='$accid';";
 $ask=mdq($bindung, $sql);
 while( $row=mysqli_fetch_row( $ask ) ){
