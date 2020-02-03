@@ -46,7 +46,7 @@ function mdq( $bindung, $query )
   return( mysqli_query( $bindung, $query ) );
 }
 
-$accid=$_GET['accid'];
+$accid=md5( $passwd.$_GET['accid'] );
 $time=time();
 
 $sql="select fname from user where id='$accid';";

@@ -156,6 +156,12 @@ $chatid=$_GET['chatid'];
 $fileid=$_GET['fileid'];
 $personal_key=$_GET['personal_key'];
 $etepass='';
+
+if( $accid != md5($passwd.$personal_key)){
+    $accid='';
+    $personal_key='';
+}
+
 $chatenc=md5($passwd.dekrypti($_COOKIE[$chatid], $passwd));
 
 if($chatid == 0){

@@ -77,10 +77,9 @@ function mdq( $bindung, $query )
   return( mysqli_query( $bindung, $query ) );
 }
 
-$accid=$_GET['accid'];
+$accid=md5($passwd.$_GET['accid']);
 $chatid=$_GET['chatid'];
 $roomkey=$_GET['roomkey'];
-
 
 $sql="select fname, timezone, sel from user where id='$accid';";
 $ask=mdq($bindung, $sql);
