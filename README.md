@@ -3,7 +3,7 @@
 ## DATABASE-UPDATES
 
 ### Updates:
-##### NO DATABASE-UPDATES
+* --- EMPTY --- *
 
 ##### THE DATABASE-DUMP IS CORRECT
 
