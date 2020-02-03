@@ -9,4 +9,3 @@
 
 ## INTRODUCTION
 1. Run setup.sh to setup your database, and web-server data!
-
