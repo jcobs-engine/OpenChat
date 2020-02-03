@@ -1,6 +1,13 @@
 <?php
 //CHANGELOG
 $changelog=array(
+    "2.0.0::You can login now via File.",
+    "2.0.0::Encrypted End-to-End Cookies",
+    "2.0.0::Encrypted 1024bit Login-Files",
+    "2.0.0::Progress-Bar in Uploading",
+    "2.0.0::You can login now via File.",
+    "2.0.0::<i>Many Design-Updates</i>",
+    
     "1.0.0::OpenChat has now an icon.",
     "1.0.0::Files can now be renamed and moved.",
     "1.0.0::There is now a button to leave the chatroom.",
@@ -13,7 +20,9 @@ $changelog=array(
 
 $yt=array(
     "vIrZb3VA7Qg",
- );
+    "aCThK2kZu8o",
+    "FyPCMdrjpe0",
+);
 
 
 echo "
@@ -23,16 +32,21 @@ echo "
 OpenChat | Messenger
 </title>    
 <style>
-@keyframes blendin{
+@keyframes down{
 0%{
-opacity:0;
-background-color:#070707;
+top:0px;
+}
+40%{
+top:100px;
+}
+60%{
+top:-300px;
 }
 100%{
-opacity:1;
-background-color:rgb(10%, 10%, 10%);
+top:100%;
 }
 }
+
 @keyframes goup{
 0%{
     opacity:0;top:calc(100% - 65px);background-color:rgba(100%, 100%, 100%, 0.1);transform:rotate(0deg);left:calc(50% - 32px);
@@ -44,7 +58,9 @@ background-color:rgb(10%, 10%, 10%);
 </style>
 </head>
 
-<body style='background-color:rgb(10%, 10%, 10%); animation:blendin 3s;'>
+<body style='background-color:rgb(10%, 10%, 10%); overflow-y:hidden;' onload=\"whitemask.style.display='block'; whitemask.style.animation='down 1.5s';whitemask.style.animationDelay='0.5s';whitemask.style.animationFillMode='forwards';setTimeout(function(){ whitemask.style.display='none'; document.getElementsByTagName('body')[0].style.overflowY='auto'; }, 2000);\">
+
+<div id='whitemask' style='display:block;position:absolute; top:0px; left:0px; width:100%; height:100%; background-color:white; box-shadow:0px 0px 10px black;z-index:10000;'></div>
 
 <img src='../programm_files/arrow.svg' style='animation:goup 2s; animation-delay:1s;animation-fill-mode:forwards;opacity:0;top:calc(100% - 65px);background-color:rgba(100%, 100%, 100%, 0.1);transform:rotate(0deg);left:calc(50% - 32px); width:35px; position:fixed;  padding:10px; border-radius:40px;z-index:1000;cursor:pointer;' onclick=\"document.infos.submit();\">
 
@@ -71,9 +87,9 @@ foreach($changelog AS $log){
 }
 
 echo "</div>
-<div style='box-shadow:0px 0px 10px 30px black, inset 10px 0px 10px black;width:370px; height:100%; position:fixed; overflow-y:auto;top:0px; right:0px;'>";
+<div style='box-shadow:0px 0px 5px black;width:400px; height:100%; position:fixed; overflow-y:scroll;top:0px; right:0px;background-color:black'>";
 foreach($yt  AS $link){
-echo "<a target='_blank' href='https://www.youtube.com/watch?v=".$link."'><img src='../programm_files/lty_".$link.".png' style='margin-left:5px;width:calc(100% - 5px);cursor:pointer;'  onmouseover=\"this.src='../programm_files/lty_".$link."_red.png';\" onmouseout=\"this.src='../programm_files/lty_".$link.".png';\"></a>";
+echo "<a target='_blank' href='https://www.youtube.com/watch?v=".$link."'><img src='../programm_files/lty_".$link.".png' style='margin-top:15px;margin-bottom:10px;width:calc(100% - 70px);cursor:pointer;position:relative; left: 40px;box-shadow:0px 0px 3px white;'  onmouseover=\"this.src='../programm_files/lty_".$link."_red.png';\" onmouseout=\"this.src='../programm_files/lty_".$link.".png';\"></a>";
 }
 echo "</div>";
 

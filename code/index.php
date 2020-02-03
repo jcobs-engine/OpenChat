@@ -56,8 +56,7 @@ function dekrypti($string, $key)
     return $dekrypt;
 }
 
-$passwd =
-    shell_exec('cat /usr/share/openchat-project/encryption_passwd.txt | tr -d " \t\n\r" ');
+$passwd = shell_exec('cat /usr/share/openchat-project/encryption_passwd.txt | tr -d " \t\n\r" ');
 
 $sd = time();
 
@@ -84,7 +83,7 @@ function mdq($bindung, $query)
     return mysqli_query($bindung, $query);
 }
 
-    $pfad = shell_exec('cat /usr/share/openchat-project/path.txt | tr -d " \t\n\r" ').'/code/';
+$pfad = shell_exec('cat /usr/share/openchat-project/path.txt | tr -d " \t\n\r" ').'/code/';
 
 $type = 'password';
 
@@ -156,11 +155,11 @@ if (isset($_POST['newid'])) {
             $sql = "insert into user set id='$rand', fname='anonymous';";
             $ask = mdq($bindung, $sql);
 	    
-	    shell_exec("echo '$randi' > ../user_files/$rand.oc.login");
-	    shell_exec("gpg --batch --passphrase '$passwd' --symmetric '../user_files/$rand.oc.login'; mv ../user_files/$rand.oc.login.gpg ../user_files/$rand.oc.login");
-	    shell_exec('( sleep 60 && rm -f ../user_files/'.$rand.'.oc.login ) > /dev/null 2> /dev/null &');
-	    $dkey='dkey.click();';
-	    $akey="<a style='position:absolute;opacity:0; top:-100px; left:-200px;' href='../user_files/$rand.oc.login' id='dkey' download></a>";
+            shell_exec("echo '$randi' > ../user_files/$rand.oc.login");
+            shell_exec("gpg --batch --passphrase '$passwd' --symmetric '../user_files/$rand.oc.login'; mv ../user_files/$rand.oc.login.gpg ../user_files/$rand.oc.login");
+            shell_exec('( sleep 60 && rm -f ../user_files/'.$rand.'.oc.login ) > /dev/null 2> /dev/null &');
+            $dkey='dkey.click();';
+            $akey="<a style='position:absolute;opacity:0; top:-100px; left:-200px;' href='../user_files/$rand.oc.login' id='dkey' download></a>";
             $site = 3;
         }
     }
@@ -171,7 +170,7 @@ $accidroh = $_POST['accid'];
 $accid = md5($passwd.$_POST['accid']);
 $personal_key=$_POST['accid'];
 
-if ($accid != md5('')) {
+if ($accid != md5($passwd.'')) {
     $sql = "select id, fname, timezone, sel from user where id='$accid';";
     $ask = mdq($bindung, $sql);
     while ($row = mysqli_fetch_row($ask)) {
@@ -197,7 +196,7 @@ if ($accid != md5('')) {
             $id = '';
         }
     }
-     
+    
     $sdstop = 0;
     $sql = "select sd from seen where user=$sel and type=0;";
     $ask = mdq($bindung, $sql);
@@ -222,7 +221,7 @@ if ($accid != md5('')) {
     $sdstop = 0;
     
     
-  // ete setcookie
+    // ete setcookie
     
     $sql = "select id, enc, rights from chat where rights LIKE '%|$fname|%' and enc!='NONE' ORDER by id desc;";
     $ask = mdq($bindung, $sql);
@@ -245,11 +244,11 @@ if ($accid != md5('')) {
         }
                 
         if( ( isset( $_POST["cn".$dcid] ) or $_POST["czn".$dcid] == 1 ) and md5( $passwd.$denc_co ) != $dcenc){
-          // automaticly sendup
-          // if(n === 8){ fokus.focus();  setTimeout(function(){ document.save.submit(); },100); }
+            // automaticly sendup
+            // if(n === 8){ fokus.focus();  setTimeout(function(){ document.save.submit(); },100); }
             
             $locki="
-            <div id='weg1' style='position:fixed; text-shadow:0px 0px 3px white;font-weight:bold; font-size:35px;top:0px; left:0px; width:100%; height:100%; background-color:rgba(0%, 0%, 0%, 0.9);z-index:100; text-align:center;color:#d1d1d1'>
+            <div id='weg1' style='position:fixed; text-shadow:0px 0px 3px white;font-weight:bold; font-size:35px;top:0px; left:0px; width:100%; height:100%; background-color:rgba(0%, 0%, 0%, 0.9);z-index:100; text-align:center;color:$white'>
             </div>
             <img id='weg2' src='../programm_files/lock.png' id='lockpng' style='z-index:100;height:200px;position:fixed; left:calc(50% - 100px);top:calc(50% - 100px)'>
             <input type='submit' id='weg5' style='left:calc(50% - ((100% - 700px) / 2 ));z-index:100;position:absolute; bottom:50px;width:calc(100% - 700px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:#eb2121;color:$black; font-size:25px;' value='Leave Chat' name='setupsend$dcid'>
@@ -261,12 +260,12 @@ if ($accid != md5('')) {
         }
     }
     
-  //[END]ete setcookie
+    //[END]ete setcookie
     
 
-  //       DOTS/
+    //       DOTS/
 
-  // MESSAGES
+    // MESSAGES
 
     $messagedot = 'none';
     $sql = "select sd from seen where user=$sel and type=0;";
@@ -281,7 +280,7 @@ if ($accid != md5('')) {
         $messagedot = 'block';
     }
 
-  // CHATROOMS
+    // CHATROOMS
     $rd = 0;
     $rid = 0;
     $chatdot = 'none';
@@ -305,7 +304,9 @@ if ($accid != md5('')) {
             $rid++;
             if (
                 isset($_POST["c$cid"]) or
+                isset($_POST["cn$cid"]) or
                 $_POST["cz$cid"] == 1 or
+                $_POST["czn$cid"] == 1 or
                 isset($_POST["setupsend$cid"])
             ) {
                 $rd++;
@@ -317,7 +318,7 @@ if ($accid != md5('')) {
         }
     }
 
-  // CDOTS
+    // CDOTS
 
     $cdot = array();
 
@@ -328,7 +329,7 @@ if ($accid != md5('')) {
         $ctitle = $row[1];
         $rights = $row[2];
         $ctime = 0;
-	$cdot[$cid]='none';
+        $cdot[$cid]='none';
 
         $sql = "select sd from seen where user=$sel and type=$cid;";
         $aska = mdq($bindung, $sql);
@@ -339,7 +340,7 @@ if ($accid != md5('')) {
         $sql = "select sd from tell where chatid=$cid and sd>$ctime;";
         $aska = mdq($bindung, $sql);
         while ($rowa = mysqli_fetch_row($aska)) {
-	    $cdot[$cid] = 'block';
+            $cdot[$cid] = 'block';
         }
     }
 
@@ -353,7 +354,7 @@ if ($accid != md5('')) {
         }
     }
 
-  //[END]  DOTS/
+    //[END]  DOTS/
 
     $sql = "select id, title, rights from chat where rights LIKE '%|$fname|%' ORDER by id desc;";
     $ask = mdq($bindung, $sql);
@@ -499,6 +500,8 @@ steps(60), pni 1s steps(1);animation-fill-mode:forwards;animation-delay:2.5s,
 <img src='../programm_files/openchat_overdrive_3.png' style='position:fixed; width:calc(40% + 70px); left:40%; top:100px; opacity:0; animation:inp 1s steps(1), sm 1s steps(60), pni 1s steps(1);animation-fill-mode:forwards;animation-delay:2.5s, 4s, 3.3s;border:0px;'></div>
 
 <div style='right:0px; height:100%; top:0px; position:fixed;background-color:black;width:10px'></div>
+
+<div onclick=\"window.open('http://$pfad', '_self');\" style='position:absolute; bottom:20px; right:20px;background-color:red;color:$black; padding:10px; border-radius:5px 5px 0px 5px;font-weight:bold;box-shadow:-5px -5px 3px black;cursor:pointer;'>LOG OUT</div>
 ";
 
             $sasa = "";
@@ -507,7 +510,7 @@ steps(60), pni 1s steps(1);animation-fill-mode:forwards;animation-delay:2.5s,
         if ($site == 1) {
             $messagedot = 'none';
 
-            $echo = "<input type='submit' style='position:absolute; width:calc(100% - 360px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:$white;color:$black; font-size:25px;' value='Write Message' name='wm'><div style='height:80px;'></div>";
+            $echo = "<input type='submit' style='position:absolute; width:calc(100% - 360px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:$white;color:$black; font-size:25px;' value='Write Message' name='wm'><div style='height:90px;'></div>";
 
             $sql = "select sd from seen where user=$sel and type=0;";
             $ask = mdq($bindung, $sql);
@@ -540,9 +543,13 @@ steps(60), pni 1s steps(1);animation-fill-mode:forwards;animation-delay:2.5s,
                 $row[0] = str_replace('#00100111#', "'", $row[0]);
                 $row[0] = str_replace('#00100010#', '"', $row[0]);
 
-                $echo .= "<div class='messages' style='font-size:18px;background-color:$black;box-shadow:0px 0px 1px 3px $white; cursor:pointer;border-radius:5px;width:calc(100% - 25px); padding:10px;margin-bottom:20px;text-align:center;' onclick=\"sethide();setback();conti$row[3].style.display='block'; this.style.backgroundColor='$white'; this.style.color='$black'; conti$row[3].style.backgroundColor='$white'; conti$row[3].style.color='$black';\" ><img src='../programm_files/delete.svg' style='float:left;height:24px;box-shadow:0px 0px 1px 5px red;background-color:red;border-radius:25%;cursor:pointer;' onclick=\"deleta.value='$row[3]'; document.save.submit(); event.cancelBubble=true;\"><span style='opacity:0;'>|</span><span style='float:left;'> &nbsp; &nbsp; $row[1]</span><b>$row[2]</b><span style='opacity:0;'>|</span><img src='../programm_files/delete.svg' style='float:right;opacity:0;height:24px;box-shadow:0px 0px 1px 5px red;background-color:red;border-radius:25%;cursor:pointer;'><span style='float:right; opacity:0;'> &nbsp; &nbsp; $row[1]</span></div>";
+                $echo .= "<div class='m1 messages' 
 
-                $echo .= "<div class='messages contentis' style='font-size:18px;background-color:$black;box-shadow:0px 0px 1px 3px $white; border-radius:5px;width:calc(100% - 45px); padding:10px;padding-left:30px;margin-bottom:20px;text-align:left;display:none;' id='conti$row[3]'>$row[0]</div>";
+style='font-size:18px;background-color:$black;box-shadow:0px 0px 1px 2px $white; cursor:pointer;border-radius:3px;width:calc(100% - 30px); padding:10px; padding-bottom:11px;margin-bottom:30px;text-align:center;'
+
+ onclick=\"sethide();setback();conti$row[3].style.display='block'; this.style.boxShadow='0px 0px 1px 3px $white'; this.style.borderRadius='3px';this.style.paddingBottom='15px'; this.style.marginBottom='0px';this.style.backgroundColor='$white'; this.style.color='$black'; conti$row[3].style.backgroundColor='white'; conti$row[3].style.color='$black';\" ><img src='../programm_files/delete.svg' style='margin-right:20px;float:left;height:24px;box-shadow:0px 0px 1px 5px red;background-color:red;border-radius:25%;cursor:pointer;' onclick=\"deleta.value='$row[3]'; document.save.submit(); event.cancelBubble=true;\"><span style='opacity:0;'>|</span><span style='float:left;'> &nbsp; &nbsp; <i>$row[1]</i></span><b>$row[2]</b><span style='opacity:0;'>|</span><img src='../programm_files/delete.svg' style='float:right;opacity:0;margin-left:10px;height:24px;box-shadow:0px 0px 1px 5px red;background-color:red;border-radius:25%;cursor:pointer;'><span style='float:right; opacity:0;'> &nbsp; &nbsp; $row[1]</span></div>";
+
+                $echo .= "<div class='m2 messages contentis' style='font-size:18px;box-shadow:0px 0px 0px 3px white; border-radius:0px 0px 3px 3px;width:calc(100% - 90px); padding:10px;padding-left:70px;margin-bottom:20px;text-align:left;display:none;' id='conti$row[3]'>$row[0]</div>";
 
                 $jep = 1;
             }
@@ -604,104 +611,103 @@ steps(60), pni 1s steps(1);animation-fill-mode:forwards;animation-delay:2.5s,
                         $deleteamember = $rowus[0];
                     }
 
-                if ($setupmember == "anonymous") {
-                    $setupmember = "";
-                }
+                    if ($setupmember == "anonymous") {
+                        $setupmember = "";
+                    }
 
-                if (strpos($rights, "|$setupmember|") !== false) {
-                    $setupmember = "";
-                }
+                    if (strpos($rights, "|$setupmember|") !== false) {
+                        $setupmember = "";
+                    }
 
-                if (strpos($rights, "|$deleteamember|") === false) {
-                    $deleteamember = "";
-                }
+                    if (strpos($rights, "|$deleteamember|") === false) {
+                        $deleteamember = "";
+                    }
 
-                if ($setuptitle != $ctitle and $setuptitle != "") {
-                    $setuptitlecover = str_replace(" ", "%20", $setuptitle);
-                    $text = "%23215$title%23216%20edit%20the%20title%20to%20%23215$setuptitlecover%23216.";
-                    $_buffer = implode(
-                        '',
-                        file(
-                            'http://' .
+                    if ($setuptitle != $ctitle and $setuptitle != "") {
+                        $setuptitlecover = str_replace(" ", "%20", $setuptitle);
+                        $text = "%23215$title%23216%20edit%20the%20title%20to%20%23215$setuptitlecover%23216.";
+                        $_buffer = implode(
+                            '',
+                            file(
+                                'http://' .
                                 "$pfad" .
                                 'insert.php?accid=7cbff9f534bf023c49c773f3fdd33ba7&chatid=' .
                                 "$cid" .
                                 '&text=' .
                                 "$text" .
                                 '&roomkey=' .
-                                $_COOKIE[$cid]
-                        )
-                    );
-                    $ctitle = "$setuptitle";
-                    $access = "Title changed";
-                }
+                                dekrypti($_COOKIE[$cid], $passwd)
+                            )
+                        );
+                        $ctitle = "$setuptitle";
+                        $access = "Title changed";
+                    }
 
-                if ($setupmember != "") {
-                    $text = "%23235$title%23236%20added%20%23235$setupmember%23236.";
-                    $_buffer = implode(
-                        '',
-                        file(
-                            'http://' .
+                    if ($setupmember != "") {
+                        $text = "%23235$title%23236%20added%20%23235$setupmember%23236.";
+                        $_buffer = implode(
+                            '',
+                            file(
+                                'http://' .
                                 "$pfad" .
                                 'insert.php?accid=7cbff9f534bf023c49c773f3fdd33ba7&chatid=' .
                                 "$cid" .
                                 '&text=' .
                                 "$text" .
                                 '&roomkey=' .
-                                $_COOKIE[$cid]
+                                dekrypti($_COOKIE[$cid], $passwd)
 
-                        )
-                    );
+                            )
+                        );
 
-                    $access = "Member added";
-                    $rights .= "|$setupmember|";
-                }
+                        $access = "Member added";
+                        $rights .= "|$setupmember|";
+                    }
                     
-                if ($deleteamember == "$fname") {
-                    $rights = str_replace("|$deleteamember|", "", $rights);
-                    $text = "%23225$title%23226%20kicked%20himself.";
-                    $_buffer = implode(
-                        '',
-                        file(
-                            'http://' .
+                    if ($deleteamember == "$fname") {
+                        $rights = str_replace("|$deleteamember|", "", $rights);
+                        $text = "%23225$title%23226%20kicked%20himself.";
+                        $_buffer = implode(
+                            '',
+                            file(
+                                'http://' .
                                 "$pfad" .
                                 'insert.php?accid=7cbff9f534bf023c49c773f3fdd33ba7&chatid=' .
                                 "$cid" .
                                 '&text=' .
                                 "$text" .
                                 '&roomkey=' .
-                                $_COOKIE[$cid]
+                                dekrypti($_COOKIE[$cid], $passwd)
 
-                        )
-                    );
-                    $go[$cid]=0;
-                    $blocktnext=1;
-                    $blocknext=0;
-                    $access = "Chat leaved";
-                } elseif ($deleteamember != "") {
-                    $rights = str_replace("|$deleteamember|", "", $rights);
-                    $text = "%23225$title%23226%20kicked%20%23225$deleteamember%23226.";
-                    $_buffer = implode(
-                        '',
-                        file(
-                            'http://' .
+                            )
+                        );
+                        $go[$cid]=0;
+                        $blocktnext=1;
+                        $blocknext=0;
+                        $access = "Chat leaved";
+                    } elseif ($deleteamember != "") {
+                        $rights = str_replace("|$deleteamember|", "", $rights);
+                        $text = "%23225$title%23226%20kicked%20%23225$deleteamember%23226.";
+                        $_buffer = implode(
+                            '',
+                            file(
+                                'http://' .
                                 "$pfad" .
                                 'insert.php?accid=7cbff9f534bf023c49c773f3fdd33ba7&chatid=' .
                                 "$cid" .
                                 '&text=' .
                                 "$text" .
                                 '&roomkey=' .
-                                $_COOKIE[$cid]
+                                dekrypti($_COOKIE[$cid], $passwd)
+                            )
+                        );
+                        $access = "Member kicked";
+                    }
 
-                        )
-                    );
-                    $access = "Member kicked";
-                }
-
-                $sql = "update chat set title='$setuptitle', rights='$rights' where id=$cid;";
-                $aska = mdq($bindung, $sql);
+                    $sql = "update chat set title='$setuptitle', rights='$rights' where id=$cid;";
+                    $aska = mdq($bindung, $sql);
                 
-            }
+                }
                 $nowgo=1;
                 
                 if($go[$cid] == 1){
@@ -716,13 +722,13 @@ steps(60), pni 1s steps(1);animation-fill-mode:forwards;animation-delay:2.5s,
                     
                     
                     if($_COOKIE['$cid'] == "" and $cenc != 'NONE'){
-                           $cidcapture="n$cid";
+                        $cidcapture="n$cid";
                     }
                                             
-                        if($cenc == 'NONE' or md5($passwd.$_COOKIE[$cid]) == $cenc)
-                            $cidcapture=$cid;
+                    if($cenc == 'NONE' or md5($passwd.$_COOKIE[$cid]) == $cenc)
+                        $cidcapture=$cid;
                         
-                    $echo .= "<button style='position:relative; width:calc(100% - 8px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:$black;color:$white; font-size:25px;box-shadow:0px 0px 5px 2px $white; border-radius:3px;top:20px;margin-bottom:30px' name='c$cidcapture' >
+                    $echo .= "<button style='position:relative; width:calc(100% - 8px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:$black;color:$white; font-size:25px;box-shadow:0px 0px 1px 2px $white; border-radius:3px;top:20px;margin-bottom:30px' name='c$cidcapture' >
 <img src='../programm_files/lock.png' style='display:$lock;width:30px;float:left;'>
 
 <div style='display:$cdot[$cid];opacity:0;background-color:red;box-shadow:0px 0px 3px red;float:left;font-size:20px; width:15px; margin-left:5px;margin-top:10px;height:15px;border-radius:50%;'></div>
@@ -760,7 +766,7 @@ $ctitle
 
                     $echo = "<input type='text' style='font-family:sans-serif;position:absolute; bottom:50px; width:calc(100% - 420px);border:0px; padding:05px;  text-align:left; background-color:$white;color:$black; font-size:25px;' placeholder='Message...' autocomplete='off' maxlength='500' id='inputmes' name='center$cid' autofocus='autofocus'><img src='../programm_files/present.png' onclick=\"document.upload.submit();\" style='position:absolute; bottom:50px;width:45px;right:65px; cursor:pointer;' id='inputmesa' autofocus>
 <div style='display:none;' id='nothing'></div>
-<div onclick='autoscrolll();' id='autoscrol' style='position:absolute; top:125px; font-size:20px;right:100px; z-index:100;cursor:pointer; padding:5px; border:3px solid #238c0e; border-radius:5px;background-color:black; box-shadow:0px 0px 3px 7px #070707;' >live mode</div>
+<div onclick='autoscrolll();' id='autoscrol' style='position:absolute; top:125px; font-size:20px;right:100px; z-index:100;cursor:pointer; padding:5px; border:3px solid #238c0e; border-radius:5px;background-color:black; box-shadow:0px 0px 3px 7px $black;' >live mode</div>
 
 
 
@@ -782,45 +788,45 @@ $ctitle
                 
 
 
-                if (isset($_POST["setuproom$cid"])) {
-                    $blocknext = 1;
+                    if (isset($_POST["setuproom$cid"])) {
+                        $blocknext = 1;
 		    
-                    if ($cid != 1) {
-                        $echo = "<input type='text' style='font-family:sans-serif;position:absolute; width:calc(100% - 360px);border:0px; padding:05px;  text-align:left; background-color:$white;color:$black; font-size:25px;' placeholder='Title (Max: 32)' pattern='[A-Za-zäÄöÖüÜ0-9\s#]{1,32}' name='setuptitle' value='$ctitle' autocomplete='off' required='required' maxlength='32'>";
+                        if ($cid != 1) {
+                            $echo = "<input type='text' style='font-family:sans-serif;position:absolute; width:calc(100% - 360px);border:0px; padding:05px;  text-align:left; background-color:$white;color:$black; font-size:25px;' placeholder='Title (Max: 32)' pattern='[A-Za-zäÄöÖüÜ0-9\s#]{1,32}' name='setuptitle' value='$ctitle' autocomplete='off' required='required' maxlength='32'>";
 
-                        $echo .= "<input type='text' style='font-family:sans-serif;position:absolute; width:calc(100% - 360px);top:120px;border:0px; padding:05px;  text-align:left; background-color:$white;color:$black; font-size:25px;' placeholder='(Add new member)' pattern='[A-Za-z0-9]{1,10}' list='user' name='setupmember' autocomplete='off' maxlength='10'>";
+                            $echo .= "<input type='text' style='font-family:sans-serif;position:absolute; width:calc(100% - 360px);top:120px;border:0px; padding:05px;  text-align:left; background-color:$white;color:$black; font-size:25px;' placeholder='(Add new member)' pattern='[A-Za-z0-9]{1,10}' list='user' name='setupmember' autocomplete='off' maxlength='10'>";
 
-                        $echo .= "<input type='text' style='font-family:sans-serif;position:absolute; width:calc(100% - 360px);top:180px;border:0px; padding:05px;  text-align:left; background-color:$white;color:$black; font-size:25px;' placeholder='(Delete a member)' pattern='[A-Za-z0-9]{1,10}' list='user' name='deleteamember' autocomplete='off' id='deleteamember' maxlength='10'>";
+                            $echo .= "<input type='text' style='font-family:sans-serif;position:absolute; width:calc(100% - 360px);top:180px;border:0px; padding:05px;  text-align:left; background-color:$white;color:$black; font-size:25px;' placeholder='(Delete a member)' pattern='[A-Za-z0-9]{1,10}' list='user' name='deleteamember' autocomplete='off' id='deleteamember' maxlength='10'>";
 
-                        $echo .= "<input type='button' onclick=\"deleteamember.value='$fname';setupsend.click();\" style='position:absolute; top:320px;width:calc(100% - 360px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:#eb2121;color:$black; font-size:25px;' value='Leave Chat' name='leave$cid'><p>";
-                        if($cenc == 'NONE'){
-                        $echo.="<img id='lock' src='../programm_files/lock.png' style='height:50px; top:245px; position:absolute; filter:grayscale(1); opacity:1'><div 
+                            $echo .= "<input type='button' onclick=\"deleteamember.value='$fname';setupsend.click();\" style='position:absolute; top:320px;width:calc(100% - 360px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:#eb2121;color:$black; font-size:25px;' value='Leave Chat' name='leave$cid'><p>";
+                            if($cenc == 'NONE'){
+                                $echo.="<img id='lock' src='../programm_files/lock.png' style='height:50px; top:245px; position:absolute; filter:grayscale(1); opacity:1'><div 
                         onmouseover=\"this.style.animation='hops 0.3s'; this.style.animationFillMode='forwards'\"
                         onmouseout=\"this.style.animation='hopsz 0.3s'; this.style.animationFillMode='forwards'\"
                         onclick=\"this.style.animation='anable 1s'; this.style.animationFillMode='forwards';lock.style.animation='enable 0.8s'; lock.style.animationFillMode='forwards';setTimeout(function(){ enc.value='$cid'; site.value=7; document.save.submit(); },1000)\"
                         style='height:35px;cursor:pointer; padding-left:50px;top:250px; padding-top:15px;position:absolute; opacity:0.4; filter:grayscale(1); font-size:22px; color:#d99b39'><b>End-to-End Encryption</b></div>";
-                        }
-                        else
-                        {
-                        $echo.="<img id='lock' src='../programm_files/lock.png' style='height:50px; top:245px; position:absolute; filter:grayscale(0); opacity:1'><div 
+                            }
+                            else
+                            {
+                                $echo.="<img id='lock' src='../programm_files/lock.png' style='height:50px; top:245px; position:absolute; filter:grayscale(0); opacity:1'><div 
                         onclick=\"site.value=7; document.save.submit();\"
                         style='height:35px;cursor:pointer; padding-left:50px;top:250px; padding-top:15px;position:absolute; opacity:1; filter:grayscale(0); font-size:22px; color:#d99b39'><b>End-to-End Encrypted</b></div>";
+                            }
+                            $echo .= "<input type='submit' id='setupsend' style='position:absolute; bottom:50px;width:calc(100% - 360px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:$white;color:$black; font-size:25px;' value='Send' name='setupsend$cid'><p>";
                         }
-                        $echo .= "<input type='submit' id='setupsend' style='position:absolute; bottom:50px;width:calc(100% - 360px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:$white;color:$black; font-size:25px;' value='Send' name='setupsend$cid'><p>";
                     }
                 }
             }
+
+            if (isset($_POST['newchat'])) {
+                $echo = "<input type='text' style='font-family:sans-serif;position:absolute; width:calc(100% - 360px);border:0px; padding:05px;  text-align:left; background-color:$white;color:$black; font-size:25px;' placeholder='Title (Letters, Numbers, Space and #. Max: 32)' pattern='[A-Za-z0-9\säÄöÖüÜ#]{1,32}' maxlength='32' name='ctitle' autocomplete='off' required='required' autofocus>";
+                $echo .= "<input type='submit' style='position:absolute; bottom:50px;width:calc(100% - 360px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:$white;color:$black; font-size:25px;' value='Send' name='csend'><p>";
+            }
         }
 
-        if (isset($_POST['newchat'])) {
-            $echo = "<input type='text' style='font-family:sans-serif;position:absolute; width:calc(100% - 360px);border:0px; padding:05px;  text-align:left; background-color:$white;color:$black; font-size:25px;' placeholder='Title (Letters, Numbers, Space and #. Max: 32)' pattern='[A-Za-z0-9\säÄöÖüÜ#]{1,32}' maxlength='32' name='ctitle' autocomplete='off' required='required' autofocus>";
-            $echo .= "<input type='submit' style='position:absolute; bottom:50px;width:calc(100% - 360px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:$white;color:$black; font-size:25px;' value='Send' name='csend'><p>";
-        }
-    }
-
-    if ($site == 5) {
-        $cloud = "white; text-shadow:0px 0px 1px white";
-        $echo = "<input type='button' onclick=\"black.style.display='block'; document.uplad.submit();\" style='position:absolute; width:calc(100% - 360px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:$white;color:$black; font-size:25px;' value='Upload file'><div style='height:70px;'></div>
+        if ($site == 5) {
+            $cloud = "white; text-shadow:0px 0px 1px white";
+            $echo = "<input type='button' onclick=\"black.style.display='block'; document.uplad.submit();\" style='position:absolute; width:calc(100% - 360px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:$white;color:$black; font-size:25px;' value='Upload file'><div style='height:70px;'></div>
 
 <div id='black' style='display:none;position:fixed; top:0px; left:0px; width:100%; height:100%; background-color:rgba(0%, 0%, 0%, 0.8);z-index:10000000; text-align:center;color:white'>
 <input type='submit' style='position:absolute; left:0px;top:50%;width:calc(100%);cursor:pointer; border:0px; padding:05px; \
@@ -832,73 +838,73 @@ font-weight:bold; text-align:center; background-color:$white;color:$black; font-
 
 
 
-$sqla = "select id, ownname, title from file where rmid='$id' ORDER by title;";
-$aska = mdq($bindung, $sqla);
-while ($rowa = mysqli_fetch_row($aska)) {
-    $ic=$rowa[0];
-    if (isset($_POST['ch_send_'.$ic])){
-        $jetztpre=$_POST['ch_filedir_'.$ic];
-        $filetitle=$_POST['ch_filename_'.$ic];
+            $sqla = "select id, ownname, title from file where rmid='$id' ORDER by title;";
+            $aska = mdq($bindung, $sqla);
+            while ($rowa = mysqli_fetch_row($aska)) {
+                $ic=$rowa[0];
+                if (isset($_POST['ch_send_'.$ic])){
+                    $jetztpre=$_POST['ch_filedir_'.$ic];
+                    $filetitle=$_POST['ch_filename_'.$ic];
 
-        if ($jetztpre == ''){
-            $jetztpre="ALL";
-        }
+                    if ($jetztpre == ''){
+                        $jetztpre="ALL";
+                    }
 
-	$jetztpre=str_replace(':', '', $jetztpre);
-	$filetitle=str_replace(':', '', $filetitle);
+                    $jetztpre=str_replace(':', '', $jetztpre);
+                    $filetitle=str_replace(':', '', $filetitle);
 
-        $sqlb = "update file set title='$jetztpre:$filetitle' where id='$ic';";
-        $askb = mdq($bindung, $sqlb);
+                    $sqlb = "update file set title='$jetztpre:$filetitle' where id='$ic';";
+                    $askb = mdq($bindung, $sqlb);
                     
-    }
-}
+                }
+            }
 
 
-$praefix = array();
+            $praefix = array();
 
-        $sqla = "select id, ownname, title from file where rmid='$id' ORDER by title;";
-        $aska = mdq($bindung, $sqla);
-        while ($rowa = mysqli_fetch_row($aska)) {
-            $i = $rowa[0];
-            $openid = md5($passwd . $i);
+            $sqla = "select id, ownname, title from file where rmid='$id' ORDER by title;";
+            $aska = mdq($bindung, $sqla);
+            while ($rowa = mysqli_fetch_row($aska)) {
+                $i = $rowa[0];
+                $openid = md5($passwd . $i);
 
-            $fileid = md5($passwd . $rowa[0]);
+                $fileid = md5($passwd . $rowa[0]);
 
-            $fileid = shell_exec("ls ../user_files/$fileid" . '.*.gpg');
-            $fileowner = $rowa[1];
-            $fileidus = explode('.', $fileid);
-            $filetitle = $rowa[2];
+                $fileid = shell_exec("ls ../user_files/$fileid" . '.*.gpg');
+                $fileowner = $rowa[1];
+                $fileidus = explode('.', $fileid);
+                $filetitle = $rowa[2];
 
-            $jetztpre = "";
+                $jetztpre = "";
 
 
 
-            if ($fileid != "") {
-                if ($_POST['rmfile'] == $i) {
-                    $ergebniss = shell_exec("rm $fileid");
-                } else {
-                    if (strpos($filetitle, ":") !== false) {
-                        $prae = explode(':', $filetitle);
-                        $filetitle = $prae[1];
+                if ($fileid != "") {
+                    if ($_POST['rmfile'] == $i) {
+                        $ergebniss = shell_exec("rm $fileid");
+                    } else {
+                        if (strpos($filetitle, ":") !== false) {
+                            $prae = explode(':', $filetitle);
+                            $filetitle = $prae[1];
 
-                        $praefix[] = $prae[0];
-                        $jetztpre = $prae[0];
+                            $praefix[] = $prae[0];
+                            $jetztpre = $prae[0];
 
-                        if ($jetztpre != 'ALL') {
-                            $anypre = 1;
+                            if ($jetztpre != 'ALL') {
+                                $anypre = 1;
+                            }
                         }
-                    }
-                    $ic = $i;
+                        $ic = $i;
 
-                    if ($jetztpre == "ALL") {
-                        $i = '*$$';
-                        $jetztpre = "";
-                    }
+                        if ($jetztpre == "ALL") {
+                            $i = '*$$';
+                            $jetztpre = "";
+                        }
 
-                    $ookay = 1;
+                        $ookay = 1;
 
 
-                    $echo .= "
+                        $echo .= "
 
 <div id='menu$ic' style='display:none'>
 <div onclick=\"menu$ic.style.display='none';\" oncontextmenu=\"menu$ic.style.display='none';return false;\" style='position:fixed; top:0px; left:0px; width:100%; height:100%; background-color:rgba(0%, 0%, 0%, 0.8);z-index:10000000; text-align:center;color:white'>
@@ -910,371 +916,371 @@ $praefix = array();
 </div>
 </div>
 
-                    <div oncontextmenu=\" menu$ic.style.display='block';return false;\" class='$jetztpre all' onmouseover=\"a$i.style.animation='inp 0.5s'; a$i.style.animationFillMode='forwards';\"  onmouseout=\"a$i.style.animation='pni 0.5s'; a$i.style.animationFillMode='forwards';\" onclick=\"window.open( 'getfile.php?accid=$id&fileid=$openid&chatid=0&personal_key=$personal_key' );\" style=\"display:block;background-image:url( ../programm_files/datei.png );background-size:cover;background-repeat:no-repeat;background-position:center;word-wrap:break-word;box-shadow: 0px 0px 1px 2px #d1d1d1;float:left;margin:20px; width:160px; height:160px;padding:10px;border-radius:10px;background-color:#d1d1d1;cursor:pointer\">
+                    <div oncontextmenu=\" menu$ic.style.display='block';return false;\" class='$jetztpre all' onmouseover=\"a$i.style.animation='inp 0.5s'; a$i.style.animationFillMode='forwards';\"  onmouseout=\"a$i.style.animation='pni 0.5s'; a$i.style.animationFillMode='forwards';\" onclick=\"window.open( 'getfile.php?accid=$id&fileid=$openid&chatid=0&personal_key=$personal_key' );\" style=\"display:block;background-image:url( ../programm_files/datei.png );background-size:cover;background-repeat:no-repeat;background-position:center;word-wrap:break-word;box-shadow: 0px 0px 1px 2px $white;float:left;margin:20px; width:160px; height:160px;padding:10px;border-radius:10px;background-color:$white;cursor:pointer\">
 <div style='width:160px; height:160px;position:absolute; '>
 
 <div
 onclick=\"rmfile.value='$ic';document.save.submit();event.cancelBubble=true;\" style='cursor:pointer;font-size:22px;color:white; border:2px solid black; border-radius:10px 10px 10px 10px;padding:5px;position:absolute; top:-05px; right:-05px;box-shadow:0px 0px 2px black;height:24px;width:24px;background-color:red;background-image:url( ../programm_files/delete.svg );background-size:70%;background-position:center;background-repeat:no-repeat;'></div>
 
-<div style='cursor:pointer;font-size:18px;color:white;padding:2px;padding-left:5px; padding-right:6px;position:absolute; top:-05px; left:-5px;box-shadow:0px 0px 2px black;height:23px;background-color:#d1d1d1;border-radius:6px;color:black;'>$ic</div>
+<div style='cursor:pointer;font-size:18px;color:white;padding:2px;padding-left:5px; padding-right:6px;position:absolute; top:-05px; left:-5px;box-shadow:0px 0px 2px black;height:23px;background-color:$white;border-radius:6px;color:black;'>$ic</div>
 
-<span id='a$i' style='opacity:0;font-size:19px;color:#070707; border:2px solid black; border-radius:3px;padding:3px;padding-top:3px;padding-right:7px; padding-left:7px;position:absolute; top:48px; left:-05px;background-color:#2e852e;'><b>#</b>$jetztpre</span>
+<span id='a$i' style='opacity:0;font-size:19px;color:$black; border:2px solid black; border-radius:3px;padding:3px;padding-top:3px;padding-right:7px; padding-left:7px;position:absolute; top:48px; left:-05px;background-color:grey;'><b>#</b>$jetztpre</span>
 
-<div style='text-align:center;font-size:20px;font-weight:bold; color:#070707;position:absolute;width:170px;left:-10px;bottom:-10px;text-shadow:0px 0px 5px black;box-shadow:0px -3px 3px black;padding:5px;border-radius:03px 03px 10px 10px;background-color:#37f937'>$filetitle</div>
+<div style='text-align:center;font-size:20px;font-weight:bold; color:white;position:absolute;width:170px;left:-10px;bottom:-10px;text-shadow:0px 0px 5px black;box-shadow:0px -3px 3px grey;padding:5px;border-radius:03px 03px 10px 10px;background-color:black;'>$filetitle</div>
 
 </div></div>";
+                    }
                 }
             }
-        }
 
-	if($anypre == 1){
+            if($anypre == 1){
 
-	$echo.="<datalist id='blabla'>";
+                $echo.="<datalist id='blabla'>";
 
-	foreach($praefix AS $pr){
+                foreach($praefix AS $pr){
 
-	if($pr != $vorpr and $pr != 'ALL')
-	     $echo.="<option value='$pr'>";
+                    if($pr != $vorpr and $pr != 'ALL')
+                        $echo.="<option value='$pr'>";
 
-	$vorpr=$pr;
-	}
-
-    $echo.="</datalist>";
-    }
-
-	$vorpr="";
-
-        if ($anypre == 1) {
-            $echo .= "<select id='selectfeld' onchange=\"setnone( 'all' ); setblock( this.value );\" style='position:absolute; top:140px;right:60px;width:250px;cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:left; background-color:$white;color:$black; font-size:25px;'>";
-            $echo .= "<option>ALL</option>";
-
-            foreach ($praefix as $pr) {
-                if ($pr != $vorpr and $pr != 'ALL') {
-                    $echo .= "<option>$pr</option>";
+                    $vorpr=$pr;
                 }
 
-                $vorpr = $pr;
+                $echo.="</datalist>";
             }
 
-            $echo .= "</select>";
-        }
+            $vorpr="";
+
+            if ($anypre == 1) {
+                $echo .= "<select id='selectfeld' onchange=\"setnone( 'all' ); setblock( this.value );\" style='position:absolute; top:140px;right:60px;width:250px;cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:left; background-color:$white;color:$black; font-size:25px;'>";
+                $echo .= "<option>ALL</option>";
+
+                foreach ($praefix as $pr) {
+                    if ($pr != $vorpr and $pr != 'ALL') {
+                        $echo .= "<option>$pr</option>";
+                    }
+
+                    $vorpr = $pr;
+                }
+
+                $echo .= "</select>";
+            }
     
 
-        if ($ookay == 1) {
-            $echo .= "<div style='clear:left;'></div>";
-        } else {
-            $echo .=
-                "<center style='font-size:20px;'> &nbsp; &nbsp; <b>NO FILES</b> &nbsp; &nbsp; </center>";
-        }
+            if ($ookay == 1) {
+                $echo .= "<div style='clear:left;'></div>";
+            } else {
+                $echo .=
+                      "<center style='font-size:20px;'> &nbsp; &nbsp; <b>NO FILES</b> &nbsp; &nbsp; </center>";
+            }
 
-        $echo .= "<h1>Shared with you:</h1>";
+            $echo .= "<h1>Shared with you:</h1>";
 
-        $sql = "select id, title, rights, enc from chat where rights LIKE '%|$fname|%' ORDER by id desc;";
-        $ask = mdq($bindung, $sql);
-        while ($row = mysqli_fetch_row($ask)) {
-            $cada = $row[0];
-            $cadname = $row[1];
-            $schongezeigt = 0;
+            $sql = "select id, title, rights, enc from chat where rights LIKE '%|$fname|%' ORDER by id desc;";
+            $ask = mdq($bindung, $sql);
+            while ($row = mysqli_fetch_row($ask)) {
+                $cada = $row[0];
+                $cadname = $row[1];
+                $schongezeigt = 0;
 
-            if($row[3] == 'NONE' or $row[3] == md5($passwd.dekrypti($_COOKIE[$cada], $passwd)))
-            {
+                if($row[3] == 'NONE' or $row[3] == md5($passwd.dekrypti($_COOKIE[$cada], $passwd)))
+                {
 
-            $sqla = "select id, ownname, title from file where rmid=$cada ORDER by id desc;";
-            $aska = mdq($bindung, $sqla);
+                    $sqla = "select id, ownname, title from file where rmid=$cada ORDER by id desc;";
+                    $aska = mdq($bindung, $sqla);
 
-            while ($rowa = mysqli_fetch_row($aska)) {
-                $i = $rowa[0];
+                    while ($rowa = mysqli_fetch_row($aska)) {
+                        $i = $rowa[0];
 
-                $fileid = md5($passwd . $rowa[0]);
+                        $fileid = md5($passwd . $rowa[0]);
 
-                $fileid = shell_exec("ls ../user_files/$fileid" . '.*');
-                $fileowner = $rowa[1];
-                $fileidus = explode('.', $fileid);
-                $filetitle = $rowa[2];
+                        $fileid = shell_exec("ls ../user_files/$fileid" . '.*');
+                        $fileowner = $rowa[1];
+                        $fileidus = explode('.', $fileid);
+                        $filetitle = $rowa[2];
 
-                if ($fileid != "") {
-                    if ($schongezeigt != 1) {
-                        $schongezeigt = 1;
-                    }
-                    $aakay = 1;
+                        if ($fileid != "") {
+                            if ($schongezeigt != 1) {
+                                $schongezeigt = 1;
+                            }
+                            $aakay = 1;
 
-                    $echo .=
-                        "
+                            $echo .=
+                                  "
 <div onmouseover=\"i$i.style.animation='inp 0.5s'; i$i.style.animationFillMode='forwards';\"  onmouseout=\"i$i.style.animation='pni 0.5s'; i$i.style.animationFillMode='forwards';\"  onclick=\"window.open( 'getfile.php?accid=$id&fileid=" .
-                        md5($passwd.$i) .
-                        "&chatid=$cada' );\"  style=\"background-image:url( ../programm_files/datei.png );background-size:cover;cursor:pointer;background-repeat:no-repeat;background-position:center;word-wrap:break-word;box-shadow: 0px 0px 1px 2px #d1d1d1;float:left;margin:20px; width:160px; height:160px;padding:10px;border-radius:10px;background-color:#d1d1d1\">
+                            md5($passwd.$i) .
+                                       "&chatid=$cada&personal_key=$personal_key' );\"  style=\"background-image:url( ../programm_files/datei.png );background-size:cover;cursor:pointer;background-repeat:no-repeat;background-position:center;word-wrap:break-word;box-shadow: 0px 0px 1px 2px $white;float:left;margin:20px; width:160px; height:160px;padding:10px;border-radius:10px;background-color:$white\">
 <div style='width:160px; height:160px;position:absolute; '>
 
-<span style='font-size:18px;color:white; border:2px solid black; border-radius:10px 10px 0px 10px;padding:4px;padding-top:6px;padding-right:10px; padding-left:10px;position:absolute; top:-05px; right:-05px;box-shadow:0px 0px 2px 0px black;background-color:#0b2900;'><b>$fileowner</b></span>
+<span style='font-size:18px;color:black; border:2px solid black; border-radius:10px 10px 0px 10px;padding:4px;padding-top:6px;padding-right:10px; padding-left:10px;position:absolute; top:-05px; right:-05px;box-shadow:0px 0px 2px 0px black;background-color:white;'><b>$fileowner</b></span>
 
-<div onclick='this.select' style='cursor:pointer;font-size:18px;color:white;padding:2px;padding-left:5px; padding-right:6px;position:absolute; top:-05px; left:-5px;box-shadow:0px 0px 2px black;height:23px;background-color:#d1d1d1;border-radius:6px;color:black;'>$i</div>
+<div onclick='this.select' style='cursor:pointer;font-size:18px;color:white;padding:2px;padding-left:5px; padding-right:6px;position:absolute; top:-05px; left:-5px;box-shadow:0px 0px 2px black;height:23px;background-color:$white;border-radius:6px;color:black;'>$i</div>
 
-<span id='i$i' style='opacity:0;font-size:19px;color:#070707; border:2px solid black; border-radius:3px;padding:3px;padding-top:3px;padding-right:7px; padding-left:7px;position:absolute; top:48px; left:-05px;background-color:#2e852e;'><b>#</b>$cadname</span>
+<span id='i$i' style='opacity:0;font-size:19px;color:$black; border:2px solid black; border-radius:3px;padding:3px;padding-top:3px;padding-right:7px; padding-left:7px;position:absolute; top:48px; left:-05px;background-color:grey;'><b>#</b>$cadname</span>
 
 
-<div style='text-align:center;font-size:20px;font-weight:bold; color:#070707;position:absolute;width:170px;left:-10px;bottom:-10px;text-shadow:0px 0px 5px black;box-shadow:0px -3px 3px black;padding:5px;border-radius:03px 03px 10px 10px;background-color:#37f937'>$filetitle</div>
+<div style='text-align:center;font-size:20px;font-weight:bold; color:white;position:absolute;width:170px;left:-10px;bottom:-10px;text-shadow:0px 0px 5px black;box-shadow:0px -3px 3px black;padding:5px;border-radius:03px 03px 10px 10px;background-color:black'>$filetitle</div>
 
 </div></div>";
+                        }
+                    }
                 }
             }
+
+            $echo .= "</div>";
+
+            if ($aakay != 1) {
+                $echo .=
+                      "<center style='font-size:20px;'> &nbsp; &nbsp; <b>NO FILES</b> &nbsp; &nbsp; </center>";
             }
         }
-
-        $echo .= "</div>";
-
-        if ($aakay != 1) {
-            $echo .=
-                "<center style='font-size:20px;'> &nbsp; &nbsp; <b>NO FILES</b> &nbsp; &nbsp; </center>";
-        }
-    }
 
         if ($site == 7){
             $keys = "white; text-shadow:0px 0px 1px white";
             
-                if($_POST['disete'] != ""){
-                    $sql = "select id from chat where rights LIKE '%|$fname|%' and id=".$_POST['disete']." and enc!='NONE' ORDER by id desc;";
-                    $ask = mdq($bindung, $sql);
-                    while ($row = mysqli_fetch_row($ask)) {
-                        setcookie( $_POST['disete'], '', strtotime( '-1 years' ) );
-                        $sql = "update chat set enc='NONE' where id=".$_POST['disete'].";";
-                        $aska = mdq($bindung, $sql);
-                        
-                        $sql = "delete from tell where chatid=".$_POST['disete'].";";
-                        $aska = mdq($bindung, $sql);
-                        
-                    }   
-                }
-            
-                if($_POST['enc'] != ""){
-                    $sql = "select id from chat where rights LIKE '%|$fname|%' and id=".$_POST['enc']." and enc='NONE' ORDER by id desc;";
-                    $ask = mdq($bindung, $sql);
-                    while ($row = mysqli_fetch_row($ask)) {
-                        $encrand=rand(111111,999999);
-			$encrandi=$encrand;
-			$encrand=krypti( $encrand, $passwd );
-
-			setcookie( $_POST['enc'], $encrand, strtotime( '+1 years' ) );
-                        $knowc=1;
-                        $enci=$encrand;
-                        $sql = "update chat set enc='".md5($passwd.$encrandi)."' where id=".$_POST['enc'].";";
-                        $aska = mdq($bindung, $sql);
-                        $encb=$_POST['enc'];
-                        
-                        $sql = "delete from tell where chatid=".$_POST['enc'].";";
-                        $aska = mdq($bindung, $sql);
-
-                        
-                    }
-                }
-
-		if( isset($_POST['downkey']) ){
-		    $rand=md5( rand(111111, 999999) );
-	     	    shell_exec("echo '$personal_key' > ../user_files/$rand.oc.login");
-       		    shell_exec("gpg --batch --passphrase '$passwd' --symmetric '../user_files/$rand.oc.login'; mv ../user_files/$rand.oc.login.gpg ../user_files/$rand.oc.login");
-		    shell_exec('( sleep 60 && rm -f ../user_files/'.$rand.'.oc.login ) > /dev/null 2> /dev/null &');
-	  	    $dkey='dkey.click();';
-	            $akey="<a style='position:absolute;opacity:0; top:-100px; left:-200px;' href='../user_files/$rand.oc.login' id='dkey' download></a>";
-                }
-		
-                $echo="<h1>Personal-Key (Account-ID):</h1>";
-                $echo.="<table style='border-spacing:0;margin-bottom:100px;cursor:default;width:100%; font-size:20px;'><tr><td style='padding:6px;padding-bottom:8px;border-top:2px solid white;border-bottom:2px solid white;font-weight:bold;text-shadow:0px 0px 3px #eb2121;'><input type='submit' value='Download Key File' name='downkey' style='border:0px; background-color:transparent;color:$white;font-weight:bold; font-size:22px; text-shadow:0px 0px 3px #eb2121; cursor:pointer;'></td><td style='width:25px;text-align:right;padding:6px;padding-bottom:10px;border-top:2px solid white;border-bottom:2px solid white;'><img src='../programm_files/download.jpg' style='height:30px;'></td></tr></table>";
-
-                $echo.="<h1>Room-Keys (End-to-End):<img src='../programm_files/disable_ete.png' style='display:blocki;height:22px; float:right;padding-top:30px;'></h1>";
-                $echo.="<table style='border-spacing:0;cursor:default;width:100%; font-size:20px;'>";
-            
-                $sql = "select id from chat where rights LIKE '%|$fname|%' and enc!='NONE' ORDER by id desc;";
+            if($_POST['disete'] != ""){
+                $sql = "select id from chat where rights LIKE '%|$fname|%' and id=".$_POST['disete']." and enc!='NONE' ORDER by id desc;";
                 $ask = mdq($bindung, $sql);
                 while ($row = mysqli_fetch_row($ask)) {
-                    $dcid=$row[0];
-                    
-                    if(isset($_POST['deletec'])){
-                        setcookie( $dcid, '', strtotime( '-1 years' ) );
-                    }
-                    
-                    $sql = "select title from chat where id=$dcid ORDER by id desc;";
-                    $askas = mdq($bindung, $sql);
-                    while ($rowas = mysqli_fetch_row($askas)) {
-                        $dcti=$rowas[0];
-                    }
-                    
-                    $dcen=$_COOKIE[$dcid];
-		    $dcen=dekrypti($dcen, $passwd);
-		    
-                    if($dcen != "")
-                        $knowc=1;
-                    
-                    if($dcid == $encb){
-                    $dcen="$enci";
-		    $dcen=dekrypti($dcen, $passwd);
-                    }
-                    
-                    if($dcen == "" or isset($_POST['deletec'])){
-                        $dcen="??????";   
-                    }
+                    setcookie( $_POST['disete'], '', strtotime( '-1 years' ) );
+                    $sql = "update chat set enc='NONE' where id=".$_POST['disete'].";";
+                    $aska = mdq($bindung, $sql);
                         
-                    $dcen=$dcen[0].$dcen[1].$dcen[2].' '.$dcen[3].$dcen[4].$dcen[5];
+                    $sql = "delete from tell where chatid=".$_POST['disete'].";";
+                    $aska = mdq($bindung, $sql);
+                        
+                }   
+            }
+            
+            if($_POST['enc'] != ""){
+                $sql = "select id from chat where rights LIKE '%|$fname|%' and id=".$_POST['enc']." and enc='NONE' ORDER by id desc;";
+                $ask = mdq($bindung, $sql);
+                while ($row = mysqli_fetch_row($ask)) {
+                    $encrand=rand(111111,999999);
+                    $encrandi=$encrand;
+                    $encrand=krypti( $encrand, $passwd );
+
+                    setcookie( $_POST['enc'], $encrand, strtotime( '+1 years' ) );
+                    $knowc=1;
+                    $enci=$encrand;
+                    $sql = "update chat set enc='".md5($passwd.$encrandi)."' where id=".$_POST['enc'].";";
+                    $aska = mdq($bindung, $sql);
+                    $encb=$_POST['enc'];
+                        
+                    $sql = "delete from tell where chatid=".$_POST['enc'].";";
+                    $aska = mdq($bindung, $sql);
+
+                        
+                }
+            }
+
+            if( isset($_POST['downkey']) ){
+                $rand=md5( rand(111111, 999999) );
+	     	    shell_exec("echo '$personal_key' > ../user_files/$rand.oc.login");
+       		    shell_exec("gpg --batch --passphrase '$passwd' --symmetric '../user_files/$rand.oc.login'; mv ../user_files/$rand.oc.login.gpg ../user_files/$rand.oc.login");
+                shell_exec('( sleep 60 && rm -f ../user_files/'.$rand.'.oc.login ) > /dev/null 2> /dev/null &');
+                $dkey='dkey.click();';
+	            $akey="<a style='position:absolute;opacity:0; top:-100px; left:-200px;' href='../user_files/$rand.oc.login' id='dkey' download></a>";
+            }
+		
+            $echo="<h1>Personal-Key (Account-ID):</h1>";
+            $echo.="<table style='border-spacing:0;margin-bottom:100px;cursor:default;width:100%; font-size:20px;'><tr><td style='padding:6px;padding-bottom:8px;border-top:2px solid white;border-bottom:2px solid white;font-weight:bold;text-shadow:0px 0px 3px #eb2121;'><input type='submit' value='Download Key File' name='downkey' style='border:0px; background-color:transparent;color:$white;font-weight:bold; font-size:22px; text-shadow:0px 0px 3px #eb2121; cursor:pointer;'></td><td style='width:25px;text-align:right;padding:6px;padding-bottom:10px;border-top:2px solid white;border-bottom:2px solid white;'><img src='../programm_files/download.jpg' style='height:30px;'></td></tr></table>";
+
+            $echo.="<h1>Room-Keys (End-to-End):<img src='../programm_files/disable_ete.png' style='display:blocki;height:22px; float:right;padding-top:30px;'></h1>";
+            $echo.="<table style='border-spacing:0;cursor:default;width:100%; font-size:20px;'>";
+            
+            $sql = "select id from chat where rights LIKE '%|$fname|%' and enc!='NONE' ORDER by id desc;";
+            $ask = mdq($bindung, $sql);
+            while ($row = mysqli_fetch_row($ask)) {
+                $dcid=$row[0];
                     
-                    $echo.="<tr>
+                if(isset($_POST['deletec'])){
+                    setcookie( $dcid, '', strtotime( '-1 years' ) );
+                }
+                    
+                $sql = "select title from chat where id=$dcid ORDER by id desc;";
+                $askas = mdq($bindung, $sql);
+                while ($rowas = mysqli_fetch_row($askas)) {
+                    $dcti=$rowas[0];
+                }
+                    
+                $dcen=$_COOKIE[$dcid];
+                $dcen=dekrypti($dcen, $passwd);
+		    
+                if($dcen != "")
+                    $knowc=1;
+                    
+                if($dcid == $encb){
+                    $dcen="$enci";
+                    $dcen=dekrypti($dcen, $passwd);
+                }
+                    
+                if($dcen == "" or isset($_POST['deletec'])){
+                    $dcen="??????";   
+                }
+                        
+                $dcen=$dcen[0].$dcen[1].$dcen[2].' '.$dcen[3].$dcen[4].$dcen[5];
+                    
+                $echo.="<tr>
                     <td style='width:4em;padding:6px;padding-bottom:5px;border-top:2px solid white;font-weight:bold;text-shadow:0px 0px 3px green;'>$dcen</td>
                     <td style='text-align:center;padding:6px;padding-right:calc(4em - 25px);padding-top:0px;padding-bottom:0px;border-top:2px solid white;'>$dcti</td>
                     <td style='width:25px;text-align:right;padding:6px;padding-bottom:5px;border-top:2px solid white;border-bottom:0px solid white;'><img src='../programm_files/delete_white.png' style='height:20px;cursor:pointer;' onclick=\"disete.value=$dcid;document.save.submit();\"></td></tr>";
-                    $in=1;
-                }
+                $in=1;
+            }
             
-                if($in != 1){
-                        $echo=str_replace('blocki', 'none', $echo);
-                        $echo.="<center style='font-size:20px;'> &nbsp; &nbsp; <b>No Room with End-to-End Encryption</b> &nbsp; &nbsp; </center>";
-                }
-                else{    
-                    $echo=str_replace('blocki', 'block', $echo);
+            if($in != 1){
+                $echo=str_replace('blocki', 'none', $echo);
+                $echo.="<center style='font-size:20px;'> &nbsp; &nbsp; <b>No Room with End-to-End Encryption</b> &nbsp; &nbsp; </center>";
+            }
+            else{    
+                $echo=str_replace('blocki', 'block', $echo);
 
-                    $echo.="<tr>
+                $echo.="<tr>
                 <td style='width:4em;padding:6px;padding-bottom:8px;border-top:2px solid white;'></td>
                 <td style='text-align:center;padding:6px;padding-right:calc(4em - 25px);padding-bottom:8px;border-top:2px solid white;'></td>
                 <td style='width:25px;text-align:right;padding:6px;padding-bottom:8px;border-top:2px solid white;border-bottom:0px solid white;'><img src='../programm_files/delete_white.png' style='height:20px;cursor:pointer;opacity:0' onclick=\"newidb.value=1;document.save.submit();\"></td></tr>";
-                }
+            }
             
             $echo.="</table>";
             
             if($in == 1 and $knowc == 1 and !isset($_POST['deletec'])){
-            $echo.="<input type='submit' style='position:relative; width:100% ;cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:#eb2121;color:$black; font-size:25px;' value='Delete all keys from this device' name='deletec'>";
+                $echo.="<input type='submit' style='position:relative; width:100% ;cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:#eb2121;color:$black; font-size:25px;' value='Delete all keys from this device' name='deletec'>";
             }
             
         }
         
-    if ($site == 3 or "$fname" == "anonymous") {
-        $sasa = "klh";
-        $messages = "$white";
-        $files = "$white";
-        $preference = "$white";
-        $titlecolor = "$white";
+        if ($site == 3 or "$fname" == "anonymous") {
+            $sasa = "klh";
+            $messages = "$white";
+            $files = "$white";
+            $preference = "$white";
+            $titlecolor = "$white";
 
-        $fnamecover = $fname;
+            $fnamecover = $fname;
 
-        if ($fname == "anonymous") {
-            $block = 1;
-        }
+            if ($fname == "anonymous") {
+                $block = 1;
+            }
 
-        if ($block == 1) {
-            $an = "animation:block 1s;";
-            $fnamecover = "$fname";
-        } else {
-            $an = "animation:free 1s;";
-        }
+            if ($block == 1) {
+                $an = "animation:block 1s;";
+                $fnamecover = "$fname";
+            } else {
+                $an = "animation:free 1s;";
+            }
 
-        $echo = "<input type='text' style='font-family:sans-serif;position:absolute; width:calc(100% - 360px);border:0px; padding:05px;  text-align:left; background-color:$white;color:$black; font-size:25px;$an' placeholder='Name (Letters and Numbers. Max: 10)' pattern='[A-Za-z0-9]{1,10}' maxlength='10' name='firstname' value='$fnamecover' autocomplete='off'>
+            $echo = "<input type='text' style='font-family:sans-serif;position:absolute; width:calc(100% - 360px);border:0px; padding:05px;  text-align:left; background-color:$white;color:$black; font-size:25px;$an' placeholder='Name (Letters and Numbers. Max: 10)' pattern='[A-Za-z0-9]{1,10}' maxlength='10' name='firstname' value='$fnamecover' autocomplete='off'>
 <div style='font-family:sans-serif;position:absolute; top:100px;width:calc(100% - 360px);border:0px; padding:05px;  text-align:left;color:$white; font-size:18px;font-weight:bold'>If you change your name, chatrooms and messages will be reset!</div>
 ";
 
-        $echo .= "<input type='submit' style='position:absolute; top:250px;width:calc(100% - 360px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:#eb2121;color:$black; font-size:25px;' value='Delete Account' name='deleteacc'>";
+            $echo .= "<input type='submit' style='position:absolute; top:250px;width:calc(100% - 360px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:#eb2121;color:$black; font-size:25px;' value='Delete Account' name='deleteacc'>";
 
-        $echo .= "<select style='position:absolute; top:150px;width:calc(100% - 360px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:left; background-color:$white;color:$black; font-size:25px;' name='timezone'>";
+            $echo .= "<select style='position:absolute; top:150px;width:calc(100% - 360px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:left; background-color:$white;color:$black; font-size:25px;' name='timezone'>";
 
-        if ($timezone == '-12') {
-            $m12 = "selected";
-        }
+            if ($timezone == '-12') {
+                $m12 = "selected";
+            }
 
-        if ($timezone == '-11') {
-            $m11 = "selected";
-        }
+            if ($timezone == '-11') {
+                $m11 = "selected";
+            }
 
-        if ($timezone == '-10') {
-            $m10 = "selected";
-        }
+            if ($timezone == '-10') {
+                $m10 = "selected";
+            }
 
-        if ($timezone == '-09') {
-            $m09 = "selected";
-        }
+            if ($timezone == '-09') {
+                $m09 = "selected";
+            }
 
-        if ($timezone == '-08') {
-            $m08 = "selected";
-        }
+            if ($timezone == '-08') {
+                $m08 = "selected";
+            }
 
-        if ($timezone == '-07') {
-            $m07 = "selected";
-        }
+            if ($timezone == '-07') {
+                $m07 = "selected";
+            }
 
-        if ($timezone == '-06') {
-            $m06 = "selected";
-        }
+            if ($timezone == '-06') {
+                $m06 = "selected";
+            }
 
-        if ($timezone == '-05') {
-            $m05 = "selected";
-        }
+            if ($timezone == '-05') {
+                $m05 = "selected";
+            }
 
-        if ($timezone == '-04') {
-            $m04 = "selected";
-        }
+            if ($timezone == '-04') {
+                $m04 = "selected";
+            }
 
-        if ($timezone == '-03') {
-            $m03 = "selected";
-        }
+            if ($timezone == '-03') {
+                $m03 = "selected";
+            }
 
-        if ($timezone == '-02') {
-            $m02 = "selected";
-        }
+            if ($timezone == '-02') {
+                $m02 = "selected";
+            }
 
-        if ($timezone == '-01') {
-            $m01 = "selected";
-        }
+            if ($timezone == '-01') {
+                $m01 = "selected";
+            }
 
-        if ($timezone == '00') {
-            $gmt = "selected";
-        }
+            if ($timezone == '00') {
+                $gmt = "selected";
+            }
 
-        if ($timezone == '01') {
-            $p01 = "selected";
-        }
+            if ($timezone == '01') {
+                $p01 = "selected";
+            }
 
-        if ($timezone == '02') {
-            $p02 = "selected";
-        }
+            if ($timezone == '02') {
+                $p02 = "selected";
+            }
 
-        if ($timezone == '02') {
-            $p02 = "selected";
-        }
+            if ($timezone == '02') {
+                $p02 = "selected";
+            }
 
-        if ($timezone == '03') {
-            $p03 = "selected";
-        }
+            if ($timezone == '03') {
+                $p03 = "selected";
+            }
 
-        if ($timezone == '04') {
-            $p04 = "selected";
-        }
+            if ($timezone == '04') {
+                $p04 = "selected";
+            }
 
-        if ($timezone == '05') {
-            $p05 = "selected";
-        }
+            if ($timezone == '05') {
+                $p05 = "selected";
+            }
 
-        if ($timezone == '06') {
-            $p06 = "selected";
-        }
+            if ($timezone == '06') {
+                $p06 = "selected";
+            }
 
-        if ($timezone == '07') {
-            $p07 = "selected";
-        }
+            if ($timezone == '07') {
+                $p07 = "selected";
+            }
 
-        if ($timezone == '08') {
-            $p01 = "selected";
-        }
+            if ($timezone == '08') {
+                $p01 = "selected";
+            }
 
-        if ($timezone == '09') {
-            $p09 = "selected";
-        }
+            if ($timezone == '09') {
+                $p09 = "selected";
+            }
 
-        if ($timezone == '10') {
-            $p10 = "selected";
-        }
+            if ($timezone == '10') {
+                $p10 = "selected";
+            }
 
-        if ($timezone == '11') {
-            $p11 = "selected";
-        }
+            if ($timezone == '11') {
+                $p11 = "selected";
+            }
 
-        if ($timezone == '12') {
-            $p12 = "selected";
-        }
+            if ($timezone == '12') {
+                $p12 = "selected";
+            }
 
-        $echo .= "
+            $echo .= "
 <option value='-12' $m12>GMT -12</option>
 <option value='-11' $m11>GMT -11</option>
 <option value='-10' $m10>GMT -10</option>
@@ -1304,9 +1310,9 @@ onclick=\"rmfile.value='$ic';document.save.submit();event.cancelBubble=true;\" s
 </select>
 ";
 
-        $echo .= "<input type='submit' style='position:absolute; bottom:50px;width:calc(100% - 360px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:$white;color:$black; font-size:25px;' value='Send' name='nsend'><p>";
-        $preference = "white; text-shadow:0px 0px 1px white";
-    }
+            $echo .= "<input type='submit' style='position:absolute; bottom:50px;width:calc(100% - 360px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:$white;color:$black; font-size:25px;' value='Send' name='nsend'><p>";
+            $preference = "white; text-shadow:0px 0px 1px white";
+        }
 
 
     }
@@ -1318,7 +1324,7 @@ onclick=\"rmfile.value='$ic';document.save.submit();event.cancelBubble=true;\" s
 <input type='hidden' value='0' name='newidb' id='newidb'>
 <input type='hidden' value='' name='disete' id='disete'>
 <table style='width:calc(100% - 20px); position:absolute; top:10px; left:10px; height:calc(100% - 20px);'>
-<tr><td onclick=\"site.value='0'; document.save.submit();\" style='cursor:pointer;width: 200px;height:30px; box-shadow:0px 0px 0px $white, inset 0px 0px 0px $white;padding:15px;text-align:left;padding-left:30px;font-size:25px; font-weight:bold;color:$titlecolor'>$title</td><td rowspan='7' style='padding: 50px; vertical-align:top; box-shadow:0px 0px 0px 2px $white, inset 0px 0px 0px 2px $white; animation: blink 1s$sasa; animation-fill-mode:forwards; background-color:transparent;animation-delay:0.5s'>
+<tr><td onclick=\"site.value='0'; document.save.submit();\" style='cursor:pointer;width: 200px;height:30px; box-shadow:0px 0px 0px $white, inset 0px 0px 0px $white;padding:15px;text-align:left;padding-left:30px;font-size:25px; font-weight:bold;color:$titlecolor'>$title</td><td rowspan='7' style='padding: 50px; vertical-align:top; box-shadow:0px 0px 0px 2px $white, inset 0px 0px 0px 2px $white; animation: blink 1s$sasa; animation-fill-mode:forwards; background-color:$black;animation-delay:0.5s'>
 $echo
 </td></tr>
 
@@ -1346,23 +1352,34 @@ $echo
 ";
 }
 
-if ($accid == md5("") or $break == 1) {
-  //  <li><b style='color:#d42626'>TITLE</b><br>DESCRIPTION</li><p>
-  //  <li><b>TITLE</b><br>DESCRIPTION</li><p>
-
-    $release_list = "<b style='color:#d42626;'>THIS IS A 2-WEEK TRIAL PERIOD<br>WITH MANY RE-UPDATES!<p>THERE MAY BE BUGS!</b>";
+if ($accid == md5($passwd."") or $break == 1) {
+    //  <li><b style='color:#d42626'>TITLE</b><br>DESCRIPTION</li><p>
+    //  <li><b>TITLE</b><br>DESCRIPTION</li><p>
 
     if($_FILES['upload_key']['name'] != ''){
     	$upload_key_name=rand(0000000, 9999999);
-	move_uploaded_file($_FILES['upload_key']['tmp_name'], '../user_files/key_'.$upload_key_name.'.txt' );
-	$newids=shell_exec('gpg --batch --passphrase '.$passwd.' --decrypt --output ../user_files/key_'.$upload_key_name.'_enc.txt ../user_files/key_'.$upload_key_name.'.txt; echo -n $(cat ../user_files/key_'.$upload_key_name.'_enc.txt ); rm ../user_files/key_'.$upload_key_name.'_enc.txt; rm ../user_files/key_'.$upload_key_name.'.txt' );
+        move_uploaded_file($_FILES['upload_key']['tmp_name'], '../user_files/key_'.$upload_key_name.'.txt' );
+        $newids=shell_exec('gpg --batch --passphrase '.$passwd.' --decrypt --output ../user_files/key_'.$upload_key_name.'_enc.txt ../user_files/key_'.$upload_key_name.'.txt; echo -n $(cat ../user_files/key_'.$upload_key_name.'_enc.txt ); rm ../user_files/key_'.$upload_key_name.'_enc.txt; rm ../user_files/key_'.$upload_key_name.'.txt' );
 	}
 
+    $sql = "select id from user where id='".md5($passwd.$newids)."';";
+    $ask = mdq($bindung, $sql);
+    while ($row = mysqli_fetch_row($ask)) {
+        $inside=1;
+    }
+
+    if( $inside != 1 and $_FILES['upload_key']['name'] != ''){
+        $newids='';
+        $personal_key='';
+        $accid='';
+        $accidroh='';
+        $falseani='animation:wackeln 0.3s linear;animation-iteration-count:5;';
+    }
 
 
     $content = "
-    
-    <img src='../programm_files/arrow.svg' style='width:35px; position:absolute; top:calc(100% - 65px); padding:10px; background-color:rgba(100%, 100%, 100%, 0.1);border-radius:40px;left:calc(50% - 32px); z-index:1000;cursor:pointer;' onclick=\"this.style.animation='down 2s'; this.style.animationFillMode='forwards'; setTimeout(function(){ document.infos.submit(); }, 2000)\">
+    <div id='whitemask' style='display:none; position:absolute; top:100%; left:0px; width:100%; height:100%; background-color:white; box-shadow:0px 0px 10px black;z-index:10000;'></div>
+    <img src='../programm_files/arrow.svg' style='width:35px; position:absolute; top:calc(100% - 65px); padding:10px; background-color:rgba(100%, 100%, 100%, 0.1);border-radius:40px;left:calc(50% - 32px); z-index:1000;cursor:pointer;' onclick=\"whitemask.style.display='block'; document.getElementsByTagName('body')[0].style.overflowY='hidden'; whitemask.style.animation='down 2s'; whitemask.style.animationFillMode='forwards'; setTimeout(function(){ document.infos.submit(); }, 2000)\">
     
     <div style='position:relative; margin-left:auto; margin-right:auto; margin-top:50px; width:500px; font-size:50px;text-align:center;text-shadow: 0px 0px 10px black;cursor:default'>
 
@@ -1372,25 +1389,25 @@ if ($accid == md5("") or $break == 1) {
 
 <div id='v'
 style='position:fixed; cursor:default;font-size:22px; top:10px; left:15px;'>Version:
-<b>v<span style='color:white'>1.0.0</span></b></div>
+<b>v<span style='color:white'>2.0.0</span></b></div>
 
 
 <input type='submit' style='position:absolute;opacity:0;'>
 
 <input type='hidden' name='accid' id='accid' value='$newids' style='opacity:0; position:absolute; left:-200px; top:-100px;'>
 <div style='height:100px;'></div>";
-
-if($newids == ''){
-$content.="<div style='text-shadow:0px 0px 0px white;background-color:$white;color:$black;padding:10px; font-size:20px;width:calc(500px - 20px); text-align:center;font-weight:bold;cursor:pointer;' onclick='upload_key.click();'>Login</div>
-<input type='file' id='upload_key' name='upload_key' style='display:none;' onchange='document.save.submit();'>
+             
+             if($newids == ''){
+                 $content.="<div style='text-shadow:0px 0px 0px white;background-color:$white;color:$black;padding:10px; font-size:20px;width:calc(500px - 20px); text-align:center;font-weight:bold;cursor:pointer;$falseani' onclick='upload_key.click();'>Login</div>
+<input type='file' id='upload_key' name='upload_key' accept='.oc.login' style='display:none;' onchange='document.save.submit();'>
 ";
-}
-else{
-$content.="<div style='box-shadow:0px 0px 3px white;text-shadow:0px 0px 0px white;background-color:#32fc40;color:$black;padding:10px; font-size:20px;width:calc(500px - 20px); text-align:center;font-weight:bold;cursor:pointer;' onclick=\"document.save.submit();\">GO!</div>";
-}
+             }
+             else{
+                 $content.="<div style='box-shadow:0px 0px 3px white;text-shadow:0px 0px 0px white;background-color:#32fc40;color:$black;padding:10px; font-size:20px;width:calc(500px - 20px); text-align:center;font-weight:bold;cursor:pointer;' onclick=\"document.save.submit();\">GO!</div>";
+             }
 
-$content.="<a style='background-color:#070707;position:fixed; bottom:3px; left:3px;font-size:18px;padding:5px; border:2px solid white;border-radius:10px; text-decoration:none;color:white;cursor:pointer;' onclick=\"kontakt.style.display='block';\">Contact</a>
-<a style='background-color:#070707;position:fixed; bottom:3px; left:100px;font-size:18px;padding:5px; border:2px solid white;border-radius:10px; text-decoration:none;color:white;cursor:pointer' href='../programm_files/impressum.pdf' download>Impressum</a>
+             $content.="<a style='background-color:$black;position:fixed; bottom:3px; left:3px;font-size:18px;padding:5px; border:2px solid white;border-radius:10px; text-decoration:none;color:white;cursor:pointer;' onclick=\"kontakt.style.display='block';\">Contact</a>
+<a style='background-color:$black;position:fixed; bottom:3px; left:100px;font-size:18px;padding:5px; border:2px solid white;border-radius:10px; text-decoration:none;color:white;cursor:pointer' href='../programm_files/impressum.pdf' download>Impressum</a>
 
 <div style='color:black;background-color:rgba(100%, 100%, 100%, 0.8);padding:20px; position:fixed; bottom:50px; left:3px; font-size:20px;text-align:left;text-shadow:0px 0px 0px black;border-radius:10px;display:none;' id='kontakt' onmouseout=\"this.style.display='none'\"><b>Contact</b><hr>J'cobs Engine<br>Zempiner Weg 2<br>25336 Klein Nordende</div>
 
@@ -1410,6 +1427,7 @@ $content .= "</datalist>";
 
 echo "
 <html>
+<!-- You want to see whether it's safe? Look on our GitHub-Page! -->
 <head>
 <title>OpenChat | Messenger</title>
 <meta name='description' content='A free and secure instant messenger.'>
@@ -1431,7 +1449,7 @@ $(document).on('keypress',function(e) {
     	 var er = escape( $('#inputmes').val() );
 	 var er = encodeURIComponent(er);
 	 $('#inputmes').val('');
-    	 $('#nothing').load('insert.php?accid=$id&chatid=$showchat&roomkey=$keychat&text=' + er);
+    	 $('#nothing').load('insert.php?accid=$personal_key&chatid=$showchat&roomkey=$keychat&text=' + er);
         
 }
 });
@@ -1447,9 +1465,9 @@ setInterval(function(){
 if($('#scrolla').val() == 1){
 if($('#scrolli').val() == 1){
 $('#chat').animate({scrollTop:$('#table').height()}, 400);
-$('#chat').load('getchat.php?chatid=$showchat&accid=$id&roomkey=$keychat');
+$('#chat').load('getchat.php?chatid=$showchat&accid=$personal_key&roomkey=$keychat');
 }
-$('#onlana').load('getonline.php?accid=$id');
+$('#onlana').load('getonline.php?accid=$personal_key');
 }
 }, 1000);
 
@@ -1496,13 +1514,18 @@ for (i = 0; i < x.length; i++) {
 
 
 function setback(){
-var x = document.getElementsByClassName('messages');
+var x = document.getElementsByClassName('m1');
 var i;
 for (i = 0; i < x.length; i++) {
-  x[i].style.color = '$white';
   x[i].style.backgroundColor = '$black';
+  x[i].style.color = '$white';
+  x[i].style.boxShadow = '0px 0px 1px 2px $white';
+  x[i].style.borderRadius = '3px';
+  x[i].style.marginBottom = '20px';
+  x[i].style.paddingBottom = '11px';
 }
 }
+
 
 function autoscrolll(){
 if(scrolli.value == '1'){
@@ -1599,19 +1622,30 @@ inputmesa.style.animationFillMode='forwards';
 </script>
 
 <style type='text/css'>
-@keyframes down{
+@keyframes wackeln{
 0%{
-    box-shadow:0px 0px 0px white, 0px 0px 0px black;
-    opacity:1;
+background-color:$white;
 }
 50%{
-    box-shadow: 0px 0px 30px 20px white, 0px 0px 50px 1000px rgb(10%, 10%, 10%);
-    opacity:1;
+background-color:red;
 }
 100%{
-    box-shadow: 0px 0px 100px 1000px #070707, 0px 0px 50px 1000px rgb(10%, 10%, 10%);
-    
-    opacity:1;
+background-color:$white;
+}
+}
+
+@keyframes down{
+0%{
+top:100%;
+}
+40%{
+top:-300px;
+}
+60%{
+top:100px;
+}
+100%{
+top:0px;
 }
 }
 
@@ -1866,7 +1900,7 @@ if ($title != "anonymous") {
 //ACCES-MESSAGES//
 
 if ($access != "") {
-    echo "<div id='access' style='animation:blendout 1.1s ease-out; animation-fill-mode:forwards;position:fixed; text-shadow:0px 0px 3px white;font-weight:bold; font-size:35px;top:0px; left:0px; width:100%; height:100%; background-color:rgba(0%, 0%, 0%, 0.9);z-index:10000000; text-align:center;color:#d1d1d1'>
+    echo "<div id='access' style='animation:blendout 1.1s ease-out; animation-fill-mode:forwards;position:fixed; text-shadow:0px 0px 3px white;font-weight:bold; font-size:35px;top:0px; left:0px; width:100%; height:100%; background-color:rgba(0%, 0%, 0%, 0.9);z-index:10000000; text-align:center;color:$white'>
 <div style='position:relative; cursor:default;top:calc(50% - 28px);'>$access</div>
 </div>";
 }
