@@ -251,7 +251,7 @@ if ($accid != md5($passwd.'')) {
             <div id='weg1' style='position:fixed; text-shadow:0px 0px 3px white;font-weight:bold; font-size:35px;top:0px; left:0px; width:100%; height:100%; background-color:rgba(0%, 0%, 0%, 0.9);z-index:100; text-align:center;color:$white'>
             </div>
             <img id='weg2' src='../programm_files/lock.png' id='lockpng' style='z-index:100;height:200px;position:fixed; left:calc(50% - 100px);top:calc(50% - 100px)'>
-            <input type='submit' id='weg5' style='left:calc(50% - ((100% - 700px) / 2 ));z-index:100;position:absolute; bottom:50px;width:calc(100% - 700px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:#eb2121;color:$black; font-size:25px;' value='Leave Chat' name='setupsend$dcid'>
+            <input type='submit' id='weg5' style='left:calc(50% - ((100% - 700px) / 2 ));z-index:100;position:absolute; bottom:50px;width:calc(100% - 700px);cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:center; background-color:#eb2121;color:$black; font-size:25px;' value='Leave Chat' name='deleteme$dcid'>
             <img id='weg3' src='../programm_files/delete_white.png' style='z-index:100;width:30px; position:fixed; top:20px; right:20px;cursor:pointer;' onclick=\"weg1.style.display='none';weg2.style.display='none';weg3.style.display='none';weg4.style.display='none';weg5.style.display='none';\">
             <input type='hidden' name='deleteamember' id='deleteamember' value='$fname'>
 
@@ -592,6 +592,16 @@ style='font-size:18px;background-color:$black;box-shadow:0px 0px 1px 2px $white;
                 }
                     
                 $blocktnext=0;
+
+                if (isset($_POST["deleteme$cid"])) {
+
+                    $rights=str_replace('|'.$fname.'|', '', $rights);
+
+                    $sql = "update chat set rights='$rights' where id=$cid;";
+                    $aska = mdq($bindung, $sql);                    
+
+                    $blocktnext=1;
+                }
                 
                 if (isset($_POST["setupsend$cid"])) {
                     $go[$cid] = 1;
