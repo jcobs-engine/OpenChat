@@ -31,7 +31,7 @@ echo ""
 echo -e '\033[1;34m5.\033[0m Finally, set up an internal address for your web server (e. g. localhost). It must lead to the absolute OpenChat path, where the folders "code" and "program_files" etc. are inside.'
 wait
 echo ""
-echo -e "\033[1;34m6.\033[0m Please enter this (possibly ip) Adress:"
+echo -e "\033[1;34m6.\033[0m Please enter this (possibly IP-) Adress: !NO / at the end!"
 read adress
 echo $adress > /usr/share/openchat-project/path.txt
 echo ""
