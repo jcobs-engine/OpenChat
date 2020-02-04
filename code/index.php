@@ -844,7 +844,10 @@ font-weight:bold; text-align:center; background-color:$white;color:$black; font-
 </div>
 
 <div>
-<h1>Your files:</h1>";
+<div style='cursor:pointer;position:relative;margin-bottom:40px;margin-top:20px;'
+onclick='cloudtoggle();'
+><span id='scloud' style='text-shadow:0px 0px 5px black;background-color:#28d200;color:black;font-weight:bold;padding:5px;border:2px solid white;border-radius:3px 0px 0px 3px; font-size:16px;padding-left:10px; padding-right:10px;'>CLOUD</span><span id='sshared' style='text-shadow:0px 0px 0px black;background-color:grey;color:black;font-weight:bold;padding:5px;border:2px solid white;border-left:0px;border-radius:0px 3px 3px 0px; font-size:16px;padding-left:10px; padding-right:10px;'>SHARED</span></div>
+<div id='files1' style='display:block'><h1>Your files:</h1>";
 
 
 
@@ -961,7 +964,7 @@ onclick=\"rmfile.value='$ic';document.save.submit();event.cancelBubble=true;\" s
             $vorpr="";
 
             if ($anypre == 1) {
-                $echo .= "<select id='selectfeld' onchange=\"setnone( 'all' ); setblock( this.value );\" style='position:absolute; top:140px;right:60px;width:250px;cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:left; background-color:$white;color:$black; font-size:25px;'>";
+                $echo .= "<select id='selectfeld' onchange=\"setnone( 'all' ); setblock( this.value );\" style='position:absolute; top:200px;right:60px;width:250px;cursor:pointer; border:0px; padding:05px; font-weight:bold; text-align:left; background-color:$white;color:$black; font-size:25px;'>";
                 $echo .= "<option>ALL</option>";
 
                 foreach ($praefix as $pr) {
@@ -983,7 +986,7 @@ onclick=\"rmfile.value='$ic';document.save.submit();event.cancelBubble=true;\" s
                       "<center style='font-size:20px;'> &nbsp; &nbsp; <b>NO FILES</b> &nbsp; &nbsp; </center>";
             }
 
-            $echo .= "<h1>Shared with you:</h1>";
+            $echo .= "</div><div id='files2' style='display:none;'><h1>Shared with you:</h1>";
 
             $sql = "select id, title, rights, enc from chat where rights LIKE '%|$fname|%' ORDER by id desc;";
             $ask = mdq($bindung, $sql);
@@ -1036,12 +1039,14 @@ onclick=\"rmfile.value='$ic';document.save.submit();event.cancelBubble=true;\" s
                 }
             }
 
-            $echo .= "</div>";
 
             if ($aakay != 1) {
                 $echo .=
                       "<center style='font-size:20px;'> &nbsp; &nbsp; <b>NO FILES</b> &nbsp; &nbsp; </center>";
             }
+
+            $echo.="</div>";
+        
         }
 
         if ($site == 7){
@@ -1333,7 +1338,7 @@ onclick=\"rmfile.value='$ic';document.save.submit();event.cancelBubble=true;\" s
 <input type='hidden' value='' name='enc' id='enc'>
 <input type='hidden' value='0' name='newidb' id='newidb'>
 <input type='hidden' value='' name='disete' id='disete'>
-<table style='width:calc(100% - 20px); position:absolute; top:10px; left:10px; height:calc(100% - 20px);'>
+<table style='width:calc(100% - 20px); position:absolute; top:10px; left:10px; height:calc(100% - 20px);margin-bottom:10px;'>
 <tr><td onclick=\"site.value='0'; document.save.submit();\" style='cursor:pointer;width: 200px;height:30px; box-shadow:0px 0px 0px $white, inset 0px 0px 0px $white;padding:15px;text-align:left;padding-left:30px;font-size:25px; font-weight:bold;color:$titlecolor'>$title</td><td rowspan='7' style='padding: 50px; vertical-align:top; box-shadow:0px 0px 0px 2px $white, inset 0px 0px 0px 2px $white; animation: blink 1s$sasa; animation-fill-mode:forwards; background-color:$black;animation-delay:0.5s'>
 $echo
 </td></tr>
@@ -1536,6 +1541,25 @@ for (i = 0; i < x.length; i++) {
 }
 }
 
+function cloudtoggle(){
+if(files1.style.display == 'block'){
+files1.style.display='none';
+files2.style.display='block';
+scloud.style.backgroundColor='grey';
+sshared.style.backgroundColor='#28d200';
+scloud.style.textShadow='0px 0px 0px black';
+sshared.style.textShadow='0px 0px 5px black';
+}
+else
+{
+files1.style.display='block';
+files2.style.display='none';
+scloud.style.backgroundColor='#28d200';
+sshared.style.backgroundColor='grey';
+scloud.style.textShadow='0px 0px 5px black';
+sshared.style.textShadow='0px 0px 0px black';
+}
+}
 
 function autoscrolll(){
 if(scrolli.value == '1'){
@@ -1913,6 +1937,10 @@ if ($access != "") {
     echo "<div id='access' style='animation:blendout 1.1s ease-out; animation-fill-mode:forwards;position:fixed; text-shadow:0px 0px 3px white;font-weight:bold; font-size:35px;top:0px; left:0px; width:100%; height:100%; background-color:rgba(0%, 0%, 0%, 0.9);z-index:10000000; text-align:center;color:$white'>
 <div style='position:relative; cursor:default;top:calc(50% - 28px);'>$access</div>
 </div>";
+}
+else
+{
+    echo "<span id='access'></span>";
 }
 
 ///[END]ACCESS MESSAGES//
