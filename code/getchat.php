@@ -271,7 +271,7 @@ $th[0]=$th[0]+12;
 
 $time[0]=$th[0].':'.$th[1];
 
-echo "<tr><td style='color:$color; text-align:right; '><b>$von</b></td><td style='color:$color; padding-right:30px; padding-bottom:5px;'><b>:</b></td><td style='color:$textcolor'> $text</td><td class='time' style='text-align:right;right:20px;position:absolute; display:none;font-size:20px;padding-top:3px; background-color:#070707; box-shadow:0px 0px 3px 3px #070707; opacity:0;animation-fill-mode:forwards;animation:blend 1s;animation-delay:0.7s;animation-fill-mode:forwards;'><b>$time[0]</b> $time[1]</td></tr>";
+echo "<tr><td style='color:$color; text-align:right; '><b>$von</b></td><td style='color:$color; padding-right:30px; padding-bottom:5px;'><b>:</b></td><td style='cursor:default;color:$textcolor'> $text</td><td class='time' style='text-align:right;right:20px;position:absolute; display:none;font-size:20px;padding-top:3px; background-color:#070707; box-shadow:0px 0px 3px 3px #070707; opacity:0;cursor:default;animation-fill-mode:forwards;animation:blend 1s;animation-delay:0.7s;animation-fill-mode:forwards;' onmouseover=\"this.style.display='none';\" onmouseout=\"this.style.display='block';\"><b>$time[0]</b> $time[1]</td></tr>";
 echo "<tr class='lines' style='display:block; opacity:0;padding-bottom:5px;padding-top:3px'><td colspan='4' style='animation:wis 1s;animation-fill-mode:forwards;width:0px;position:absolute;'><div style='width:100%; border-bottom:1px solid rgba(100%, 100%, 100%, 0.2)'></div></td></tr>";
 
 
