@@ -137,6 +137,7 @@ CREATE TABLE `tell` (
   `time` text DEFAULT NULL,
   `aktu` int(11) DEFAULT NULL,
   `sd` int(11) DEFAULT NULL,
+  `file` int(11) DEFAULT NULL,  
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2065 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
