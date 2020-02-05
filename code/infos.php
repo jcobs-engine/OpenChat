@@ -6,6 +6,7 @@ $changelog=array(
     "2.0.0::Encrypted 1024bit Login-Files",
     "2.0.0::Progress-Bar in Uploading",
     "2.0.0::You can login now via File.",
+    "2.0.0::All inattentive people are now sending gifts!",
     "2.0.0::No-EtE-Chat Messages will removed after 24h.",
     "2.0.0::All Chat Files will removed after 24h.",
     "2.0.0::EtE-Chat Messages will removed after one month.",

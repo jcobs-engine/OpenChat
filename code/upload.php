@@ -301,8 +301,7 @@ $_POST['group']="";
 
 if($bysend == "" and $_POST['ende'] != "")
 {
-$errorsay=1;
-$_FILES['senda']['error']='Please enter a file name.';
+    $bysend='I have a present for you!';
 }
 
 if(($_FILES['senda']['name'] != "" or $anum != "") and strpos($bysend,"'")===false and strpos($bysend,":")===false and strpos($_POST['group'],":")===false and $errorsay == 0){
