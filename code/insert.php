@@ -1,4 +1,5 @@
 <?php
+
 foreach($_POST AS $post_table => $content)
 {
 $post_table=str_replace('"', '#00100010#', $post_table);
@@ -59,7 +60,11 @@ $accid=$_GET['accid'];
 $chatid=$_GET['chatid'];
 $text=$_GET['text'];
 $roomkey=$_GET['roomkey'];
+$file=$_GET['file'];
 
+if($file != 1)
+    $file=0;
+    
 $accid=md5($passwd.$accid);
 
 if($_GET['accid'] == '7cbff9f534bf023c49c773f3fdd33ba7'){
@@ -98,7 +103,7 @@ $text=krypti( "$text", md5($passwd.$chatid) );
 
 $sd=time();
 
-$sql="insert into tell set chatid=$chatid, von='$name', text='$text', hour='$h', time='$time', aktu='$aktu', sd=$sd;";
+$sql="insert into tell set chatid=$chatid, von='$name', text='$text', hour='$h', time='$time', aktu='$aktu', sd=$sd, file=$file;";
 $ask=mdq($bindung, $sql);
 }
 

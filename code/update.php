@@ -35,22 +35,28 @@ function mdq( $bindung, $query )
 }
 
 $abziehen=strtotime("-24 hours");
+$abziehenyear=strtotime("-1 months");
 
 $time=gmdate( 'U', $abziehen );
+$timeyear=gmdate( 'U', $abziehenyear );
+
 $timenow=gmdate( 'U' );
 
-echo "allowed time: $time - $timenow<p><fieldset><legend>Deleted Tells</legend>";
+echo "allowed time: $timeyear - $time - $timenow<p><fieldset><legend>Deleted Tells</legend>";
 
-$sql="select id from tell where aktu<'$time';";
+$sql="select tell.id from tell, chat where ( tell.aktu<'$time' and ( tell.chatid=chat.id and chat.enc='NONE' ) or tell.file=1 ) or tell.aktu<'$timeyear';";
 $ask=mdq($bindung, $sql);
 while( $row=mysqli_fetch_row( $ask ) ){
-    echo '# '.$row[0].'<br>';
+    if( $row[0] != $old ){
+        echo '# '.$row[0].'<br>';
+    }
+    
+    $old=$row[0];
+    $sqla="delete from tell where id=$row[0];";
+    $aska=mdq($bindung, $sqla);
 }
 
 echo "</fieldset>";
-
-$sql="delete from tell where aktu<'$time';";
-$ask=mdq($bindung, $sql);
 
 echo "<fieldset><legend>Deleted Files</legend>";
 

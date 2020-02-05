@@ -431,7 +431,7 @@ if($_FILES['senda']['error'] == 0 or $verifyb == 1){
 
 if($filetype != 1){
 $text=urlencode($bysend).'%23456%3Ca%20href%3D%22getfile.php%3Faccid%3D'.$accid.'%26fileid%3D'.$id.'%26personal_key%3D'.$personal_key.'%26chatid%3D'.$chatid.'%22%20target%3D%22_blank%22%20style%3D%22text-decoration%3Anone%3B%20font-weight%3Abold%3B%20background-color%3A%23ab6c15%3B%20color%3Awhite%3B%20border-radius%3A3px%3Bpadding%3A3px%3Bpadding-left%3A8px%3B%20padding-right%3A8px%3B%22%3EI%20have%20a%20present%20for%20you!%3C%2Fa%3E';
-$_buffer = implode('', file('http://'."$pfad".'insert.php?accid='.$personal_key.'&chatid='.$chatid.'&text='."$text".'&roomkey='.$etepass ));
+$_buffer = implode('', file('http://'."$pfad".'insert.php?accid='.$personal_key.'&chatid='.$chatid.'&text='."$text".'&roomkey='.$etepass.'&file=1' ));
 }
 
 }
