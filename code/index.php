@@ -1097,7 +1097,7 @@ onclick=\"rmfile.value='$ic';document.save.submit();event.cancelBubble=true;\" s
 	            $akey="<a style='position:absolute;opacity:0; top:-100px; left:-200px;' href='../user_files/$rand.oc.login' id='dkey' download></a>";
             }
 		
-            $echo="<h1>Personal-Key (Account-ID):</h1>";
+            $echo="<h1>Personal-Key (File):</h1>";
             $echo.="<table style='border-spacing:0;margin-bottom:100px;cursor:default;width:100%; font-size:20px;'><tr><td style='padding:6px;padding-bottom:8px;border-top:2px solid white;border-bottom:2px solid white;font-weight:bold;text-shadow:0px 0px 3px #eb2121;'><input type='submit' value='Download Key File' name='downkey' style='border:0px; background-color:transparent;color:$white;font-weight:bold; font-size:22px; text-shadow:0px 0px 3px #eb2121; cursor:pointer;'></td><td style='width:25px;text-align:right;padding:6px;padding-bottom:10px;border-top:2px solid white;border-bottom:2px solid white;'><img src='../programm_files/download.jpg' style='height:30px;'></td></tr></table>";
 
             $echo.="<h1>Room-Keys (End-to-End):<img src='../programm_files/disable_ete.png' style='display:blocki;height:22px; float:right;padding-top:30px;'></h1>";
