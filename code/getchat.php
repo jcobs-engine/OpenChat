@@ -199,6 +199,8 @@ $text=str_replace("%5E", "^", $text);
 $text=str_replace("#00100111#", "'", $text);
 $text=str_replace("#00100010#", '"', $text);
 
+$text=str_replace("#265", "<span style='background-color:#ab6c15; color:white; border-radius:3px;padding:3px;padding-left:8px; padding-right:8px;'>", $text);
+$text=str_replace("#266", "</span>", $text);
 
 $text=str_replace("#255", "<span style='background-color:#c40303; color:white; border-radius:3px;padding:3px;padding-left:8px; padding-right:8px;'>", $text);
 $text=str_replace("#256", "</span>", $text);

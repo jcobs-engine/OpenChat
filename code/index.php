@@ -569,6 +569,28 @@ style='font-size:18px;background-color:$black;box-shadow:0px 0px 1px 2px $white;
                 $ctitle = $_POST['ctitle'];
                 $sql = "insert into chat set title='$ctitle', rights='|$fname|';";
                 $ask = mdq($bindung, $sql);
+
+                $sql = "select id from chat ORDER by id desc LIMIT 1;";
+                $ask = mdq($bindung, $sql);
+                while ($row = mysqli_fetch_row($ask)) {
+                    $newcid = $row[0];
+                }
+                
+                $text = "%23245$title%23216%20created%20this%20Chatroom.";
+                $_buffer = implode(
+                    '',
+                    file(
+                        'http://' .
+                        "$pfad" .
+                        'insert.php?accid=7cbff9f534bf023c49c773f3fdd33ba7&chatid=' .
+                        "$newcid" .
+                        '&text=' .
+                        "$text" .
+                        '&roomkey=' .
+                        dekrypti($_COOKIE[$newcid], $passwd)
+                    )
+                );
+
                 $access = "Chatroom added";
             }
 
@@ -1062,7 +1084,21 @@ onclick=\"rmfile.value='$ic';document.save.submit();event.cancelBubble=true;\" s
                         
                     $sql = "delete from tell where chatid=".$_POST['disete'].";";
                     $aska = mdq($bindung, $sql);
-                        
+
+                    $text = "This%20Chat%20has%20a%20%23235Standard-Encryption%23216%20now.";
+                    $_buffer = implode(
+                        '',
+                        file(
+                            'http://' .
+                            "$pfad" .
+                            'insert.php?accid=7cbff9f534bf023c49c773f3fdd33ba7&chatid=' .
+                            $_POST['disete'] .
+                            '&text=' .
+                            "$text" .
+                            '&roomkey=' .'NONE'
+                        )
+                    );
+                    
                 }   
             }
             
@@ -1084,6 +1120,20 @@ onclick=\"rmfile.value='$ic';document.save.submit();event.cancelBubble=true;\" s
                     $sql = "delete from tell where chatid=".$_POST['enc'].";";
                     $aska = mdq($bindung, $sql);
 
+                    $text = "%23225$title%23216%20activated%20the%20%23265End-to-End%20Encryption%23266.";
+                    $_buffer = implode(
+                        '',
+                        file(
+                            'http://' .
+                            "$pfad" .
+                            'insert.php?accid=7cbff9f534bf023c49c773f3fdd33ba7&chatid=' .
+                            $_POST['enc'] .
+                            '&text=' .
+                            "$text" .
+                            '&roomkey=' .
+                            dekrypti($encrand, $passwd)
+                        )
+                    );
                         
                 }
             }
