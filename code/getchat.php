@@ -89,7 +89,7 @@ $timezone=$row[1];
 $sel=$row[2];
 }
 
-$sql="select id, enc from chat where rights LIKE '%|$name|%';";
+$sql="select id, enc from chat where rights LIKE '%|$name|%' and '$name'!='';";
 $ask=mdq($bindung, $sql);
 while( $row=mysqli_fetch_row( $ask ) ){
     if($row[0] == $chatid and ($row[1] == 'NONE' or md5($passwd.$roomkey) == $row[1])){
