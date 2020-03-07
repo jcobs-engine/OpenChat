@@ -1442,43 +1442,51 @@ if ($accid == md5($passwd."") or $break == 1) {
     }
 
 
-    $content = "
-    <div id='whitemask' style='display:none; position:absolute; top:100%; left:0px; width:100%; height:100%; background-color:white; box-shadow:0px 0px 10px black;z-index:10000;'></div>
-    <img src='../programm_files/arrow.svg' style='width:35px; position:absolute; top:calc(100% - 65px); padding:10px; background-color:rgba(100%, 100%, 100%, 0.1);border-radius:40px;left:calc(50% - 32px); z-index:1000;cursor:pointer;' onclick=\"whitemask.style.display='block'; document.getElementsByTagName('body')[0].style.overflowY='hidden'; whitemask.style.animation='down 2s'; whitemask.style.animationFillMode='forwards'; setTimeout(function(){ document.infos.submit(); }, 2000)\">
-    
-    <div style='position:relative; margin-left:auto; margin-right:auto; margin-top:50px; width:500px; font-size:50px;text-align:center;text-shadow: 0px 0px 10px black;cursor:default'>
-
-    <img src='../programm_files/openserv.png' style='height:70px;background-color:$white; padding:30px; border-radius:10px'>
 
 
-
-<div id='v'
-style='position:fixed; cursor:default;font-size:22px; top:10px; left:15px;'>Version:
-<b>v<span style='color:white'>2.0.0</span></b></div>
-
-
-<input type='submit' style='position:absolute;opacity:0;'>
-
-<input type='hidden' name='accid' id='accid' value='$newids' style='opacity:0; position:absolute; left:-200px; top:-100px;'>
-<div style='height:100px;'></div>";
              
              if($newids == ''){
-                 $content.="<div style='text-shadow:0px 0px 0px white;background-color:$white;color:$black;padding:10px; font-size:20px;width:calc(500px - 20px); text-align:center;font-weight:bold;cursor:pointer;$falseani' onclick='upload_key.click();'>Login</div>
-<input type='file' id='upload_key' name='upload_key' accept='.oc.login' style='display:none;' onchange='document.save.submit();'>
-";
+                 $loginaddon="<input type='file' id='upload_key' name='upload_key' accept='.oc.login' style='display:none;' onchange='document.save.submit();'>";
              }
              else{
-                 $content.="<div style='box-shadow:0px 0px 3px white;text-shadow:0px 0px 0px white;background-color:#32fc40;color:$black;padding:10px; font-size:20px;width:calc(500px - 20px); text-align:center;font-weight:bold;cursor:pointer;' onclick=\"document.save.submit();\">GO!</div>";
+                 $dkey.='document.save.submit();';
              }
 
-             $content.="<a style='background-color:$black;position:fixed; bottom:3px; left:3px;font-size:18px;padding:5px; border:2px solid white;border-radius:10px; text-decoration:none;color:white;cursor:pointer;' onclick=\"kontakt.style.display='block';\">Contact</a>
-<a style='background-color:$black;position:fixed; bottom:3px; left:100px;font-size:18px;padding:5px; border:2px solid white;border-radius:10px; text-decoration:none;color:white;cursor:pointer' href='../programm_files/impressum.pdf' download>Impressum</a>
 
-<div style='color:black;background-color:rgba(100%, 100%, 100%, 0.8);padding:20px; position:fixed; bottom:50px; left:3px; font-size:20px;text-align:left;text-shadow:0px 0px 0px black;border-radius:10px;display:none;' id='kontakt' onmouseout=\"this.style.display='none'\"><b>Contact</b><hr>J'cobs Engine<br>Zempiner Weg 2<br>25336 Klein Nordende</div>
+             $html_header_version='v3.0.0';
+             
+             $wichvideo=rand(0, 1);
+             if( $wichvideo == 0 ){
+                 $yt="vIrZb3VA7Qg";
+             }
+             else
+             {
+                 $wichvideo=rand(0, 1);
+                 if( $wichvideo == 0){
+                     $yt="aCThK2kZu8o";
+                 }
+                 else
+                 {
+                     $yt="FyPCMdrjpe0";
+                 }
+             }
+             $bodyaddon='body{ overflow-y:hidden; background-color:#2b3137; color:#ffffff; font-family:sans-serif; font-size:18px; }';
+             $content="
+$loginaddon
+<input type='hidden' name='accid' id='accid' value='$newids' style='opacity:0; position:absolute; left:-200px; top:-100px;'>
 
-<input type='submit' name='newid' value='New Account' onclick=\"accid.value='';\" style='position:fixed; bottom:0px; right:0px; font-size:25px; border:0px;font-weight:bold; border-radius:10px 0px 0px 0px;cursor:pointer; background-color:$white; color:$black; padding:5px;padding-left:20px;padding-top:10px;padding-right:10px'>
+<input type='submit' id='newacc' name='newid' value='New Account' onclick=\"accid.value='';\" style='display:none'>
 
-";
+<div id='header'>
+<div id='headerVersion'>$html_header_version</div>
+<div id='headerBlocker'></div>
+<img id='headerLogo' src='../programm_files/oc_symbol.png'\">
+<div id='headerTitle'>OpenChat</div> 
+<div id='headerSignup' onclick=\"newacc.click();\">Sign up</div>
+<div id='headerSignin' onclick='upload_key.click();'>Sign in</div>
+</div>
+
+<div id='mainVideos'><a target='_blank' href='https://www.youtube.com/watch?v=".$yt."'><img id='ytvideo' src='../programm_files/lty_".$yt.".png' onmouseover=\"this.src='../programm_files/lty_".$yt."_red.png';\" onmouseout=\"this.src='../programm_files/lty_".$yt.".png';\"></a></div><div id='mainNews'><span id='slogan1'>Write safe.</span> &nbsp; <span id='slogan2'>Send safe.</span> &nbsp; <span id='slogan3'>Save safe.</span></div>";
 }
 
 $content .= "<datalist id='user'>";
@@ -1706,6 +1714,432 @@ inputmesa.style.animationFillMode='forwards';
 </script>
 
 <style type='text/css'>
+$bodyaddon
+
+#header{
+z-index:100;
+    position:fixed;
+    top:0px;
+    left:0px;
+    height:80px;
+    width:100%;
+    background-color:#24292e;
+    box-shadow:0px 0px 5px black;
+}
+
+#headerLogo{
+    position:absolute;
+    top:15px;
+    left:20px;
+    height:50px;
+    border-radius:30px;
+    box-shadow:0px 0px 5px #000000;
+    background-color:#ffffff;
+}
+
+#headerSignup{
+    position:absolute;
+    right:20px;
+    top:20px;
+    border-radius:5px;
+    padding:5px;
+    border:1px solid white;
+    font-size:20px;
+    cursor:pointer;
+}
+
+#headerSignin{
+    position:absolute;
+    right:130px;
+    top:20px;
+    padding:5px;
+    font-size:20px;
+    cursor:pointer;
+}
+
+#headerTitle{
+    position:absolute;
+    width:calc( 100% - 600px );
+    height:48px;
+    top:10px;
+    left:300px;
+    text-align:center;
+    padding-top:12px;
+    font-size:30px;
+    cursor:default;
+}
+
+#headerVersion{
+    left:0px;
+    top:25px;
+    font-size:20px;
+    padding-top:2px;
+    padding-bottom:2px;
+    background-color:#ffffff;
+    color:#000000;
+    position:absolute;
+    width:0px;
+    text-align:center;
+    cursor:default;
+    border-radius:3px;
+    text-shadow:0px 0px 2px black;
+    animation:headerVersion_a 1s, headerVersion_b 1s;
+    animation-fill-mode:forwards;
+    animation-delay:3s, 8s;
+}
+
+#headerBlocker{
+    width:50px;
+    left:0px;
+    top:0px;
+    height:80px;
+    background-color:#24292e;
+    position:absolute;
+}
+
+#main{
+    position:absolute;
+    margin:20px;
+    width:calc(100% - 60px);
+    height:calc(100% - 140px);
+    top:90px;
+}
+
+#mainVideos{
+z-index:1;
+width:calc(50% - 20px);
+    position:absolute;
+    right:0px;
+    height:100%;
+    overflow-y:hidden;
+    padding:5px;
+}
+
+#mainNews{
+    width:calc(50% - 20px);
+    position:absolute;
+    left:0px;
+    top:calc(50% - 40px);
+    text-align:center;
+    font-size:30px;
+    font-weight:bold;
+}
+
+#slogan1{
+    color:white;
+    opacity:0;
+    animation:slogan 1.5s;
+    animation-delay:0.2s;
+    animation-fill-mode:forwards;
+}
+#slogan2{
+    color:white;
+    opacity:0;
+    animation:slogan 1.5s;
+    animation-delay:0.8s;
+    animation-fill-mode:forwards;
+}
+#slogan3{
+    opacity:0;
+    animation:slogan 1.5s;
+    animation-delay:1.4s;
+    animation-fill-mode:forwards;
+    color:#f5c007;
+}
+
+#ytvideo{
+    width:400px;
+    position:relative;
+    top:calc(50% - 135px);
+    margin-left:calc(50% - 200px);
+    box-shadow:0px 0px 5px black;
+    animation:slogan 1s;
+    animation-fill-mode:forwards;
+    opacity:0;
+}
+
+@keyframes slogan{
+    0%{
+	opacity:0;
+	text-shadow:0px 0px 0px black;
+    }
+    100%{
+	opacity:1;
+	text-shadow:0px 0px 5px black;
+    }
+}
+
+@keyframes headerVersion_a{
+    0% {
+	width:0px;
+	left:0px;
+    }
+    100% {
+	width:120px;
+	left:60px;
+    }
+}
+
+@keyframes headerVersion_b{
+    0% {
+	width:120px;
+	left:60px;
+    }
+    100% {
+	width:0px;
+	left:0px;
+    }
+}
+
+
+@keyframes wackeln{
+    0%{
+	color:white;
+    }
+    50%{
+	color:red;
+    }
+    100%{
+	color:white;
+    }
+}
+
+@keyframes down{
+    0%{
+	top:100%;
+    }
+    40%{
+	top:-300px;
+    }
+    60%{
+	top:100px;
+    }
+    100%{
+	top:0px;
+    }
+}
+
+
+@keyframes enable{
+    0%{
+	filter:grayscale(1);
+    }
+    100%{
+	filter:grayscale(0);
+    }
+}
+
+@keyframes anable{
+    0%{
+	filter:grayscale(1);
+	background-color:transparent;
+	box-shadow:0px 0px 0px transparent;
+	text-shadow:0px 0px 0px #b99d39;
+	color:#b99d39;
+    }
+    50%{
+	filter:grayscale(0.5);
+	background-color:#b99d39;
+	box-shadow:0px 0px 5px 2000px #b99d39;
+	text-shadow:0px 0px 5px white;
+	color:white;
+    }
+    100%{
+	filter:grayscale(0);
+	background-color:transparent;
+	box-shadow:0px 0px 0px transparent;
+	text-shadow:0px 0px 0px blue;
+	color:#b99d39;
+	opacity:1;
+    }
+}
+
+@keyframes hops{
+    0%{
+	opacity:0.4;
+    }
+    100%{
+	opacity:1;
+    }
+}
+
+@keyframes hopsz{
+    0%{
+	opacity:1;
+    }
+    100%{
+	opacity:0.4;
+    }
+}
+
+
+@keyframes getin{
+    0%{
+	height:100px;
+	opacity:0;
+    }
+    20%{
+	height:100px;
+	opacity:1;
+    }
+    25%{
+	height:100px;
+	opacity:1;
+    }
+    100%{
+	height:60%;
+	opacity:1;
+    }
+}
+
+@keyframes startm{
+    0%{
+	top:10px;
+	left:15px;
+	font-size:22px;
+    }
+    100%{
+	top:40px;
+	left:60px;
+	font-size:30px;
+    }
+}
+
+@keyframes stopm{
+    0%{
+	top:40px;
+	left:60px;
+	font-size:30px;
+    }
+    40%{
+	top:10px;
+	left:60px;
+	font-size:30px;
+    }
+    100%{
+	top:10px;
+	left:15px;
+	font-size:22px;
+    }
+
+}
+
+@keyframes blendout{
+    0%{
+	transform:scale(1);
+	background-color:rgba(0%, 0%, 0%, 0);
+	color:rgba(100%, 100%, 100%, 0);
+    }
+    15%{
+	background-color:rgba(0%, 0%, 0%, 0.9);
+	transform:scale(1);
+    }
+    60%{
+	opacity:1;
+	color:rgba(100%, 100%, 100%, 1);
+	transform:scale(1.1);
+    }
+    98%{
+	color:white;
+	opacity:0;
+    }
+    100%{
+	color:white;
+	transform:scale(2);
+	opacity:0;
+    }
+}
+
+@keyframes sm{
+    0%{
+	left:40%;
+    }
+    100%{
+	left:calc(80% + 40px);
+    }
+}
+
+@keyframes inp{
+    0%{
+	opacity:0;
+    }
+    100%{
+	opacity:1;
+    }
+}
+
+
+@keyframes pni{
+    0%{
+	opacity:1;
+    }
+    100%{
+	opacity:0;
+    }
+}
+
+
+@keyframes block{
+    0%{
+	background-color:white;
+    }
+    50%{
+	background-color:#ff0000;
+    }
+    100%{
+	background-color:white;
+    }
+}
+
+@keyframes free{
+    0%{
+	background-color:white;
+    }
+    50%{
+	background-color:#00ff00;
+    }
+    100%{
+	background-color:white;
+    }
+}
+
+@keyframes blink{
+    0%{
+	background-color:transparent;
+    }
+    10%{
+	background-color:white;
+    }
+    18%{
+	background-color:transparent;
+    }
+    100%{
+	background-color:white;
+    }
+}
+
+@keyframes grey{
+    0%{ opacity:0; }
+    30%{ opacity:0.5; }
+    40%{ opacity:0.3; }
+    100%{ opacity:1; }
+}
+
+@keyframes color{
+    0%{ opacity:0; filter:grayscale(1);}
+    30%{ opacity:0.5; filter:grayscale(0);}
+    80%{ opacity:0.4; filter:grayscale(0.7);}
+    100%{ opacity:1; filter:grayscale(0);}
+}
+
+@keyframes serv{
+    0%{ left:100%; }
+    20%{ left:50%; }
+    70%{ left:60%; }
+    100%{ left:40%; }
+}
+
+
 @keyframes wackeln{
 0%{
 background-color:$white;
